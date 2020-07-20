@@ -207,5 +207,3 @@ Project Link: <https://github.com/3DExtended/Dreamroam>
 [license-shield]: https://img.shields.io/github/license/3DExtended/Dreamroam.svg?style=flat-square
 
 [license-url]: https://github.com/3DExtended/Dreamroam/blob/master/LICENSE.txt
-
-[product-screenshot]: images/screenshot.png
