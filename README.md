@@ -23,7 +23,7 @@ This README originates from the repository https://github.com/othneildrew/Best-R
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>-->
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Dreamroam - 3D Game Engine</h3>
 
   <p align="center">
     An awesome README template to jumpstart your projects!
@@ -103,20 +103,20 @@ At the time of writing, we are using Vulkan version 1.2.141.2.
 ```sh
 git clone --recursive https://github.com/3DExtended/Dreamroam.git
 ```
-
-__Only if you already have cloned the repository:__
+  
+  * Only if you already have cloned the repository:
 ```sh
 git submodule init
 git submodule update
 ```
 
 2. Configure and generate using CMake
-* __For Linux and MacOS:__ 
+* For Linux and MacOS: 
 ```sh
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
 make Dreamroam
 ```
-* __For Windows:__
+* For Windows:
    * Using VSCode:
 I highly recommend using [CMake Tools](https://github.com/microsoft/vscode-cmake-tools).
 
