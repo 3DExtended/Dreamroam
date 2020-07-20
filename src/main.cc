@@ -32,16 +32,26 @@
 
 #include <thread>
 
+/**
+ * The struct holding the information about each vertex send to the GPU.
+ * Extend this, if you need more information in your shaders.
+ * */
 struct Vertex {
 	glm::vec3 position;
 	glm::u8vec4 color;
 };
 
+/**
+ * The struct holding the information needed in shaders to transform vertex data.
+ * */
 struct CameraData {
 	glm::mat4 view;
 	glm::mat4 proj;
 };
 
+/**
+ * The path where all our shaders are located.
+ * */
 const std::string shaderFolder = "../HelloCube/shaders/";
 
 const std::vector<Vertex> cubeVertices = {
