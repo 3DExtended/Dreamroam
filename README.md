@@ -183,6 +183,7 @@ Project Link: <https://github.com/3DExtended/Dreamroam>
 
 - [Choose an Open Source License](https://choosealicense.com)
 - [GitHub Pages](https://pages.github.com)
+- [Codacy static code analyzer](https://app.codacy.com/manual/peter.esser2/Dreamroam/dashboard)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
