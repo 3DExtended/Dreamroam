@@ -7,6 +7,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(BUILD_STATIC_LIBS ON)
 
 add_compile_definitions(_USE_MATH_DEFINES)
+add_compile_definitions(GLM_FORCE_DEPTH_ZERO_TO_ONE)
+
 
 # add glm 
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/glm/glm")
@@ -43,8 +45,21 @@ INCLUDE_DIRECTORIES("extern/")
 
 # list all shaders to compile
 list(APPEND lava_pack_shaders
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.vert" "cube_vert.spv"
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "cube_frag.spv"
+        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.vert" "shaders/cube_vert.spv"
+        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "shaders/cube_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.frag" "shaders/plane_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.vert" "shaders/plane_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.frag" "shaders/opaque_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.vert" "shaders/opaque_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.frag" "shaders/opaqueTexturedSimple_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.vert" "shaders/opaqueTexturedSimple_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.frag" "shaders/transparent_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.vert" "shaders/transparent_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.frag" "shaders/transparentTexturedSimple_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.vert" "shaders/transparentTexturedSimple_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.vert" "shaders/transparentTexturedSimple_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.vert" "shaders/shadowMap_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.frag" "shaders/shadowMap_frag.spv"
         )
 set(lava_pack_shaders "${lava_pack_shaders}" CACHE INTERNAL "lava_pack_shaders")
 
