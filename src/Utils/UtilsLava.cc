@@ -27,8 +27,8 @@ namespace UtilsLava
 			STBI_rgb_alpha);
 
 		if (pixels == nullptr) {
-			lava::validation() << "Could not load image with title: '" << filePath << "'";
-			lava::validation() << "Current path: '" << std::filesystem::current_path() << "'";
+			lava::log(lava::LogLevel::Error) << "Could not load image with title: '" << filePath << "'";
+			lava::log(lava::LogLevel::Error) << "Current path: '" << std::filesystem::current_path() << "'";
 			assert(false);
 		}
 

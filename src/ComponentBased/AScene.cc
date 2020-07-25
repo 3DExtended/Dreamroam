@@ -3,9 +3,7 @@
 
 AScene::AScene()
 {
-	this->mDevice = SceneHandler::getInstance()->getDevice();
-	// mGeometryStore = std::make_shared<GeometryStore>(mDevice);
-	// mTextureStore = std::make_shared<TextureStore>(mDevice);
+	this->mDevice = SceneHandler::getDevice();
 }
 
 AScene::~AScene()
