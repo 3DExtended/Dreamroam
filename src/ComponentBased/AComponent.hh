@@ -1,5 +1,11 @@
 #pragma once
 
+/**
+  DCore is the namespace for the engine. 
+  It provides access to all the structures needed to apply this engine.
+  However, if you'd like to add external functionalities, this namespace should provide typesafty. 
+  */
+
 #include <lava/objects/GraphicsPipeline.hh>
 #include <lava-extras/geometry/fwd.hh>
 #include <lava/fwd.hh>
@@ -12,6 +18,10 @@
 
 namespace DCore
 {
+	/**
+	ComponentSystem is the namespace for the component system of this engine. 
+	It provides classes to which implement ECS functionalities. 
+	*/
 	namespace ComponentSystem
 	{
 		class GameObject;
@@ -92,5 +102,5 @@ namespace DCore
 			//a pointer to the current GameObject
 			std::weak_ptr<GameObject> gameObject;
 		};
-	}
-}
+	} // namespace ComponentSystem
+} // namespace DCore

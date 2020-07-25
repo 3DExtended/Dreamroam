@@ -3,6 +3,7 @@
 #include <Components/RenderComponent.hh>
 
 using namespace DCore::Components;
+using namespace DCore::Rendering;
 
 void DefaultRenderer::renderSingleGameObject(std::shared_ptr<GameObject> go)
 {

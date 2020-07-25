@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "glm/glm.hpp"
-#include <RenderObjects/GeometryStore.hh>
+#include <Geometry/GeometryStore.hh>
 #include <RenderObjects/TextureStore.hh>
 
 #include "GameObject.hh"
@@ -13,6 +13,7 @@ namespace DCore
 {
 	namespace ComponentSystem
 	{
+		using namespace DCore::Textures;
 		using namespace DCore::Meshes;
 		class GameObject;
 		class AComponent;

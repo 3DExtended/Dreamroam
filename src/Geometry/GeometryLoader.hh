@@ -18,6 +18,7 @@
 
 struct aiScene;
 struct aiNode;
+using namespace DCore::Rendering;
 
 namespace DCore {
 	namespace Meshes {

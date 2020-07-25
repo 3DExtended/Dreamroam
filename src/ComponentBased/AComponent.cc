@@ -5,7 +5,10 @@
 #include "SceneHandler.hh"
 #include "AScene.hh"
 
-using namespace DCore::ComponentSystem;
+namespace DCore
+{
+	namespace ComponentSystem
+	{
 
 std::shared_ptr<AScene> AComponent::getCurrentScene()
 {
@@ -20,4 +23,6 @@ std::shared_ptr<GameObject> AComponent::instantiate()
 std::shared_ptr<GameObject> AComponent::instantiate(std::string name)
 {
 	return getCurrentScene()->instantiate(name);
+}
+}
 }

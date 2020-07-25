@@ -1,5 +1,7 @@
 #include "GraphicsPipelineRenderer.hh"
 
+using namespace DCore::Rendering;
+
 using namespace DCore::ComponentSystem;
 
 GraphicsPipelineRenderer::GraphicsPipelineRenderer(

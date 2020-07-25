@@ -1,10 +1,11 @@
 #pragma once
 #include <ComponentBased/AComponent.hh>
-#include <RenderObjects/Geometry.hh>
+#include <Geometry/Geometry.hh>
 #include <RenderObjects/Texture.hh>
 
 using namespace DCore::ComponentSystem;
 using namespace DCore::Meshes;
+using namespace DCore::Textures;
 namespace DCore {
 	namespace Components {
 		class RenderComponent : public AComponent

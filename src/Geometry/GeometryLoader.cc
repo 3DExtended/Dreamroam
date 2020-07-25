@@ -10,6 +10,7 @@
 #include <assimp/postprocess.h>
 
 using namespace DCore::Meshes;
+using namespace DCore::Rendering;
 
 static glm::vec3 aiCast(aiVector3D const& v) { return { v.x, v.y, v.z }; }
 static glm::vec4 aiCast(aiColor4D const& v) { return { v.r, v.g, v.b, v.a }; }

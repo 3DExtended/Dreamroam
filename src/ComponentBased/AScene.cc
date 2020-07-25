@@ -2,6 +2,7 @@
 #include "SceneHandler.hh"
 
 using namespace DCore::ComponentSystem;
+using namespace DCore::Textures;
 
 AScene::AScene()
 {

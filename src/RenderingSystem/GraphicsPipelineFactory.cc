@@ -6,6 +6,8 @@
 #include <lava-extras/geometry/Geometry.hh>
 #include <lava-extras/pack/pack.hh>
 
+using namespace DCore::Rendering;
+
 std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_opaqueUntextured(
 	lava::SharedDevice device,
@@ -82,7 +84,6 @@ GraphicsPipelineFactory::createRenderer_transparentUntextured(
 	ci.depthStencilState.depthTestEnable = true;
 	ci.depthStencilState.depthWriteEnable = true;
 	ci.rasterizationState.cullMode = vk::CullModeFlagBits::eNone;
-
 
 	ci.addStage(
 		lava::pack::shader(device, "shaders/transparent_vert.spv"));
@@ -177,7 +178,6 @@ GraphicsPipelineFactory::createRenderer_shadowMap(
 	ci.depthStencilState.depthTestEnable = true;
 	ci.depthStencilState.depthWriteEnable = true;
 	ci.rasterizationState.cullMode = vk::CullModeFlagBits::eNone;
-
 
 	ci.addStage(
 		lava::pack::shader(device, "shaders/shadowMap_vert.spv"));
