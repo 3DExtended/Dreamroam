@@ -25,6 +25,8 @@
 #include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
 
+using namespace DCore::Components;
+
 float lightFOV = 45.0f;
 // Keep depth range as small as possible
 	// for better shadow map precision

@@ -12,6 +12,8 @@
 #include <lava-extras/geometry/Cube.hh>
 #include <lava-extras/geometry/Plane.hh>
 
+using namespace DCore::Meshes;
+
 GeometryStore::GeometryStore(
     lava::SharedDevice device)
     : mDevice(device)

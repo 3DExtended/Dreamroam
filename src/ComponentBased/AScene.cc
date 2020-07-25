@@ -1,6 +1,8 @@
 #include "AScene.hh"
 #include "SceneHandler.hh"
 
+using namespace DCore::ComponentSystem;
+
 AScene::AScene()
 {
 	this->mDevice = SceneHandler::getDevice();

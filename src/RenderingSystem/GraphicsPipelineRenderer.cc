@@ -1,5 +1,7 @@
 #include "GraphicsPipelineRenderer.hh"
 
+using namespace DCore::ComponentSystem;
+
 GraphicsPipelineRenderer::GraphicsPipelineRenderer(
 	std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> advancedPipeline,
 	lava::SharedGraphicsPipeline pipeline,

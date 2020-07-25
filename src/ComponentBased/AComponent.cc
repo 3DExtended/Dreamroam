@@ -5,6 +5,8 @@
 #include "SceneHandler.hh"
 #include "AScene.hh"
 
+using namespace DCore::ComponentSystem;
+
 std::shared_ptr<AScene> AComponent::getCurrentScene()
 {
 	return SceneHandler::getCurrentScene();

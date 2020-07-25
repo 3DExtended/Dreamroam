@@ -11,148 +11,153 @@
 #include <lava/features/Validation.hh>
 #include <lava/objects/Device.hh>
 #include <lava-extras/glfw/GlfwApp.hh>
-
-class GameObject;
-class AComponent;
-
-/// <summary>
-/// A SceneHandler is the manager of the game engine.
-/// It implements the singleton pattern and provides getters for the current scene,
-/// the switch scene method and more.
-/// </summary>
-class SceneHandler
+namespace DCore
 {
-public:
-	/// <summary>
-	/// Singleton pattern getter. Use this to get the scene handler from within your components.
-	/// </summary>
-	/// <returns>The current scene handler</returns>
-	static std::shared_ptr<SceneHandler> getInstance();
+	namespace ComponentSystem
+	{
+		class GameObject;
+		class AComponent;
 
-	/// <summary>
-	/// Add scene to the game. This has to be called before you can switch to this scene.
-	/// </summary>
-	/// <param name="newScene">The scene you want to add.</param>
-	/// <returns>The index of the newly added scene</returns>
-	static uint16_t addScene(std::shared_ptr<AScene> newScene) { return getInstance()->_addScene(newScene); }
+		/// <summary>
+		/// A SceneHandler is the manager of the game engine.
+		/// It implements the singleton pattern and provides getters for the current scene,
+		/// the switch scene method and more.
+		/// </summary>
+		class SceneHandler
+		{
+		public:
+			/// <summary>
+			/// Singleton pattern getter. Use this to get the scene handler from within your components.
+			/// </summary>
+			/// <returns>The current scene handler</returns>
+			static std::shared_ptr<SceneHandler> getInstance();
 
-	/// <summary>
-	/// Getter for the currently loaded scene.
-	/// </summary>
-	/// <returns>A pointer to the currently loaded scene</returns>
-	static std::shared_ptr<AScene> getCurrentScene() { return getInstance()->_getCurrentScene(); }
+			/// <summary>
+			/// Add scene to the game. This has to be called before you can switch to this scene.
+			/// </summary>
+			/// <param name="newScene">The scene you want to add.</param>
+			/// <returns>The index of the newly added scene</returns>
+			static uint16_t addScene(std::shared_ptr<AScene> newScene) { return getInstance()->_addScene(newScene); }
 
-	/// <summary>
-	/// Getter for the currently loaded scene.
-	/// </summary>
-	/// <returns>A pointer to the currently loaded scene</returns>
-	static lava::SharedDevice getDevice() { return getInstance()->_getDevice(); }
+			/// <summary>
+			/// Getter for the currently loaded scene.
+			/// </summary>
+			/// <returns>A pointer to the currently loaded scene</returns>
+			static std::shared_ptr<AScene> getCurrentScene() { return getInstance()->_getCurrentScene(); }
 
-	/// <summary>
-	/// Switches the loaded and rendered scene.
-	/// The index used here is returned in addScene(...).
-	/// </summary>
-	/// <param name="sceneIndex">The index of the scene to switch to.</param>
-	static void switchScene(uint16_t sceneIndex) { getInstance()->_switchScene(sceneIndex); }
+			/// <summary>
+			/// Getter for the currently loaded scene.
+			/// </summary>
+			/// <returns>A pointer to the currently loaded scene</returns>
+			static lava::SharedDevice getDevice() { return getInstance()->_getDevice(); }
 
-	std::shared_ptr<lava::features::GlfwOutput> getGlfwOutput() const;
+			/// <summary>
+			/// Switches the loaded and rendered scene.
+			/// The index used here is returned in addScene(...).
+			/// </summary>
+			/// <param name="sceneIndex">The index of the scene to switch to.</param>
+			static void switchScene(uint16_t sceneIndex) { getInstance()->_switchScene(sceneIndex); }
 
-	void run();
-	void updateCamera(double elapsedSeconds);
+			std::shared_ptr<lava::features::GlfwOutput> getGlfwOutput() const;
 
-	double mMouseX = 0;
-	double mMouseY = 0;
-	int mWindowWidth = 0;
-	int mWindowHeight = 0;
+			void run();
+			void updateCamera(double elapsedSeconds);
 
-	bool mCatchCursor = true;
-	float mCameraMoveSpeed = 10.0f;
-	float mCameraMoveSpeedFactor = 5.0f;
-	float mCameraTurnSpeed = 2.0f;
-	float mCameraScrollSpeed = 5.0f;
+			double mMouseX = 0;
+			double mMouseY = 0;
+			int mWindowWidth = 0;
+			int mWindowHeight = 0;
 
-	double mMouseLastX = -1.0;
-	double mMouseLastY = -1.0;
+			bool mCatchCursor = true;
+			float mCameraMoveSpeed = 10.0f;
+			float mCameraMoveSpeedFactor = 5.0f;
+			float mCameraTurnSpeed = 2.0f;
+			float mCameraScrollSpeed = 5.0f;
 
-	double mDoubleClickTime = 0.35f;
-	int mClickCount = 0;
-	int mClickButton = -1;
-	glm::vec2 mClickPos;
-	lava::Stopwatch mClickTimer;
+			double mMouseLastX = -1.0;
+			double mMouseLastY = -1.0;
 
-	lava::SharedBuffer mViewProjBufferPrePass;
+			double mDoubleClickTime = 0.35f;
+			int mClickCount = 0;
+			int mClickButton = -1;
+			glm::vec2 mClickPos;
+			lava::Stopwatch mClickTimer;
 
-	lava::SharedBuffer mViewProjBufferForwardPass;
-	lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayout;
-	lava::SharedDescriptorSet mViewProjDescriptorForward;
-	lava::SharedDescriptorSet mViewProjDescriptorPre;
+			lava::SharedBuffer mViewProjBufferPrePass;
 
-public:
-	static std::shared_ptr<SceneHandler> instance;
-	std::vector<std::shared_ptr<AScene>> scenes;
+			lava::SharedBuffer mViewProjBufferForwardPass;
+			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayout;
+			lava::SharedDescriptorSet mViewProjDescriptorForward;
+			lava::SharedDescriptorSet mViewProjDescriptorPre;
 
-	std::shared_ptr<AScene> curScene = nullptr;
+		public:
+			static std::shared_ptr<SceneHandler> instance;
+			std::vector<std::shared_ptr<AScene>> scenes;
 
-	std::shared_ptr<lava::features::GlfwOutput> mGlfwOutput;
-	std::shared_ptr<lava::features::Validation> mValidation;
-	std::shared_ptr<lava::features::GlfwWindow> mWindow;
-	lava::SharedDevice mDevice;
+			std::shared_ptr<AScene> curScene = nullptr;
 
-	void setupPipeline(const lava::SharedDescriptorSetLayout textureLayout);
+			std::shared_ptr<lava::features::GlfwOutput> mGlfwOutput;
+			std::shared_ptr<lava::features::Validation> mValidation;
+			std::shared_ptr<lava::features::GlfwWindow> mWindow;
+			lava::SharedDevice mDevice;
 
-	void getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 projection);
+			void setupPipeline(const lava::SharedDescriptorSetLayout textureLayout);
 
-	std::tuple<glm::mat4, glm::vec3, glm::vec3> rotateCameraFrustrumCornersToLightSpace(glm::vec3 forward, glm::vec3 camPosition, std::vector<glm::vec4> corners, glm::vec3 upDirection);
+			void getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 projection);
 
-	lava::SharedPipelineLayout mPlLayout;
-	std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> mPipeline;
-	std::vector<lava::SharedFramebuffer> companionWindowFBO;
+			std::tuple<glm::mat4, glm::vec3, glm::vec3> rotateCameraFrustrumCornersToLightSpace(glm::vec3 forward, glm::vec3 camPosition, std::vector<glm::vec4> corners, glm::vec3 upDirection);
 
-	void setupGlfwCallbacks();
+			lava::SharedPipelineLayout mPlLayout;
+			std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> mPipeline;
+			std::vector<lava::SharedFramebuffer> companionWindowFBO;
 
-	/// <summary>
-	/// Creates a new instance of the scene handler. Should only be called ONCE by the main function.
-	/// </summary>
-	/// <remarks>This should not be used to create a new instance. Instead, please use the GetInstance method.</remarks>
-	/// <remarks>This needs to be public in order to create a new instance using std::make_shared in the GetInstance method.</remarks>
-	/// <returns>A new SceneHandler</returns>
-	SceneHandler();
+			void setupGlfwCallbacks();
 
-	~SceneHandler();
+			/// <summary>
+			/// Creates a new instance of the scene handler. Should only be called ONCE by the main function.
+			/// </summary>
+			/// <remarks>This should not be used to create a new instance. Instead, please use the GetInstance method.</remarks>
+			/// <remarks>This needs to be public in order to create a new instance using std::make_shared in the GetInstance method.</remarks>
+			/// <returns>A new SceneHandler</returns>
+			SceneHandler();
 
-private:
+			~SceneHandler();
 
-	void _switchScene(uint16_t index);
+		private:
 
-	lava::SharedDevice _getDevice() const;
+			void _switchScene(uint16_t index);
 
-	uint16_t _addScene(std::shared_ptr<AScene> newScene);
+			lava::SharedDevice _getDevice() const;
 
-	std::shared_ptr<AScene> _getCurrentScene() { return curScene; }
+			uint16_t _addScene(std::shared_ptr<AScene> newScene);
 
-	void start();
-	void setupRendering();
-	void update(double dt);
-	void recurseGameObjects(std::vector<std::shared_ptr<GameObject>> objects, std::vector<std::shared_ptr<GameObject>>& opaqueUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& opaqueTexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendTexturedObjects, std::vector<std::shared_ptr<GameObject>>& shadowThrowingObjects);
-	void render();
-	bool onKey(int key, int scancode, int action, int mods);
-	bool onMousePosition(double x, double y);
-	bool onMouseButton(double x, double y, int button, int action, int mods, int clickCount);
-	bool onMouseScroll(double sx, double sy);
-	bool onMouseEnter();
-	bool onMouseExit();
-	bool onFocusGain();
-	bool onFocusLost();
-	bool onFileDrop(const std::vector<std::string>& files);
-	bool onChar(unsigned int codepoint, int mods);
-	void internalOnMouseButton(double x, double y, int button, int action, int mods);
-	void onResize(int w, int h);
-	void updateInput();
+			std::shared_ptr<AScene> _getCurrentScene() { return curScene; }
 
-protected:
-	std::shared_ptr<GraphicsPipelineRenderer> mOpaqueUntextured;
-	std::shared_ptr<GraphicsPipelineRenderer> mOpaqueTextured;
-	std::shared_ptr<GraphicsPipelineRenderer> mTransparendUntextured;
-	std::shared_ptr<GraphicsPipelineRenderer> mTransparendTextured;
-	std::shared_ptr<GraphicsPipelineRenderer> mShadowMap;
-};
+			void start();
+			void setupRendering();
+			void update(double dt);
+			void recurseGameObjects(std::vector<std::shared_ptr<GameObject>> objects, std::vector<std::shared_ptr<GameObject>>& opaqueUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& opaqueTexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendTexturedObjects, std::vector<std::shared_ptr<GameObject>>& shadowThrowingObjects);
+			void render();
+			bool onKey(int key, int scancode, int action, int mods);
+			bool onMousePosition(double x, double y);
+			bool onMouseButton(double x, double y, int button, int action, int mods, int clickCount);
+			bool onMouseScroll(double sx, double sy);
+			bool onMouseEnter();
+			bool onMouseExit();
+			bool onFocusGain();
+			bool onFocusLost();
+			bool onFileDrop(const std::vector<std::string>& files);
+			bool onChar(unsigned int codepoint, int mods);
+			void internalOnMouseButton(double x, double y, int button, int action, int mods);
+			void onResize(int w, int h);
+			void updateInput();
+
+		protected:
+			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueUntextured;
+			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueTextured;
+			std::shared_ptr<GraphicsPipelineRenderer> mTransparendUntextured;
+			std::shared_ptr<GraphicsPipelineRenderer> mTransparendTextured;
+			std::shared_ptr<GraphicsPipelineRenderer> mShadowMap;
+		};
+	}
+}
