@@ -8,7 +8,7 @@
 
 using namespace DCore::Components;
 using namespace DCore::Rendering;
-void DefaultTexturedRenderer::renderSingleGameObject(std::shared_ptr<GameObject> go)
+void DefaultTexturedRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& go)
 {
 	auto renderComp = go->getComponent<RenderComponent>();
 

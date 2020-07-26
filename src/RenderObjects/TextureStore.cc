@@ -26,7 +26,7 @@ TextureStore::TextureStore(lava::SharedDevice device) : TextureStore(device, std
 {
 }
 
-inline std::shared_ptr<Texture>
+std::shared_ptr<Texture>
 TextureStore::getTextureWithName(
 	std::string name)
 	const
@@ -34,7 +34,7 @@ TextureStore::getTextureWithName(
 	return mTextures.at(name);
 }
 
-inline lava::SharedDescriptorSetLayout
+lava::SharedDescriptorSetLayout
 TextureStore::getTextureLayout()
 const
 {

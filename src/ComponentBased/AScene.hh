@@ -66,7 +66,7 @@ namespace DCore
 			/// </summary>
 			/// <param name="name">The name of the gameObject in the scene.</param>
 			/// <returns>A new gameObject instance.</returns>
-			std::shared_ptr<GameObject> instantiate(const std::string name);
+			std::shared_ptr<GameObject> instantiate(const std::string& name);
 
 		protected:
 			/// <summary>

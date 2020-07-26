@@ -13,7 +13,7 @@ namespace UtilsLava
 {
 	lava::SharedImage
 		loadCreateAndUploadImg(
-			std::string filePath,
+			const std::string& filePath,
 			lava::SharedDevice device,
 			bool generateMipmaps)
 	{
@@ -53,7 +53,7 @@ namespace UtilsLava
 
 	lava::SharedImage
 		loadCreateAndUploadImgForTexture_default(
-			std::string filePath,
+			const std::string& filePath,
 			lava::SharedDevice device)
 	{
 		return loadCreateAndUploadImg(

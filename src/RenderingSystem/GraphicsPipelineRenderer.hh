@@ -22,7 +22,7 @@ namespace DCore {
 			void prepareRendering(
 				lava::InlineSubpass* sub, lava::SharedDescriptorSet cameraDescriptor);
 
-			void renderGameObjects(const std::vector<std::shared_ptr<GameObject>> gos);
+			void renderGameObjects(const std::vector<std::shared_ptr<GameObject>>& gos);
 
 		protected:
 			lava::SharedGraphicsPipeline mPipeline;
@@ -34,8 +34,8 @@ namespace DCore {
 
 		private:
 			virtual void
-				renderSingleGameObject(
-					std::shared_ptr<GameObject> go) = 0;
+				renderSingleGameObject(const
+					std::shared_ptr<GameObject>& go) = 0;
 		};
 	}
 }

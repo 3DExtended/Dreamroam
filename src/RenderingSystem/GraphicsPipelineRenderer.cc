@@ -22,7 +22,7 @@ void GraphicsPipelineRenderer::prepareRendering(
 	mCurrentSubpass->bindPipeline(mPipeline);
 }
 
-void GraphicsPipelineRenderer::renderGameObjects(const std::vector<std::shared_ptr<GameObject>> gos)
+void GraphicsPipelineRenderer::renderGameObjects(const std::vector<std::shared_ptr<GameObject>>& gos)
 {
 	for (auto go : gos)
 	{

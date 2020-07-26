@@ -18,7 +18,7 @@ std::shared_ptr<GameObject> AScene::instantiate()
 	return instantiate("");
 }
 
-std::shared_ptr<GameObject> AScene::instantiate(const std::string name)
+std::shared_ptr<GameObject> AScene::instantiate(const std::string& name)
 {
 	auto go = std::make_shared<GameObject>(name);
 	gameObjects.push_back(go);

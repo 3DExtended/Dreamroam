@@ -10,7 +10,7 @@ namespace DCore {
 			using GraphicsPipelineRenderer::GraphicsPipelineRenderer;
 
 		private:
-			void renderSingleGameObject(std::shared_ptr<GameObject> go) override;
+			void renderSingleGameObject(const std::shared_ptr<GameObject>& go) override;
 		};
 	}
 }

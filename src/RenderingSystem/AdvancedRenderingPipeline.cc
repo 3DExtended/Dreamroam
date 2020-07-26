@@ -90,7 +90,6 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		info.addSubpass(SubpassDescription{}.depth(0).colors({ 1 }));
 
 		mPassForward = mDevice->createRenderPass(info);
-		std::array<float, 4> clearColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 		mPassForward->setClearDepthStencil(vk::ClearDepthStencilValue(1.0));
 	}
 

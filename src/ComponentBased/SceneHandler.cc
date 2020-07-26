@@ -442,13 +442,12 @@ void SceneHandler::render()
 
 		cmd.wait(frame.imageReady());
 
+		// Create light view and projection matrix
 		{
-			//glm::mat4 proj = glm::ortho(0.0f, (float)mWindowWidth*0.005f, (float)mWindowHeight*0.005f, 0.f, 0.0001f, 15.f);
-			auto tempCamera = std::make_shared<lava::camera::GenericCamera>();
-			tempCamera->setPosition(mPipeline->getCamera()->getPosition());
-			tempCamera->setTarget(mPipeline->getCamera()->getPosition() + glm::vec3(5.f, -2.f, 0.f));
-			auto view = tempCamera->getViewMatrix();
-			view = glm::mat4(1.0);
+			// glm::mat4 proj = glm::ortho(0.0f, (float)mWindowWidth*0.005f, (float)mWindowHeight*0.005f, 0.f, 0.0001f, 15.f);
+			// auto tempCamera = std::make_shared<lava::camera::GenericCamera>();
+			// tempCamera->setPosition(mPipeline->getCamera()->getPosition());
+			// tempCamera->setTarget(mPipeline->getCamera()->getPosition() + glm::vec3(5.f, -2.f, 0.f));
 
 			std::vector<glm::vec4> corners;
 			this->getFrustumCorners(corners, mPipeline->getCamera()->getProjectionMatrix());
@@ -458,7 +457,7 @@ void SceneHandler::render()
 			glm::vec3 lightTarget;
 			// todo fix order of parameters
 			std::tie(lightProj, lightCamPos, lightTarget) = this->rotateCameraFrustrumCornersToLightSpace(
-				mPipeline->getCamera()->getForwardDirection(),
+				glm::vec3(1.0f,-1.0f,-1.0f),
 				mPipeline->getCamera()->getPosition(),
 				corners,
 				mPipeline->getCamera()->getUpDirection());
@@ -472,6 +471,7 @@ void SceneHandler::render()
 			mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
+		// load scene camera
 		{
 			CameraData matrixData
 			{
@@ -481,6 +481,9 @@ void SceneHandler::render()
 			mViewProjBufferForwardPass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
+		// render all objects.
+		// Note that this includes two render passes. 
+		// The first one beeing for rendering objects to the shadow map and the second one rendering all objects.
 		mPipeline->render(cmd, companionWindowFBO[frame.imageIndex()],
 			[&](lava::pipeline::AdvancedRenderPass const& pass) {
 				auto sub = pass.pass.startInlineSubpass();

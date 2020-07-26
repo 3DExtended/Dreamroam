@@ -22,12 +22,12 @@ namespace DCore {
 
 			~TextureStore();
 
-			inline std::shared_ptr<Texture>
+			std::shared_ptr<Texture>
 				getTextureWithName(
 					std::string name)
 				const;
 
-			inline lava::SharedDescriptorSetLayout
+			lava::SharedDescriptorSetLayout
 				getTextureLayout()
 				const;
 
