@@ -3,11 +3,14 @@
 #include "PushConstants.hh"
 #include <Components/RenderComponent.hh>
 #include <ComponentBased/GameObject.hh>
+namespace DCore {
+	namespace Rendering {
+		class DefaultTexturedRenderer : public GraphicsPipelineRenderer
+		{
+			using GraphicsPipelineRenderer::GraphicsPipelineRenderer;
 
-class DefaultTexturedRenderer : public GraphicsPipelineRenderer
-{
-  using GraphicsPipelineRenderer::GraphicsPipelineRenderer;
-
-private:
-  void renderSingleGameObject(std::shared_ptr<GameObject> go) override;
-};
+		private:
+			void renderSingleGameObject(const std::shared_ptr<GameObject>& go) override;
+		};
+	}
+}

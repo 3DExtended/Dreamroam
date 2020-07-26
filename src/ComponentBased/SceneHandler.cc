@@ -25,6 +25,8 @@
 #include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
 
+using namespace DCore::Components;
+
 float lightFOV = 45.0f;
 // Keep depth range as small as possible
 	// for better shadow map precision
@@ -43,7 +45,7 @@ SceneHandler::~SceneHandler()
 {
 }
 
-void SceneHandler::switchScene(uint16_t index)
+void SceneHandler::_switchScene(uint16_t index)
 {
 	if (curScene == nullptr && scenes.size() == 0)
 	{
@@ -65,12 +67,13 @@ void SceneHandler::switchScene(uint16_t index)
 	}
 }
 
-void SceneHandler::_addScene(std::shared_ptr<AScene> newScene)
+uint16_t SceneHandler::_addScene(std::shared_ptr<AScene> newScene)
 {
 	scenes.push_back(newScene);
+	return scenes.size() - 1;
 }
 
-lava::SharedDevice SceneHandler::getDevice() const
+lava::SharedDevice SceneHandler::_getDevice() const
 {
 	return mDevice;
 }
@@ -439,13 +442,12 @@ void SceneHandler::render()
 
 		cmd.wait(frame.imageReady());
 
+		// Create light view and projection matrix
 		{
-			//glm::mat4 proj = glm::ortho(0.0f, (float)mWindowWidth*0.005f, (float)mWindowHeight*0.005f, 0.f, 0.0001f, 15.f);
-			auto tempCamera = std::make_shared<lava::camera::GenericCamera>();
-			tempCamera->setPosition(mPipeline->getCamera()->getPosition() + glm::vec3(5.f, -2.f, 0.f));
-			tempCamera->setTarget(glm::vec3(5.f, -2.f, 0.f));
-			auto view = tempCamera->getViewMatrix();
-			view = glm::mat4(1.0);
+			// glm::mat4 proj = glm::ortho(0.0f, (float)mWindowWidth*0.005f, (float)mWindowHeight*0.005f, 0.f, 0.0001f, 15.f);
+			// auto tempCamera = std::make_shared<lava::camera::GenericCamera>();
+			// tempCamera->setPosition(mPipeline->getCamera()->getPosition());
+			// tempCamera->setTarget(mPipeline->getCamera()->getPosition() + glm::vec3(5.f, -2.f, 0.f));
 
 			std::vector<glm::vec4> corners;
 			this->getFrustumCorners(corners, mPipeline->getCamera()->getProjectionMatrix());
@@ -455,7 +457,7 @@ void SceneHandler::render()
 			glm::vec3 lightTarget;
 			// todo fix order of parameters
 			std::tie(lightProj, lightCamPos, lightTarget) = this->rotateCameraFrustrumCornersToLightSpace(
-				mPipeline->getCamera()->getForwardDirection(),
+				glm::vec3(1.0f,-1.0f,-1.0f),
 				mPipeline->getCamera()->getPosition(),
 				corners,
 				mPipeline->getCamera()->getUpDirection());
@@ -469,6 +471,7 @@ void SceneHandler::render()
 			mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
+		// load scene camera
 		{
 			CameraData matrixData
 			{
@@ -478,6 +481,9 @@ void SceneHandler::render()
 			mViewProjBufferForwardPass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
+		// render all objects.
+		// Note that this includes two render passes. 
+		// The first one beeing for rendering objects to the shadow map and the second one rendering all objects.
 		mPipeline->render(cmd, companionWindowFBO[frame.imageIndex()],
 			[&](lava::pipeline::AdvancedRenderPass const& pass) {
 				auto sub = pass.pass.startInlineSubpass();

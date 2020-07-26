@@ -20,8 +20,25 @@
 #include <lava/objects/Buffer.hh>
 #include <lava/createinfos/Buffers.hh>
 
+using namespace DCore::Textures;
+
 TextureStore::TextureStore(lava::SharedDevice device) : TextureStore(device, std::vector<std::pair<std::string, std::string>>(0))
 {
+}
+
+std::shared_ptr<Texture>
+TextureStore::getTextureWithName(
+	std::string name)
+	const
+{
+	return mTextures.at(name);
+}
+
+lava::SharedDescriptorSetLayout
+TextureStore::getTextureLayout()
+const
+{
+	return mTextureLayout;
 }
 
 TextureStore::TextureStore(

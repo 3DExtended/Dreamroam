@@ -1,21 +1,28 @@
 #pragma once
 #include <ComponentBased/AComponent.hh>
-#include <RenderObjects/Geometry.hh>
+#include <Geometry/Geometry.hh>
 #include <RenderObjects/Texture.hh>
 
-class RenderComponent : public AComponent
-{
-public:
-  RenderComponent(){};
-  std::shared_ptr<Geometry> geometryObj = nullptr;
+using namespace DCore::ComponentSystem;
+using namespace DCore::Meshes;
+using namespace DCore::Textures;
+namespace DCore {
+	namespace Components {
+		class RenderComponent : public AComponent
+		{
+		public:
+			RenderComponent() {};
+			std::shared_ptr<Geometry> geometryObj = nullptr;
 
-  bool isTransparent = false;
-  float alpha = 1.0f;
+			bool isTransparent = false;
+			float alpha = 1.0f;
 
-  bool hasTexture = false;
-  std::shared_ptr<Texture> textureObj = nullptr;
+			bool hasTexture = false;
+			std::shared_ptr<Texture> textureObj = nullptr;
 
-  bool active = true;
+			bool active = true;
 
-  bool isThrowingShadow = true;
-};
+			bool isThrowingShadow = true;
+		};
+	}
+}

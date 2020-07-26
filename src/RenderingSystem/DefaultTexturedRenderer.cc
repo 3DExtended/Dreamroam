@@ -6,36 +6,38 @@
 
 #include <lava/objects/DescriptorSet.hh>
 
-void DefaultTexturedRenderer::renderSingleGameObject(std::shared_ptr<GameObject> go)
+using namespace DCore::Components;
+using namespace DCore::Rendering;
+void DefaultTexturedRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& go)
 {
-    auto renderComp = go->getComponent<RenderComponent>();
+	auto renderComp = go->getComponent<RenderComponent>();
 
-    assert(renderComp->textureObj != nullptr);
-    auto textureDescriptor =
-        renderComp
-            ->textureObj
-            ->getDescriptorSet();
+	assert(renderComp->textureObj != nullptr);
+	auto textureDescriptor =
+		renderComp
+		->textureObj
+		->getDescriptorSet();
 
-    mCurrentSubpass->bindDescriptorSets(
-        {
-            mCameraDescriptor, 
-            textureDescriptor, 
-            mAdvancedPipeline->mForwardDescriptor 
-        },
-        0,
-        vk::PipelineBindPoint::eGraphics,
-        mLayout);
+	mCurrentSubpass->bindDescriptorSets(
+		{
+			mCameraDescriptor,
+			textureDescriptor,
+			mAdvancedPipeline->mForwardDescriptor
+		},
+		0,
+		vk::PipelineBindPoint::eGraphics,
+		mLayout);
 
-    glm::mat4 modelMatrixComplete =
-        go->transform.getModelMatrix();
+	glm::mat4 modelMatrixComplete =
+		go->transform.getModelMatrix();
 
-    PushConstants pushConsts;
+	PushConstants pushConsts;
 
-    pushConsts.modelMatrix = modelMatrixComplete;
-    pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
-    pushConsts.alpha = renderComp->alpha;
+	pushConsts.modelMatrix = modelMatrixComplete;
+	pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
+	pushConsts.alpha = renderComp->alpha;
 
-    mCurrentSubpass->pushConstantBlock(pushConsts);
+	mCurrentSubpass->pushConstantBlock(pushConsts);
 
-    renderComp->geometryObj->draw(*mCurrentSubpass);
+	renderComp->geometryObj->draw(*mCurrentSubpass);
 }

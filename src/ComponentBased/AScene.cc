@@ -1,11 +1,12 @@
 #include "AScene.hh"
 #include "SceneHandler.hh"
 
+using namespace DCore::ComponentSystem;
+using namespace DCore::Textures;
+
 AScene::AScene()
 {
-	this->mDevice = SceneHandler::getInstance()->getDevice();
-	// mGeometryStore = std::make_shared<GeometryStore>(mDevice);
-	// mTextureStore = std::make_shared<TextureStore>(mDevice);
+	this->mDevice = SceneHandler::getDevice();
 }
 
 AScene::~AScene()
@@ -17,7 +18,7 @@ std::shared_ptr<GameObject> AScene::instantiate()
 	return instantiate("");
 }
 
-std::shared_ptr<GameObject> AScene::instantiate(const std::string name)
+std::shared_ptr<GameObject> AScene::instantiate(const std::string& name)
 {
 	auto go = std::make_shared<GameObject>(name);
 	gameObjects.push_back(go);

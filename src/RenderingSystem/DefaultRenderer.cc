@@ -2,22 +2,25 @@
 #include <RenderingSystem/PushConstants.hh>
 #include <Components/RenderComponent.hh>
 
-void DefaultRenderer::renderSingleGameObject(std::shared_ptr<GameObject> go)
+using namespace DCore::Components;
+using namespace DCore::Rendering;
+
+void DefaultRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& go)
 {
-    PushConstants pushConsts;
+	PushConstants pushConsts;
 
-    auto renderComp = go->getComponent<RenderComponent>();
+	auto renderComp = go->getComponent<RenderComponent>();
 
-    mCurrentSubpass->bindDescriptorSets(
-        {mCameraDescriptor},
-        0,
-        vk::PipelineBindPoint::eGraphics,
-        mLayout);
+	mCurrentSubpass->bindDescriptorSets(
+		{ mCameraDescriptor },
+		0,
+		vk::PipelineBindPoint::eGraphics,
+		mLayout);
 
-    glm::mat4 modelMatrixComplete = go->transform.getModelMatrix();
-    pushConsts.modelMatrix = modelMatrixComplete;
-    pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
-    mCurrentSubpass->pushConstantBlock(pushConsts);
+	glm::mat4 modelMatrixComplete = go->transform.getModelMatrix();
+	pushConsts.modelMatrix = modelMatrixComplete;
+	pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
+	mCurrentSubpass->pushConstantBlock(pushConsts);
 
-    renderComp->geometryObj->draw(*mCurrentSubpass);
+	renderComp->geometryObj->draw(*mCurrentSubpass);
 }
