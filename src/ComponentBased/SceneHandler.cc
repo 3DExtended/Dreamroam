@@ -294,31 +294,43 @@ void SceneHandler::setupPipeline(const lava::SharedDescriptorSetLayout textureLa
 
 	// create CameraDataBuffer
 	{
-		mViewProjBufferPrePass = mDevice->createBuffer(
-			lava::uniformBuffer(sizeof(CameraData)));
+		// pre pass
+		{
+			mViewProjBufferPrePass = mDevice->createBuffer(
+				lava::uniformBuffer(sizeof(CameraDataPrePass)));
 
-		mViewProjBufferPrePass->keepStagingBuffer();
-		mViewProjBufferPrePass->realizeVRAM();
+			mViewProjBufferPrePass->keepStagingBuffer();
+			mViewProjBufferPrePass->realizeVRAM();
 
-		mViewProjBufferForwardPass = mDevice->createBuffer(
-			lava::uniformBuffer(sizeof(CameraData)));
+			auto dslinfo = lava::DescriptorSetLayoutCreateInfo{};
+			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
+			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
 
-		mViewProjBufferForwardPass->keepStagingBuffer();
-		mViewProjBufferForwardPass->realizeVRAM();
+			mViewProjDescriptorSetLayoutPrePass = dslinfo.create(mDevice);
 
-		auto dslinfo = lava::DescriptorSetLayoutCreateInfo{};
-		dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
-		dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
+			mViewProjDescriptorPre =
+				mViewProjDescriptorSetLayoutPrePass->createDescriptorSet();
+			mViewProjDescriptorPre->writeUniformBuffer(mViewProjBufferPrePass, 0);
+		}
 
-		mViewProjDescriptorSetLayout = dslinfo.create(mDevice);
+		// forward pass
+		{
+			mViewProjBufferForwardPass = mDevice->createBuffer(
+				lava::uniformBuffer(sizeof(CameraDataForwardPass)));
 
-		mViewProjDescriptorForward =
-			mViewProjDescriptorSetLayout->createDescriptorSet();
-		mViewProjDescriptorForward->writeUniformBuffer(mViewProjBufferForwardPass, 0);
+			mViewProjBufferForwardPass->keepStagingBuffer();
+			mViewProjBufferForwardPass->realizeVRAM();
 
-		mViewProjDescriptorPre =
-			mViewProjDescriptorSetLayout->createDescriptorSet();
-		mViewProjDescriptorPre->writeUniformBuffer(mViewProjBufferPrePass, 0);
+			auto dslinfo = lava::DescriptorSetLayoutCreateInfo{};
+			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
+			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
+
+			mViewProjDescriptorSetLayoutForwarPass = dslinfo.create(mDevice);
+
+			mViewProjDescriptorForward =
+				mViewProjDescriptorSetLayoutForwarPass->createDescriptorSet();
+			mViewProjDescriptorForward->writeUniformBuffer(mViewProjBufferForwardPass, 0);
+		}
 	}
 
 	// Object Rendering Pipeline
@@ -337,7 +349,6 @@ void SceneHandler::setupPipeline(const lava::SharedDescriptorSetLayout textureLa
 
 		mPipeline->getCamera()->setVerticalFieldOfView(60);
 		mPipeline->getCamera()->setFarClippingPlane(25);
-		//mPipeline->getCamera()->setProjectionMode(lava::camera::GenericCamera::ProjectionMode::PerspectiveProjectionOpenGL);
 		mPipeline->getCamera()->setPosition({ 5, 2, 5 });
 	}
 
@@ -376,18 +387,28 @@ void SceneHandler::getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 
 	}
 }
 
-std::tuple<glm::mat4, glm::vec3, glm::vec3> SceneHandler::rotateCameraFrustrumCornersToLightSpace(
+std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLightSpace(
 	glm::vec3 lightDir,
 	glm::vec3 camPosition,
-	std::vector<glm::vec4> corners,
 	glm::vec3 upDirection = glm::vec3(0, 1, 0))
 {
-	glm::mat4 rotateToLightSpace = glm::lookAt(glm::vec3(0, 0, 0), lightDir, upDirection);
-	glm::mat4 translateCorners = glm::translate(glm::mat4(1), camPosition);
-	std::vector<glm::vec4> rotatedCorners;
+	std::vector<glm::vec4> corners;
+
+	glm::vec3 cameraForward = mPipeline->getCamera()->getForwardDirection();
+	glm::vec3 cameraUp = mPipeline->getCamera()->getUpDirection();
+
+	this->getFrustumCorners(corners,
+		mPipeline->getCamera()->getProjectionMatrix()
+		* glm::lookAt(glm::vec3(0), glm::vec3(0) + cameraForward, cameraUp)
+		* mPipeline->getCamera()->getTranslationMatrix4()
+	);
+
+	// glm::mat4 rotateToLightSpace = glm::lookAt(glm::vec3(0, 0, 0), lightDir, upDirection);
+	// glm::mat4 translateCorners = glm::translate(glm::mat4(1), camPosition);
+	/*std::vector<glm::vec4> rotatedCorners;
 	for (auto c : corners) {
 		rotatedCorners.push_back(translateCorners * rotateToLightSpace * c);
-	}
+	}*/
 	float minX = std::numeric_limits<float>::max();
 	float maxX = std::numeric_limits<float>::min();
 	float minY = std::numeric_limits<float>::max();
@@ -395,7 +416,7 @@ std::tuple<glm::mat4, glm::vec3, glm::vec3> SceneHandler::rotateCameraFrustrumCo
 	float minZ = std::numeric_limits<float>::max();
 	float maxZ = std::numeric_limits<float>::min();
 
-	for (auto c : rotatedCorners) {
+	for (auto c : corners) {
 		if (c[0] < minX) minX = c[0];
 		if (c[0] > maxX) maxX = c[0];
 		if (c[1] < minY) minY = c[1];
@@ -404,11 +425,22 @@ std::tuple<glm::mat4, glm::vec3, glm::vec3> SceneHandler::rotateCameraFrustrumCo
 		if (c[2] > maxZ) maxZ = c[2];
 	}
 
-	glm::mat4 res = glm::orthoRH_ZO(minX, maxX, minY, maxY, minZ, maxZ);
-	glm::vec3 lightCamPos = glm::vec3((maxX + minX) / 2.0f, (maxY + minY) / 2.0f, minZ);
-	glm::vec3 lightTarget = lightCamPos + lightDir;
+	// maxZ = 100;
 
-	return std::tuple<glm::mat4, glm::vec3, glm::vec3 >(res, lightCamPos, lightTarget);
+	glm::mat4 proj = glm::orthoRH_ZO(minX, maxX, maxY, minY, maxZ, minZ);
+
+	// incrementEachFrame += 0.1f;
+
+	glm::vec3 frustumCenter = glm::vec3((maxX + minX) / 2.0f, (maxY + minY) / 2.0f, (maxZ + minZ) / 2.0f);
+
+	auto frustumCenterDistance = glm::distance(glm::vec3(0), frustumCenter);
+	glm::vec3 newEyePosition = frustumCenter - glm::normalize(lightDir) * frustumCenterDistance;
+
+	// TODO figure out how we can rotate our new frustum correctly to line up with the lightDir vector
+	glm::mat4 view =
+		glm::lookAt(newEyePosition, newEyePosition + lightDir, cameraUp);
+
+	return std::tuple<glm::mat4, glm::mat4 >(proj, view);
 }
 
 void SceneHandler::render()
@@ -443,29 +475,18 @@ void SceneHandler::render()
 		cmd.wait(frame.imageReady());
 
 		// Create light view and projection matrix
+		glm::mat4 lightProjMatrix;
+		glm::mat4 lightViewMatrix;
+
+		std::tie(lightProjMatrix, lightViewMatrix) = this->rotateCameraFrustrumCornersToLightSpace(
+			glm::vec3(1.0f, -1.0f, -1.0f),
+			mPipeline->getCamera()->getPosition(),
+			mPipeline->getCamera()->getUpDirection());
 		{
-			// glm::mat4 proj = glm::ortho(0.0f, (float)mWindowWidth*0.005f, (float)mWindowHeight*0.005f, 0.f, 0.0001f, 15.f);
-			// auto tempCamera = std::make_shared<lava::camera::GenericCamera>();
-			// tempCamera->setPosition(mPipeline->getCamera()->getPosition());
-			// tempCamera->setTarget(mPipeline->getCamera()->getPosition() + glm::vec3(5.f, -2.f, 0.f));
-
-			std::vector<glm::vec4> corners;
-			this->getFrustumCorners(corners, mPipeline->getCamera()->getProjectionMatrix());
-
-			glm::mat4 lightProj;
-			glm::vec3 lightCamPos;
-			glm::vec3 lightTarget;
-			// todo fix order of parameters
-			std::tie(lightProj, lightCamPos, lightTarget) = this->rotateCameraFrustrumCornersToLightSpace(
-				glm::vec3(1.0f,-1.0f,-1.0f),
-				mPipeline->getCamera()->getPosition(),
-				corners,
-				mPipeline->getCamera()->getUpDirection());
-
-			CameraData matrixData
+			CameraDataPrePass matrixData
 			{
-				mPipeline->getCamera()->getViewMatrix() * glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,1), glm::vec3(0,1,0)),//mPipeline->getCamera()->getViewMatrix(),
-				lightProj//mPipeline->getCamera()->getProjectionMatrix()
+				lightViewMatrix,
+				lightProjMatrix
 			};
 
 			mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
@@ -473,16 +494,17 @@ void SceneHandler::render()
 
 		// load scene camera
 		{
-			CameraData matrixData
+			CameraDataForwardPass matrixData
 			{
 				mPipeline->getCamera()->getViewMatrix(),
-				mPipeline->getCamera()->getProjectionMatrix()
+				mPipeline->getCamera()->getProjectionMatrix(),
+				lightProjMatrix * lightViewMatrix
 			};
 			mViewProjBufferForwardPass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
 		// render all objects.
-		// Note that this includes two render passes. 
+		// Note that this includes two render passes.
 		// The first one beeing for rendering objects to the shadow map and the second one rendering all objects.
 		mPipeline->render(cmd, companionWindowFBO[frame.imageIndex()],
 			[&](lava::pipeline::AdvancedRenderPass const& pass) {

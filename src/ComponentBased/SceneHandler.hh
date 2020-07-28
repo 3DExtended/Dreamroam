@@ -86,7 +86,6 @@ namespace DCore
 			lava::SharedBuffer mViewProjBufferPrePass;
 
 			lava::SharedBuffer mViewProjBufferForwardPass;
-			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayout;
 			lava::SharedDescriptorSet mViewProjDescriptorForward;
 			lava::SharedDescriptorSet mViewProjDescriptorPre;
 
@@ -105,7 +104,7 @@ namespace DCore
 
 			void getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 projection);
 
-			std::tuple<glm::mat4, glm::vec3, glm::vec3> rotateCameraFrustrumCornersToLightSpace(glm::vec3 forward, glm::vec3 camPosition, std::vector<glm::vec4> corners, glm::vec3 upDirection);
+			std::tuple<glm::mat4, glm::mat4> rotateCameraFrustrumCornersToLightSpace(glm::vec3 forward, glm::vec3 camPosition, glm::vec3 upDirection);
 
 			lava::SharedPipelineLayout mPlLayout;
 			std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> mPipeline;
@@ -122,6 +121,10 @@ namespace DCore
 			SceneHandler();
 
 			~SceneHandler();
+
+		private:
+			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayoutPrePass;
+			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayoutForwarPass;
 
 		private:
 

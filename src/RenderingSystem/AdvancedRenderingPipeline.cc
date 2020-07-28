@@ -49,7 +49,7 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		auto info = lava::RenderPassCreateInfo{};
 		info.addAttachment(AttachmentDescription::depth16()
 			.clear()
-			.finalLayout_DepthStencilRead());
+			.finalLayout_ShaderRead());
 
 		auto firstDep = SubpassDependency::first()
 			.setSrcSubpass(VK_SUBPASS_EXTERNAL)
@@ -80,7 +80,7 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		auto info = lava::RenderPassCreateInfo{};
 		info.addAttachment(AttachmentDescription::depth32float()
 			.clear()
-			.finalLayout_Attachment());
+			.finalLayout_DepthStencilRead());
 		info.addAttachment(AttachmentDescription::color(Format::RGBA16F)
 			.clear()
 			.finalLayout_ShaderRead());
@@ -93,6 +93,7 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		mPassForward->setClearDepthStencil(vk::ClearDepthStencilValue(1.0));
 	}
 
+	// Output pass (used for FXAA)
 	{
 		auto info = lava::RenderPassCreateInfo{};
 		info.addAttachment(AttachmentDescription::color(mOutputFormat)
@@ -102,16 +103,14 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		info.addSubpass(SubpassDescription{}.colors({ 0 }));
 
 		mPassOutput = mDevice->createRenderPass(info);
-	}
-	{
+
 		auto dsinfoForward = DescriptorSetLayoutCreateInfo{};
 		dsinfoForward.addBinding(vk::DescriptorType::eCombinedImageSampler,
 			vk::ShaderStageFlagBits::eFragment, 1);
 		dsinfoForward.addBinding(vk::DescriptorType::eCombinedImageSampler,
 			vk::ShaderStageFlagBits::eFragment, 1);
 		mForwardDescriptorLayout = mDevice->createDescriptorSetLayout(dsinfoForward);
-	}
-	{
+
 		auto dsinfoOutput = DescriptorSetLayoutCreateInfo{};
 		dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
 			vk::ShaderStageFlagBits::eFragment, 1);
@@ -120,18 +119,18 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 		auto layout =
 			mDevice->createPipelineLayout({}, { mOutputDescriptorLayout });
 
-		auto info = lava::GraphicsPipelineCreateInfo::defaults();
-		info.setLayout(layout);
-		info.addStage(
+		auto infoFXAA = lava::GraphicsPipelineCreateInfo::defaults();
+		infoFXAA.setLayout(layout);
+		infoFXAA.addStage(
 			lava::pack::shader(device, "lava-extras/pipeline/output.vert"));
-		info.addStage(
+		infoFXAA.addStage(
 			lava::pack::shader(device, "lava-extras/pipeline/output.frag"));
 
-		info.stage(1).specialize(0, false); // Disable FXAA
-		mPipelineOutputNoFXAA = mPassOutput->createPipeline(0, info);
+		infoFXAA.stage(1).specialize(0, false); // Disable FXAA
+		mPipelineOutputNoFXAA = mPassOutput->createPipeline(0, infoFXAA);
 
-		info.stage(1).specialize(0, true); // Enable FXAA
-		mPipelineOutputFXAA = mPassOutput->createPipeline(0, info);
+		infoFXAA.stage(1).specialize(0, true); // Enable FXAA
+		mPipelineOutputFXAA = mPassOutput->createPipeline(0, infoFXAA);
 	}
 }
 

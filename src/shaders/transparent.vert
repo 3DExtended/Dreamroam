@@ -9,6 +9,7 @@ layout(location=2) in vec3 aNormal;
 layout(set = 0, binding = 0) uniform CameraMatrices {
     mat4 view;
     mat4 proj;
+    mat4 depthMVP;
 } cams;
 
 layout (location = 0) out vec4 vColor;
