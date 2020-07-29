@@ -774,11 +774,11 @@ class DCore::Rendering::DefaultTexturedRenderer
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public glm::mat4 `[`depthMVP`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) | 
+`public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) | 
 
 ## Members
 
-#### `public glm::mat4 `[`depthMVP`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) 
+#### `public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) 
 
 # struct `DCore::Rendering::VertexAttributes` 
 

@@ -10,7 +10,7 @@ layout(location=2) in vec3 aNormal;
 layout(set = 0, binding = 0) uniform CameraMatrices {
     mat4 view;
     mat4 proj;
-    mat4 depthMVP;
+    mat4 depthViewProj;
 } cams;
 
 layout(push_constant) uniform PushConsts {
@@ -41,5 +41,5 @@ void main() {
                 * cams.view
                 * worldPos;
     gl_Position = pos;
-    mlightviewVertexPos = cams.depthMVP * vec4(aPosition, 1.0);
+    mlightviewVertexPos = cams.depthViewProj * pu.modelMatrix * vec4(aPosition, 1.0);
 }

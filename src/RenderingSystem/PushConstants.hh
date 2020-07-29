@@ -20,7 +20,7 @@ namespace DCore {
 		struct CameraDataForwardPass {
 			glm::mat4 view;
 			glm::mat4 proj;
-			glm::mat4 depthMVP;
+			glm::mat4 depthViewProj;
 		};
 
 		struct VertexAttributes
