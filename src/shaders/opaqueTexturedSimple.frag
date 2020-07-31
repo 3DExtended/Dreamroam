@@ -32,15 +32,16 @@ void main() {
 
 	
 	float shade = 1.0;
-	shade = intensity <= 0.8 ? 0.8 : shade;
+	/*shade = intensity <= 0.8 ? 0.8 : shade;
 	shade = intensity <= 0.15 ? 0.5 : shade;
-	shade = intensity <= -0.3 ? 0.1 : shade;
+	shade = intensity <= -0.3 ? 0.1 : shade;//*/
 
 	vec3 lightFragmentPosition = mlightviewVertexPos.xyz;
 	lightFragmentPosition.xy = lightFragmentPosition.xy * 0.5 + 0.5;
+
 	float closestDepth = texture(shadowTexture, lightFragmentPosition.xy).r; 
-	
-	if (lightFragmentPosition.z+0.0001 < closestDepth){
+
+	if (lightFragmentPosition.z + 0.0001 < closestDepth){
 		color.rgb *= 0.5; 
 	}
 }
