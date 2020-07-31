@@ -41,5 +41,6 @@ void main() {
                 * cams.view
                 * worldPos;
     gl_Position = pos;
-    mlightviewVertexPos = cams.depthViewProj * pu.modelMatrix * vec4(aPosition, 1.0);
+
+    mlightviewVertexPos = cams.depthViewProj * worldPos;
 }

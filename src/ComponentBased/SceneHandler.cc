@@ -361,7 +361,7 @@ void SceneHandler::setupPipeline(const lava::SharedDescriptorSetLayout textureLa
 		});
 }
 
-void SceneHandler::getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 projection)
+void SceneHandler::getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 inverseProjection)
 {
 	corners.clear();
 
@@ -378,7 +378,7 @@ void SceneHandler::getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 
 	hcorners[6] = glm::vec4(1, -1, -1, 1);
 	hcorners[7] = glm::vec4(-1, -1, -1, 1);
 
-	glm::mat4 inverseProj = glm::inverse(projection);
+	glm::mat4 inverseProj = inverseProjection;
 	for (int i = 0; i < 8; i++) {
 		hcorners[i] = inverseProj * hcorners[i];
 		hcorners[i] /= hcorners[i].w;
@@ -397,18 +397,14 @@ std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLigh
 	glm::vec3 cameraForward = mPipeline->getCamera()->getForwardDirection();
 	glm::vec3 cameraUp = mPipeline->getCamera()->getUpDirection();
 
-	this->getFrustumCorners(corners,
+	glm::mat4 inverseCameraViewProj = glm::inverse(
 		mPipeline->getCamera()->getProjectionMatrix()
 		* glm::lookAt(glm::vec3(0), glm::vec3(0) + cameraForward, cameraUp)
 		* mPipeline->getCamera()->getTranslationMatrix4()
 	);
 
-	// glm::mat4 rotateToLightSpace = glm::lookAt(glm::vec3(0, 0, 0), lightDir, upDirection);
-	// glm::mat4 translateCorners = glm::translate(glm::mat4(1), camPosition);
-	/*std::vector<glm::vec4> rotatedCorners;
-	for (auto c : corners) {
-		rotatedCorners.push_back(translateCorners * rotateToLightSpace * c);
-	}*/
+	this->getFrustumCorners(corners, inverseCameraViewProj);
+
 	float minX = std::numeric_limits<float>::max();
 	float maxX = std::numeric_limits<float>::min();
 	float minY = std::numeric_limits<float>::max();
@@ -425,20 +421,25 @@ std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLigh
 		if (c[2] > maxZ) maxZ = c[2];
 	}
 
-	// maxZ = 100;
-
-	glm::mat4 proj = glm::orthoRH_ZO(minX, maxX, maxY, minY, maxZ, minZ);
-
-	// incrementEachFrame += 0.1f;
-
 	glm::vec3 frustumCenter = glm::vec3((maxX + minX) / 2.0f, (maxY + minY) / 2.0f, (maxZ + minZ) / 2.0f);
 
-	auto frustumCenterDistance = glm::distance(glm::vec3(0), frustumCenter);
-	glm::vec3 newEyePosition = frustumCenter - glm::normalize(lightDir) * frustumCenterDistance;
+	float maxDistance = 0.0;
 
-	// TODO figure out how we can rotate our new frustum correctly to line up with the lightDir vector
+	// TODO this should always be the same index of the corner array. improv this
+	for (auto c : corners) {
+		auto tempDistance = glm::distance(glm::vec4(frustumCenter, 1.0f), c);
+		if (tempDistance > maxDistance) {
+			maxDistance = tempDistance;
+		}
+	}
+
+	// maxZ = 100;
+
+	glm::mat4 proj = glm::orthoRH_ZO(maxDistance, -maxDistance, maxDistance, -maxDistance, 0.0f, maxDistance * 2.0f);
+
+	glm::vec3 newEyePosition = frustumCenter - glm::normalize(lightDir) * maxDistance;
 	glm::mat4 view =
-		glm::lookAt(newEyePosition, newEyePosition + lightDir, cameraUp);
+		glm::lookAt(newEyePosition, newEyePosition + lightDir, glm::vec3(0, 1, 0));
 
 	return std::tuple<glm::mat4, glm::mat4 >(proj, view);
 }
@@ -479,7 +480,7 @@ void SceneHandler::render()
 		glm::mat4 lightViewMatrix;
 
 		std::tie(lightProjMatrix, lightViewMatrix) = this->rotateCameraFrustrumCornersToLightSpace(
-			glm::vec3(1.0f, -1.0f, -1.0f),
+			glm::vec3(1.0f, 0.5f, -1.0f),
 			mPipeline->getCamera()->getPosition(),
 			mPipeline->getCamera()->getUpDirection());
 		{
@@ -488,7 +489,6 @@ void SceneHandler::render()
 				lightViewMatrix,
 				lightProjMatrix
 			};
-
 			mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
 		}
 
