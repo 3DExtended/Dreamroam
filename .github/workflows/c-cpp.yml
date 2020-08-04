@@ -14,10 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: apt install packages
-      uses: ryankurte/action-apt@v0.1.0
-      with: 
-        packages: "libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev"
-    - name: cloneSubmodules
+      run: sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
+    - name: clone submodules
       run: git submodule update --init
     - name: cmake
       run: cmake . 
