@@ -20,7 +20,7 @@ jobs:
     - name: vulkan sdk
       run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && cd VulkanSDK && sudo tar xf ../VulkanSDK.tar.gz && cd $SCRIPTPATH 
     - name: source vulkan sdk
-      run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" && vulkan-info
+      run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" && echo $PATH && ./~/vulkan/VulkanSDK/1.2.148.0/x86_64/bin/vulkan-info
     - uses: actions/checkout@v2
     - name: apt install packages
       run: sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
