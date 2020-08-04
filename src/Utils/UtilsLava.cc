@@ -6,7 +6,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <extern/stb_image.hh>
-#include <lava\src\lava\common\log.hh>
+#include <lava/common/log.hh>
 
 namespace UtilsLava
 {
