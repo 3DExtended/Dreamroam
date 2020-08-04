@@ -17,8 +17,8 @@ jobs:
       run: sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
     - name: clone submodules
       run: git submodule update --init
-    - name: setup apt for vulkan
-      run: sudo add-apt-repository ppa:graphics-drivers/ppa && sudo apt upgrade && sudo apt install nvidia-graphics-drivers-396 nvidia-settings vulkan vulkan-utils
+    - name: vulkan-info
+      run: vulkan-info
     - name: cmake
       run: cmake . 
     - name: make
