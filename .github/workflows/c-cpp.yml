@@ -16,7 +16,7 @@ jobs:
       run: SCRIPT=$(readlink -f "$0") && SCRIPTPATH=$(dirname "$SCRIPT") && echo $SCRIPTPATH
 
     - name: install vulkan tools
-      run: sudo apt install libmesa-dev libvulkan1 mesa-vulkan-drivers vulkan-utils
+      run: sudo apt install mesa-common-dev libvulkan1 mesa-vulkan-drivers vulkan-utils
     - name: vulkan sdk
       run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && cd VulkanSDK && sudo tar xf ../VulkanSDK.tar.gz && cd $SCRIPTPATH 
     - name: source vulkan sdk
