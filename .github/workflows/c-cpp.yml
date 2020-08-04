@@ -12,15 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: setup script parameters:
+      run: SCRIPT=$(readlink -f "$0") && SCRIPTPATH=$(dirname "$SCRIPT") && echo $SCRIPTPATH
+
     - name: install vulkan tools
       run: sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-utils
     - name: vulkan sdk
-      run: mkdir vulkan && cd vulkan && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && sudo tar xf VulkanSDK.tar.gz 
+      run: mkdir -p /local/vulkan/VulkanSDK && cd /local/vulkan/ && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && cd VulkanSDK && sudo tar xf ../VulkanSDK.tar.gz && cd $SCRIPTPATH 
     - name: source vulkan sdk
-      run: source vulkan/1.2.148.0/setup-env.sh
+      run: export VULKAN_SDK="/local/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}"
       
     - name: vulkan-info
-      run: echo $PATH && ./vulkan-info
+      run: echo $PATH && vulkan-info
       
     - uses: actions/checkout@v2
     - name: apt install packages
