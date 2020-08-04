@@ -18,8 +18,9 @@ jobs:
       run: mkdir vulkan && cd vulkan && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && sudo tar xf VulkanSDK.tar.gz 
     - name: source vulkan sdk
       run: source vulkan/1.2.148.0/setup-env.sh
+      
     - name: vulkan-info
-      run: vulkan-info
+      run: echo $PATH && ./vulkan-info
       
     - uses: actions/checkout@v2
     - name: apt install packages
