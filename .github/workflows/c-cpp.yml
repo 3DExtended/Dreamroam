@@ -12,13 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: install vulkan tools
+      run: sudo apt install libvulkan1 mesa-vulkan-drivers vulkan-utils
+    - name: vulkan-info
+      run: vulkan-info
     - uses: actions/checkout@v2
     - name: apt install packages
       run: sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
     - name: clone submodules
       run: git submodule update --init
-    - name: vulkan-info
-      run: vulkan-info
     - name: cmake
       run: cmake . 
     - name: make
