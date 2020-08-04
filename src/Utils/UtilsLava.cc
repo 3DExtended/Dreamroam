@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include <lava/objects/ImageData.hh>
-#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <extern/stb_image.hh>
@@ -28,7 +27,6 @@ namespace UtilsLava
 
 		if (pixels == nullptr) {
 			lava::log(lava::LogLevel::Error) << "Could not load image with title: '" << filePath << "'";
-			lava::log(lava::LogLevel::Error) << "Current path: '" << std::filesystem::current_path() << "'";
 			assert(false);
 		}
 
