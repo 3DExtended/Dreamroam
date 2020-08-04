@@ -12,11 +12,14 @@ This README originates from the repository https://github.com/othneildrew/Best-R
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
+![C/C++ CI](https://github.com/3DExtended/Dreamroam/workflows/C/C++%20CI/badge.svg?branch=master)
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+
 
 <!-- PROJECT LOGO -->
 
@@ -27,6 +30,7 @@ This README originates from the repository https://github.com/othneildrew/Best-R
   </a>-->
 
   <h3 align="center">Dreamroam - 3D Game Engine</h3>
+  
 
   <p align="center">
     An awesome README template to jumpstart your projects!
