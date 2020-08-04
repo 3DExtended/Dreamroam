@@ -19,6 +19,10 @@ layout(push_constant) uniform PushConsts {
 //Out:
 layout (location = 0) out vec4 color;
 
+float normpdf(in float x, in float sigma)
+{
+	return 0.39894*exp(-0.5*x*x/(sigma*sigma))/sigma;
+}
 
 void main() {
     color = texture(uTexture, vUV);
@@ -38,11 +42,38 @@ void main() {
 
 	vec3 lightFragmentPosition = mlightviewVertexPos.xyz;
 	lightFragmentPosition.xy = lightFragmentPosition.xy * 0.5 + 0.5;
+	vec2 texSize = vec2(textureSize(shadowTexture, 0));
 
-	float closestDepth = texture(shadowTexture, lightFragmentPosition.xy).r; 
+	float shadowFactor = 0.0;
+	float bias = 0.005;
 
-	if (lightFragmentPosition.z + 0.0001 < closestDepth){
-		color.rgb *= 0.5; 
+	vec2 inc = 1.0 / textureSize(shadowTexture, 0);
+	int counter = 0;
+	int missedCounter = 0;
+	vec2 originalUV = lightFragmentPosition.xy;
+
+	float orgFragDepth = texture(shadowTexture, originalUV).r; 
+	for(int row = -1; row <= 1; ++row)
+	{
+		for(int col = -1; col <= 1; ++col)
+		{
+			vec2 uvOffset = vec2(row, col) * inc;
+			vec2 uv = lightFragmentPosition.xy + uvOffset;
+			if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0){
+				shadowFactor += lightFragmentPosition.z + bias < orgFragDepth ? 1.0 * (normpdf(row,1.0) * normpdf(col,1.0)) : 0.0;        
+				continue;
+			}
+
+			float textDepth = texture(shadowTexture, uv).r;
+
+			if (textDepth > 0){
+				shadowFactor += lightFragmentPosition.z + bias < textDepth ? 1.0 * (normpdf(row,1.0) * normpdf(col,1.0)) : 0.0;        
+				counter ++;
+			}else {
+				shadowFactor += lightFragmentPosition.z + bias < orgFragDepth ? 1.0 * (normpdf(row,1.0) * normpdf(col,1.0)) : 0.0;        
+			}
+		}    
 	}
-}
 
+	color.rgb *= 1.0-shadowFactor; 
+}

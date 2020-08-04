@@ -424,16 +424,12 @@ std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLigh
 	glm::vec3 frustumCenter = glm::vec3((maxX + minX) / 2.0f, (maxY + minY) / 2.0f, (maxZ + minZ) / 2.0f);
 
 	float maxDistance = 0.0;
-
-	// TODO this should always be the same index of the corner array. improv this
 	for (auto c : corners) {
 		auto tempDistance = glm::distance(glm::vec4(frustumCenter, 1.0f), c);
 		if (tempDistance > maxDistance) {
 			maxDistance = tempDistance;
 		}
 	}
-
-	// maxZ = 100;
 
 	glm::mat4 proj = glm::orthoRH_ZO(maxDistance, -maxDistance, maxDistance, -maxDistance, 0.0f, maxDistance * 2.0f);
 
@@ -480,7 +476,7 @@ void SceneHandler::render()
 		glm::mat4 lightViewMatrix;
 
 		std::tie(lightProjMatrix, lightViewMatrix) = this->rotateCameraFrustrumCornersToLightSpace(
-			glm::vec3(1.0f, 0.5f, -1.0f),
+			glm::vec3(0.5f, 1.0f, -0.5f),
 			mPipeline->getCamera()->getPosition(),
 			mPipeline->getCamera()->getUpDirection());
 		{
