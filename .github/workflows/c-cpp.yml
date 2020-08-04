@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: setup script parameters:
+    - name: setup script parameters
       run: SCRIPT=$(readlink -f "$0") && SCRIPTPATH=$(dirname "$SCRIPT") && echo $SCRIPTPATH
 
     - name: install vulkan tools
