@@ -12,13 +12,15 @@ namespace DCore {
 			float alpha = 1.0;
 		};
 
-		struct CameraData {
+		struct CameraDataPrePass {
 			glm::mat4 view;
 			glm::mat4 proj;
 		};
 
-		struct ShadowMVP {
-			glm::mat4 depthMVP;
+		struct CameraDataForwardPass {
+			glm::mat4 view;
+			glm::mat4 proj;
+			glm::mat4 depthViewProj;
 		};
 
 		struct VertexAttributes

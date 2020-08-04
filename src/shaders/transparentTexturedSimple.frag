@@ -26,10 +26,10 @@ void main() {
     /*vec3 L = normalize(vec3(50,100,25) - vPosition);
     vec3 Idiff = fColor.rgb * max(dot(vNormal,L), 0.0);
     Idiff = clamp(Idiff, 0.0, 1.0);
-	fColor.rgb = Idiff.rgb + 0.05 * fColor.rgb;
+    fColor.rgb = Idiff.rgb + 0.05 * fColor.rgb;
     fColor.a = pu.alpha;*/
 
-	fColor.rgb = fColor.rgb;
+    fColor.rgb = fColor.rgb;
     fColor.a = pu.alpha;
 
     /*vec3 lightDirection = normalize(vec3(1,1,1));
