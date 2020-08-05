@@ -126,6 +126,7 @@ git submodule update
 
 #### 2. Configure and generate using CMake
 
+__Note:__ Please run cmake twice. This is required for compiling the shaders through the GLSL Validator.
 - For Linux and MacOS:
 
 ```sh
