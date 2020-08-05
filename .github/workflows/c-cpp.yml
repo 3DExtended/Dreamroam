@@ -31,7 +31,3 @@ jobs:
       run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" &&  cmake . &&  cmake . 
     - name: make -j8
       run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" && make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
