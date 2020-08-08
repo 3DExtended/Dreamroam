@@ -1,7 +1,7 @@
 #pragma once
 #include <ComponentBased/AScene.hh>
-#include <RenderingSystem/GraphicsPipelineFactory.hh>
-#include "RenderingSystem/AdvancedRenderingPipeline.hh"
+#include <RenderingSystem/Pipeline/GraphicsPipelineFactory.hh>
+#include <RenderingSystem/Pipeline/AdvancedRenderingPipeline.hh>
 
 #include <vector>
 #include <iostream>

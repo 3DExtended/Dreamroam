@@ -1,7 +1,7 @@
 #include "AScene.hh"
 #include "SceneHandler.hh"
 #include "../ComponentBased/BaseComponents.hh"
-#include "./Entity.hh"
+#include "Systems/Entity.hh"
 
 using namespace DCore::ComponentSystem;
 using namespace DCore::Textures;
