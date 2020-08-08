@@ -1,21 +1,21 @@
 #include "DefaultTexturedRenderer.hh"
-#include "PushConstants.hh"
-#include <Components/RenderComponent.hh>
-#include <ComponentBased/GameObject.hh>
-#include <RenderObjects/Texture.hh>
+#include "../PushConstants.hh"
+#include "../RenderComponent.hh"
+#include "../TextureHandlers/Texture.hh"
 
+#include <ComponentBased/Entity.hh>
 #include <lava/objects/DescriptorSet.hh>
 
 using namespace DCore::Components;
+using namespace DCore::ComponentSystem;
 using namespace DCore::Rendering;
-void DefaultTexturedRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& go)
+void DefaultTexturedRenderer::renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go)
 {
-	auto renderComp = go->getComponent<RenderComponent>();
+	auto& [renderComp, transform] = go;
 
-	assert(renderComp->textureObj != nullptr);
+	assert(renderComp.textureObj != nullptr);
 	auto textureDescriptor =
-		renderComp
-		->textureObj
+		renderComp.textureObj
 		->getDescriptorSet();
 
 	mCurrentSubpass->bindDescriptorSets(
@@ -28,16 +28,15 @@ void DefaultTexturedRenderer::renderSingleGameObject(const std::shared_ptr<GameO
 		vk::PipelineBindPoint::eGraphics,
 		mLayout);
 
-	glm::mat4 modelMatrixComplete =
-		go->transform.getModelMatrix();
+	glm::mat4 modelMatrixComplete = transform.getModelMatrix();
 
 	PushConstants pushConsts;
 
 	pushConsts.modelMatrix = modelMatrixComplete;
 	pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
-	pushConsts.alpha = renderComp->alpha;
+	pushConsts.alpha = renderComp.alpha;
 
 	mCurrentSubpass->pushConstantBlock(pushConsts);
 
-	renderComp->geometryObj->draw(*mCurrentSubpass);
+	renderComp.geometryObj->draw(*mCurrentSubpass);
 }

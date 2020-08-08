@@ -2,8 +2,6 @@
 
 using namespace DCore::Rendering;
 
-using namespace DCore::ComponentSystem;
-
 GraphicsPipelineRenderer::GraphicsPipelineRenderer(
 	std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> advancedPipeline,
 	lava::SharedGraphicsPipeline pipeline,
@@ -22,7 +20,7 @@ void GraphicsPipelineRenderer::prepareRendering(
 	mCurrentSubpass->bindPipeline(mPipeline);
 }
 
-void GraphicsPipelineRenderer::renderGameObjects(const std::vector<std::shared_ptr<GameObject>>& gos)
+void GraphicsPipelineRenderer::renderGameObjects(const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos)
 {
 	for (auto go : gos)
 	{

@@ -5,11 +5,10 @@
 using namespace DCore::Components;
 using namespace DCore::Rendering;
 
-void DefaultRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& go)
+void DefaultRenderer::renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go)
 {
 	PushConstants pushConsts;
-
-	auto renderComp = go->getComponent<RenderComponent>();
+	auto& [renderComp, transform] = go;
 
 	mCurrentSubpass->bindDescriptorSets(
 		{ mCameraDescriptor },
@@ -17,10 +16,13 @@ void DefaultRenderer::renderSingleGameObject(const std::shared_ptr<GameObject>& 
 		vk::PipelineBindPoint::eGraphics,
 		mLayout);
 
-	glm::mat4 modelMatrixComplete = go->transform.getModelMatrix();
+	glm::mat4 modelMatrixComplete = transform.getModelMatrix();
 	pushConsts.modelMatrix = modelMatrixComplete;
 	pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
 	mCurrentSubpass->pushConstantBlock(pushConsts);
 
-	renderComp->geometryObj->draw(*mCurrentSubpass);
+	if (renderComp.geometryObj != nullptr)
+	{
+		renderComp.geometryObj->draw(*mCurrentSubpass);
+	}
 }

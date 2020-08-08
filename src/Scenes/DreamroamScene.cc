@@ -1,5 +1,7 @@
 #include "DreamroamScene.hh"
-#include <Components/RenderComponent.hh>
+#include <RenderingSystem/RenderComponent.hh>
+#include <ComponentBased/BaseComponents.hh>
+#include <ComponentBased/Entity.hh>
 
 using namespace DCore::ComponentSystem;
 using namespace DCore::Components;
@@ -21,36 +23,36 @@ void DreamroamScene::start()
 	createGameObjects();
 }
 
-std::shared_ptr<GameObject> cube;
+Entity cube;
 
 void DreamroamScene::update(double dt) {
-	cube->transform.rotation += glm::vec3(0, dt, 0);
+	cube.GetComponent<TransformComponent>().rotation += glm::vec3(0, dt, 0);
 }
 
 inline void DreamroamScene::createGameObjects()
 {
 	{ //load world.obj
 		mGeometryStore->registerGeometryFromFileSingle("assets/world.obj", "World");
-		auto houseGO = this->instantiate("World");
-		auto renderer = std::make_shared<RenderComponent>();
-		renderer->active = true;
-		renderer->hasTexture = true;
-		renderer->textureObj = mTextureStore->getTextureWithName("atlas");
-		renderer->isTransparent = false;
-		renderer->geometryObj = mGeometryStore->getGeometryWithName("World");
-		houseGO->addComponent(renderer);
+		auto houseGO = this->CreateEntity("World");
+		auto& renderer = houseGO.AddComponent<RenderComponent>();
+		renderer.active = true;
+		renderer.hasTexture = true;
+		renderer.textureObj = mTextureStore->getTextureWithName("atlas");
+		renderer.isTransparent = false;
+		renderer.geometryObj = mGeometryStore->getGeometryWithName("World");
 	}
 
 	{ // render cube
-		cube = this->instantiate("Cube");
-		auto renderer = std::make_shared<RenderComponent>();
-		renderer->active = true;
-		renderer->hasTexture = true;
-		renderer->textureObj = mTextureStore->getTextureWithName("atlas");
-		renderer->isTransparent = false;
-		renderer->geometryObj = mGeometryStore->getGeometryWithName("cube");
-		cube->addComponent(renderer);
-		cube->transform.position += glm::vec3(15, 1, 0);
-		cube->transform.scale += glm::vec3(2, 2, 2);
+		cube = this->CreateEntity("Cube");
+		auto& renderer = cube.AddComponent<RenderComponent>();
+
+		renderer.active = true;
+		renderer.hasTexture = true;
+		renderer.textureObj = mTextureStore->getTextureWithName("atlas");
+		renderer.isTransparent = false;
+		renderer.geometryObj = mGeometryStore->getGeometryWithName("cube");
+
+		cube.GetComponent<TransformComponent>().position += glm::vec3(15, 1, 0);
+		cube.GetComponent<TransformComponent>().scale += glm::vec3(2, 2, 2);
 	}
 }

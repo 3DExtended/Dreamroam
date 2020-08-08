@@ -3,25 +3,25 @@
 #include <vector>
 
 #include "glm/glm.hpp"
-#include <Geometry/GeometryStore.hh>
-#include <RenderObjects/TextureStore.hh>
-
-#include "GameObject.hh"
-#include "AComponent.hh"
+#include <RenderingSystem/MeshHandlers/GeometryStore.hh>
+#include <RenderingSystem/TextureHandlers/TextureStore.hh>
+#include "entt/entt.hpp"
 
 namespace DCore
 {
 	namespace ComponentSystem
 	{
+		typedef entt::entity EntityHandle;
+
 		using namespace DCore::Textures;
 		using namespace DCore::Meshes;
-		class GameObject;
-		class AComponent;
+		class Entity;
 
 		/// <summary>
 		/// This class is abstract and has to be inherited.
 		/// It provides the standard functions as start() or update().
 		/// Use your instance of this class in combination with the SceneHandler to define your world.
+		/// Note: You can create new entities using CreateEntity().
 		/// </summary>
 		class AScene
 		{
@@ -53,20 +53,13 @@ namespace DCore
 			virtual void destroy() {};
 
 			/// <summary>
-			/// Creates and registers a new game object.
-			/// The name of this game object will be the empty string.
-			/// Please note that you need to keep your own pointer to this object when you want to update it later.
+			/// Creates and registers a new entity for your scene.
+			/// Please note that you need to keep the returned entity when you want to update it in the scene.
+			/// The preferred version for updating entities however should be the system feature.
 			/// </summary>
-			/// <returns>A new gameObject instance.</returns>
-			std::shared_ptr<GameObject> instantiate();
-
-			/// <summary>
-			/// Creates and registers a new game object.
-			/// Please note that you need to keep your own pointer to this object when you want to update it later.
-			/// </summary>
-			/// <param name="name">The name of the gameObject in the scene.</param>
-			/// <returns>A new gameObject instance.</returns>
-			std::shared_ptr<GameObject> instantiate(const std::string& name);
+			/// <param name="name">The name of the enity in the scene. This will be stored in the TagComponent on the entity.</param>
+			/// <returns>A new entity instance.</returns>
+			Entity CreateEntity(const std::string& name = std::string());
 
 		protected:
 			/// <summary>
@@ -87,23 +80,32 @@ namespace DCore
 
 		private:
 			/// <summary>
-			/// The list of registered gameObjects for this scene.
+			/// We need this in order to access the registry for registering new components on an entity.
 			/// </summary>
-			std::vector<std::shared_ptr<GameObject>> gameObjects;
+			friend class Entity;
 
-		private:
 			/// <summary>
-			/// The only class that should be able to call the gameObject handlers is the SceneHandler. Thus, we define it as friend class here.
+			/// The SceneHandler must have access to the registry for rendering and sorting objects.
 			/// </summary>
 			friend class SceneHandler;
 
-			void gameObjectAwake();
+			/// <summary>
+			/// The registry for entities in the scene.
+			/// </summary>
+			entt::registry m_Registry;
+
+			// TODO make this a system based approach
+			/*void gameObjectAwake();
 			void gameObjectStart();
 			void gameObjectUpdate(double dt);
 			void gameObjectLateUpdate();
-			void gameObjectDestroy();
+			void gameObjectDestroy();*/
 
-			const lava::SharedDescriptorSetLayout getTextureLayout();
+			/// <summary>
+			/// Returns the texture layout of the scenes current texture store.
+			/// </summary>
+			/// <returns>The texture layout of the texture store</returns>
+			const lava::SharedDescriptorSetLayout GetCurrentSceneTextureStoreTextureLayout();
 		};
 	}
 }

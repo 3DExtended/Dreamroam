@@ -1,7 +1,7 @@
 #include "SceneHandler.hh"
 #include "GlobalSettings.hh"
 #include <RenderingSystem/PushConstants.hh>
-#include <Components/RenderComponent.hh>
+#include <RenderingSystem/RenderComponent.hh>
 
 #include <thread>
 #include <limits>
@@ -25,13 +25,11 @@
 #include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
 
+#include "SceneHandler.hh"
+#include "ComponentBased/BaseComponents.hh"
+
 using namespace DCore::Components;
 
-float lightFOV = 45.0f;
-// Keep depth range as small as possible
-	// for better shadow map precision
-float zNear = 1.0f;
-float zFar = 96.0f;
 std::shared_ptr<SceneHandler> SceneHandler::instance = nullptr;
 
 std::shared_ptr<SceneHandler> SceneHandler::getInstance()
@@ -59,7 +57,7 @@ void SceneHandler::_switchScene(uint16_t index)
 	{
 		if (curScene != nullptr)
 		{
-			curScene->gameObjectDestroy();
+			// curScene->gameObjectDestroy();
 			curScene->destroy();
 		}
 		curScene = scenes.at(index);
@@ -255,15 +253,15 @@ void SceneHandler::setupGlfwCallbacks()
 void SceneHandler::start()
 {
 	curScene->start();
-	curScene->gameObjectAwake();
-	curScene->gameObjectStart();
+	// curScene->gameObjectAwake();
+	// curScene->gameObjectStart();
 }
 
 void SceneHandler::update(double dt)
 {
 	curScene->update(dt);
-	curScene->gameObjectUpdate(dt);
-	curScene->gameObjectLateUpdate();
+	// curScene->gameObjectUpdate(dt);
+	// curScene->gameObjectLateUpdate();
 }
 
 void SceneHandler::setupRendering()
@@ -275,7 +273,7 @@ void SceneHandler::setupRendering()
 	mWindow->buildSwapchainWith(
 		[&](std::vector<lava::SharedImageView> const&) {});
 
-	setupPipeline(curScene->getTextureLayout());
+	setupPipeline(curScene->GetCurrentSceneTextureStoreTextureLayout());
 
 	mOpaqueUntextured = GraphicsPipelineFactory::createRenderer_opaqueUntextured(mDevice, mPlLayout, mPipeline);
 	mOpaqueTextured = GraphicsPipelineFactory::createRenderer_opaqueTextured(mDevice, mPlLayout, mPipeline);
@@ -443,19 +441,33 @@ std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLigh
 void SceneHandler::render()
 {
 	//classify gameObjects based on their renderers
-	std::vector<std::shared_ptr<GameObject>>
+	std::vector<std::tuple<RenderComponent&, TransformComponent&>>
 		opaqueUntexturedObjects,
 		opaqueTexturedObjects,
 		transparendUntexturedObjects,
 		transparendTexturedObjects,
-		shadowThrowingObjects = std::vector<std::shared_ptr<GameObject>>();
+		shadowThrowingObjects = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
-	recurseGameObjects(curScene->gameObjects,
-		opaqueUntexturedObjects,
-		opaqueTexturedObjects,
-		transparendUntexturedObjects,
-		transparendTexturedObjects,
-		shadowThrowingObjects);
+	auto group = curScene->m_Registry.group<RenderComponent>(entt::get<TransformComponent>);
+	for (auto entity : group) {
+		auto tuple = group.get<RenderComponent, TransformComponent>(entity);
+		auto& [renderer, transform] = tuple;
+
+		if (renderer.active)
+		{
+			if (renderer.isThrowingShadow) {
+				shadowThrowingObjects.push_back(tuple);
+			}
+			if (renderer.hasTexture)
+			{
+				renderer.isTransparent ? transparendTexturedObjects.push_back(tuple) : opaqueTexturedObjects.push_back(tuple);
+			}
+			else
+			{
+				renderer.isTransparent ? transparendUntexturedObjects.push_back(tuple) : opaqueUntexturedObjects.push_back(tuple);
+			}
+		}
+	}
 
 	// todo for shadow:
 	// DONE 1.: create a new pipeline for rendering shadows
@@ -659,44 +671,4 @@ void SceneHandler::updateInput()
 
 	// Poll for and process events
 	glfwPollEvents();
-}
-
-void SceneHandler::recurseGameObjects(
-	std::vector<std::shared_ptr<GameObject>> objects,
-	std::vector<std::shared_ptr<GameObject>>& opaqueUntexturedObjects,
-	std::vector<std::shared_ptr<GameObject>>& opaqueTexturedObjects,
-	std::vector<std::shared_ptr<GameObject>>& transparendUntexturedObjects,
-	std::vector<std::shared_ptr<GameObject>>& transparendTexturedObjects,
-	std::vector<std::shared_ptr<GameObject>>& shadowThrowingObjects
-) {
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		auto go = objects.at(i);
-
-		auto renderer = go->getComponent<RenderComponent>();
-		if (renderer != nullptr)
-		{
-			if (renderer->active)
-			{
-				if (renderer->isThrowingShadow) {
-					shadowThrowingObjects.push_back(go);
-				}
-				if (renderer->hasTexture)
-				{
-					renderer->isTransparent ? transparendTexturedObjects.push_back(go) : opaqueTexturedObjects.push_back(go);
-				}
-				else
-				{
-					renderer->isTransparent ? transparendUntexturedObjects.push_back(go) : opaqueUntexturedObjects.push_back(go);
-				}
-			}
-		}
-
-		recurseGameObjects(go->getChilds(),
-			opaqueUntexturedObjects,
-			opaqueTexturedObjects,
-			transparendUntexturedObjects,
-			transparendTexturedObjects,
-			shadowThrowingObjects);
-	}
 }

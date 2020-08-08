@@ -2,29 +2,21 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 #include <memory>
+#include <string>
+
 namespace DCore
 {
 	namespace ComponentSystem
 	{
-		class GameObject;
 		/// <summary>
 		/// This class is a part of each GameObject which stores rotation position and a three dimensional scale value for the object.
 		/// It also provides a methods for creating (for the rendering of the object) the model matrix.
 		/// </summary>
-		class Transform
+		struct TransformComponent
 		{
-		public:
-			/// <summary>
-			/// This creates a new Transform object where position and rotation can be specified (by default they are 0).
-			/// This constructor can also be used with a specified scale value (which by default is 1).
-			/// </summary>
-			/// <param name="pos">The three dimensional position of the object</param>
-			/// <param name="rot">The three dimensional rotation of the object</param>
-			/// <param name="scale">The three dimensional scale of the object</param>
-			/// <remarks>
-			/// Note that this class can be used without a GameObject but will in this case not be used in the scene.
-			/// </remarks>
-			Transform(glm::vec3 pos = glm::vec3(0), glm::vec3 rot = glm::vec3(0), glm::vec3 scale = glm::vec3(1.0f)) : position(pos), rotation(rot), scale(scale) {}
+			TransformComponent() = default;
+			TransformComponent(const TransformComponent&) = default;
+			TransformComponent(const glm::vec3& pos, const glm::vec3& rot, const glm::vec3&) : position(pos), rotation(rot), scale(scale) {}
 
 			/// <summary>
 			/// This method returns a model matrix for this transform object.
@@ -55,23 +47,35 @@ namespace DCore
 			/// <summary>
 			/// The position of the Transform and the corresponding GameObject
 			/// </summary>
-			glm::vec3 position;
+			glm::vec3 position = glm::vec3(0.0);
 
 			/// <summary>
 			/// The rotation of the Transform and the corresponding GameObject
 			/// </summary>
-			glm::vec3 rotation;
+			glm::vec3 rotation = glm::vec3(0.0);
 
 			/// <summary>
 			/// The scale value of the Transform and the corresponding GameObject
 			/// </summary>
-			glm::vec3 scale;
+			glm::vec3 scale = glm::vec3(1.0);
 
-		protected:
-			friend class GameObject; //Used so the GameObject can access the "gameObject" field which is used and needed for the parent calculation (in the model matrix method)
+			// TransformComponent* parent = nullptr;
+		};
 
-			//This field stores the gameObject for which this transform is used
-			GameObject* gameObject = nullptr;
+		/// <summary>
+		/// This component stores the name and the tags of the entity.
+		/// </summary>
+		struct TagComponent
+		{
+			/// <summary>
+			/// The name of the entity this component is attatched to.
+			/// </summary>
+			std::string Tag;
+
+			TagComponent() = default;
+			TagComponent(const TagComponent&) = default;
+			TagComponent(const std::string& tag)
+				: Tag(tag) {}
 		};
 	}
 }

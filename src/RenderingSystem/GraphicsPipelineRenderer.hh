@@ -2,13 +2,17 @@
 
 #include <lava/raii/ActiveRenderPass.hh>
 #include <lava/objects/GraphicsPipeline.hh>
-#include <ComponentBased/GameObject.hh>
 #include "AdvancedRenderingPipeline.hh"
+#include "RenderComponent.hh"
+#include <ComponentBased/BaseComponents.hh>
 
-using namespace DCore::ComponentSystem;
+#include <entt/entt.hpp>
 
 namespace DCore {
 	namespace Rendering {
+		using namespace DCore::Components;
+		using namespace DCore::ComponentSystem;
+
 		class GraphicsPipelineRenderer
 		{
 		public:
@@ -22,7 +26,7 @@ namespace DCore {
 			void prepareRendering(
 				lava::InlineSubpass* sub, lava::SharedDescriptorSet cameraDescriptor);
 
-			void renderGameObjects(const std::vector<std::shared_ptr<GameObject>>& gos);
+			void renderGameObjects(const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos);
 
 		protected:
 			lava::SharedGraphicsPipeline mPipeline;
@@ -34,8 +38,7 @@ namespace DCore {
 
 		private:
 			virtual void
-				renderSingleGameObject(const
-					std::shared_ptr<GameObject>& go) = 0;
+				renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go) = 0;
 		};
 	}
 }

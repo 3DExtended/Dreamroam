@@ -1,17 +1,14 @@
 #pragma once
-#include <ComponentBased/AComponent.hh>
-#include <Geometry/Geometry.hh>
-#include <RenderObjects/Texture.hh>
+#include "MeshHandlers/Geometry.hh"
+#include "TextureHandlers/Texture.hh"
 
-using namespace DCore::ComponentSystem;
 using namespace DCore::Meshes;
 using namespace DCore::Textures;
 namespace DCore {
 	namespace Components {
-		class RenderComponent : public AComponent
+		struct RenderComponent
 		{
-		public:
-			RenderComponent() {};
+			RenderComponent() = default;
 			std::shared_ptr<Geometry> geometryObj = nullptr;
 
 			bool isTransparent = false;

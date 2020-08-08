@@ -1,7 +1,5 @@
 #pragma once
 #include <ComponentBased/AScene.hh>
-#include "AComponent.hh"
-#include "GameObject.hh"
 #include <RenderingSystem/GraphicsPipelineFactory.hh>
 #include "RenderingSystem/AdvancedRenderingPipeline.hh"
 
@@ -11,13 +9,13 @@
 #include <lava/features/Validation.hh>
 #include <lava/objects/Device.hh>
 #include <lava-extras/glfw/GlfwApp.hh>
+
+#include <ComponentBased/AScene.hh>
+
 namespace DCore
 {
 	namespace ComponentSystem
 	{
-		class GameObject;
-		class AComponent;
-
 		/// <summary>
 		/// A SceneHandler is the manager of the game engine.
 		/// It implements the singleton pattern and provides getters for the current scene,
@@ -139,7 +137,6 @@ namespace DCore
 			void start();
 			void setupRendering();
 			void update(double dt);
-			void recurseGameObjects(std::vector<std::shared_ptr<GameObject>> objects, std::vector<std::shared_ptr<GameObject>>& opaqueUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& opaqueTexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendUntexturedObjects, std::vector<std::shared_ptr<GameObject>>& transparendTexturedObjects, std::vector<std::shared_ptr<GameObject>>& shadowThrowingObjects);
 			void render();
 			bool onKey(int key, int scancode, int action, int mods);
 			bool onMousePosition(double x, double y);

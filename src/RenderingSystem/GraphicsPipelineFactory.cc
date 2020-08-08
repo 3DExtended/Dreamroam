@@ -1,6 +1,6 @@
 #include "GraphicsPipelineFactory.hh"
-#include "DefaultRenderer.hh"
-#include "DefaultTexturedRenderer.hh"
+#include "Renders/DefaultRenderer.hh"
+#include "Renders/DefaultTexturedRenderer.hh"
 #include "PushConstants.hh"
 
 #include <lava-extras/geometry/Geometry.hh>
