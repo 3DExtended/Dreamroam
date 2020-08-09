@@ -1,8 +1,8 @@
-#include "GraphicsPipelineRenderer.hh"
+#include "RendererBase.hh"
 
 using namespace DCore::Rendering;
 
-GraphicsPipelineRenderer::GraphicsPipelineRenderer(
+RendererBase::RendererBase(
 	std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> advancedPipeline,
 	lava::SharedGraphicsPipeline pipeline,
 	lava::SharedPipelineLayout layout)
@@ -12,7 +12,7 @@ GraphicsPipelineRenderer::GraphicsPipelineRenderer(
 {
 }
 
-void GraphicsPipelineRenderer::prepareRendering(
+void RendererBase::prepareRendering(
 	lava::InlineSubpass* sub, lava::SharedDescriptorSet cameraDescriptor)
 {
 	mCurrentSubpass = sub;
@@ -20,7 +20,7 @@ void GraphicsPipelineRenderer::prepareRendering(
 	mCurrentSubpass->bindPipeline(mPipeline);
 }
 
-void GraphicsPipelineRenderer::renderGameObjects(const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos)
+void RendererBase::renderGameObjects(const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos)
 {
 	for (auto go : gos)
 	{

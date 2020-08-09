@@ -98,13 +98,6 @@ namespace DCore
 			/// The registry for entities in the scene.
 			/// </summary>
 			entt::registry m_Registry;
-
-			// TODO make this a system based approach
-			/*void gameObjectAwake();
-			void gameObjectStart();
-			void gameObjectUpdate(double dt);
-			void gameObjectLateUpdate();
-			void gameObjectDestroy();*/
 		};
 	}
 }

@@ -8,7 +8,7 @@
 
 using namespace DCore::Rendering;
 
-inline std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<RendererBase>
 GraphicsPipelineFactory::createRenderer_opaqueUntextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -38,7 +38,7 @@ GraphicsPipelineFactory::createRenderer_opaqueUntextured(
 	return renderer;
 }
 
-inline std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<RendererBase>
 GraphicsPipelineFactory::createRenderer_opaqueTextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -72,7 +72,7 @@ GraphicsPipelineFactory::createRenderer_opaqueTextured(
 	return renderer;
 }
 
-inline std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<RendererBase>
 GraphicsPipelineFactory::createRenderer_transparentUntextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -119,7 +119,7 @@ GraphicsPipelineFactory::createRenderer_transparentUntextured(
 	return renderer;
 }
 
-inline std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<RendererBase>
 GraphicsPipelineFactory::createRenderer_transparentTextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -166,7 +166,7 @@ GraphicsPipelineFactory::createRenderer_transparentTextured(
 	return renderer;
 }
 
-inline std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<RendererBase>
 GraphicsPipelineFactory::createRenderer_shadowMap(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,

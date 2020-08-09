@@ -4,6 +4,7 @@ using namespace DCore::ComponentSystem;
 
 glm::mat4 TransformComponent::getModelMatrix()
 {
+	// TODO make it possible to set a parent on the entity
 #if 0
 	if (parent != nullptr)
 	{
@@ -14,7 +15,7 @@ glm::mat4 TransformComponent::getModelMatrix()
 #endif
 		return getPosMatrix() * getRotationMatrix() * getScaleMatrix();
 		//}
-}
+	}
 
 	glm::mat4 TransformComponent::getScaleMatrix()
 	{

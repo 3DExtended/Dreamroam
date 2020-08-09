@@ -58,8 +58,6 @@ namespace DCore
 			/// The scale value of the Transform and the corresponding GameObject
 			/// </summary>
 			glm::vec3 scale = glm::vec3(1.0);
-
-			// TransformComponent* parent = nullptr;
 		};
 
 		/// <summary>

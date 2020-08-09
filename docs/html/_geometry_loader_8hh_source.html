@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dreamroam: K:/Projekte/dreamroam/src/Geometry/GeometryLoader.hh Source File</title>
+<title>Dreamroam: K:/Projekte/dreamroam/src/RenderingSystem/MeshHandlers/GeometryLoader.hh Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,84 +113,87 @@ $(document).ready(function(){initNavTree('_geometry_loader_8hh_source.html','');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">namespace </span>Meshes {</div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_d_core_1_1_meshes_1_1_geometry_loader.html">   25</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_meshes_1_1_geometry_loader.html">GeometryLoader</a></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">private</span>: <span class="comment">// settings</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                 <span class="comment">// see</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                 <span class="comment">// http://www.assimp.org/lib_html/postprocess_8h.html#a64795260b95f5a4b3f3dc1be4f52e410a8857a0e30688127a82c7b8939958c6dc</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"></span>            <span class="keywordtype">bool</span> mCalculateTangents = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordtype">bool</span> mCalculateTangents = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordtype">bool</span> mTriangulate = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordtype">bool</span> mGenerateSmoothNormal = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordtype">bool</span> mGenerateFaceNormal = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordtype">bool</span> mPreTransformVertices = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordtype">bool</span> mGenerateUvCoords = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordtype">bool</span> mGenerateSmoothNormal = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordtype">bool</span> mGenerateFaceNormal = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordtype">bool</span> mPreTransformVertices = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordtype">bool</span> mFlipUvCoords = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="class_d_core_1_1_meshes_1_1_geometry_loader.html">GeometryLoader</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keywordtype">bool</span> mGenerateUvCoords = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordtype">bool</span> mFlipUvCoords = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keyword">using</span> VertexCB =</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                std::function&lt;void(glm::vec3 <span class="comment">/* position */</span>, glm::vec3 <span class="comment">/* normal */</span>,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    glm::vec3 <span class="comment">/* tangent */</span>, glm::vec3 <span class="comment">/* texcoord */</span>,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    glm::vec4 <span class="comment">/* color */</span>)&gt;;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                loadRawMulti(</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    std::vector&lt;std::vector&lt;VertexAttributes&gt;&gt;&amp; verticesPerMesh,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    std::vector&lt;std::vector&lt;uint32_t&gt;&gt;&amp; indicesPerMesh,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                loadRawCombined(</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    std::vector&lt;VertexAttributes&gt;&amp; vertices,</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    std::vector&lt;uint32_t&gt;&amp; indices);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            std::vector&lt;std::shared_ptr&lt;lava::geometry::GeometryData&gt;&gt;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                meshesFromFile(</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            std::shared_ptr&lt;lava::geometry::GeometryData&gt; singleMeshFromFile(</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keyword">const</span> std::string&amp; filename);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <a class="code" href="class_d_core_1_1_meshes_1_1_geometry_loader.html">GeometryLoader</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keyword">using</span> VertexCB =</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                std::function&lt;void(glm::vec3 <span class="comment">/* position */</span>, glm::vec3 <span class="comment">/* normal */</span>,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    glm::vec3 <span class="comment">/* tangent */</span>, glm::vec3 <span class="comment">/* texcoord */</span>,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    glm::vec4 <span class="comment">/* color */</span>)&gt;;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                loadRawMulti(</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;std::vector&lt;VertexAttributes&gt;&gt;&amp; verticesPerMesh,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    std::vector&lt;std::vector&lt;uint32_t&gt;&gt;&amp; indicesPerMesh,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                loadRawCombined(</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    std::vector&lt;VertexAttributes&gt;&amp; vertices,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    std::vector&lt;uint32_t&gt;&amp; indices);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            std::vector&lt;std::shared_ptr&lt;lava::geometry::GeometryData&gt;&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                meshesFromFile(</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">class</span> VertexT = lava::geometry::DefaultVertex&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            std::vector&lt;std::shared_ptr&lt;lava::geometry::GeometryData&gt;&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                loadMulti(</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keywordflow">return</span> meshesFromFile(</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    filename,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    meshMaterialIndices,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    meshNames);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">class</span> VertexT = lava::geometry::DefaultVertex&gt;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            std::shared_ptr&lt;lava::geometry::GeometryData&gt;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                loadCombined(</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    std::string <span class="keyword">const</span>&amp; filename)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="keywordflow">return</span> singleMeshFromFile(filename);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordtype">void</span> printNodeInfo_recursive(<span class="keyword">const</span> aiScene* scene, <span class="keyword">const</span> aiNode* node) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordtype">void</span> printSceneInfo(<span class="keyword">const</span> aiScene* scene) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        };</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            std::shared_ptr&lt;lava::geometry::GeometryData&gt; singleMeshFromFile(</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keyword">const</span> std::string&amp; filename);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">class</span> VertexT = lava::geometry::DefaultVertex&gt;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            std::vector&lt;std::shared_ptr&lt;lava::geometry::GeometryData&gt;&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                loadMulti(</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    <span class="keyword">const</span> std::string&amp; filename,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    std::vector&lt;unsigned int&gt;&amp; meshMaterialIndices,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    std::vector&lt;std::string&gt;&amp; meshNames)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">return</span> meshesFromFile(</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    filename,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    meshMaterialIndices,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    meshNames);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">class</span> VertexT = lava::geometry::DefaultVertex&gt;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            std::shared_ptr&lt;lava::geometry::GeometryData&gt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                loadCombined(</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    std::string <span class="keyword">const</span>&amp; filename)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">return</span> singleMeshFromFile(filename);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordtype">void</span> printNodeInfo_recursive(<span class="keyword">const</span> aiScene* scene, <span class="keyword">const</span> aiNode* node) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordtype">void</span> printSceneInfo(<span class="keyword">const</span> aiScene* scene) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        };</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclass_d_core_1_1_meshes_1_1_geometry_loader_html"><div class="ttname"><a href="class_d_core_1_1_meshes_1_1_geometry_loader.html">DCore::Meshes::GeometryLoader</a></div><div class="ttdef"><b>Definition:</b> GeometryLoader.hh:26</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AComponent.cc:9</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cae27912e177176a90175eee3a6288a5.html">Geometry</a></li><li class="navelem"><b>GeometryLoader.hh</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d3724ca37bfdd188d1c89fc98abad067.html">RenderingSystem</a></li><li class="navelem"><a class="el" href="dir_e2bd3a1bcab09aaa8e4c18060c5b4ea1.html">MeshHandlers</a></li><li class="navelem"><b>GeometryLoader.hh</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

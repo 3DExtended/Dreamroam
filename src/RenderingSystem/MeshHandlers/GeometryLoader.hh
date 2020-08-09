@@ -24,21 +24,24 @@ namespace DCore {
 	namespace Meshes {
 		class GeometryLoader
 		{
-		private: // settings
-				 // see
-				 // http://www.assimp.org/lib_html/postprocess_8h.html#a64795260b95f5a4b3f3dc1be4f52e410a8857a0e30688127a82c7b8939958c6dc
-				 /// vec3 aTangent is available
+		private:
+
+			/// vec3 aTangent is available
 			bool mCalculateTangents = true;
+
 			/// No quads.
 			bool mTriangulate = true;
+
 			/// vec3 aNormal is available
 			/// (normals in the dataset have priority)
 			bool mGenerateSmoothNormal = true;
+
 			/// per face, non-smooth normals
 			bool mGenerateFaceNormal = false;
 
 			/// Collapses scene structures
 			bool mPreTransformVertices = true;
+
 			/// vec2 aTexCoord is available (hopefully)
 			bool mGenerateUvCoords = true;
 

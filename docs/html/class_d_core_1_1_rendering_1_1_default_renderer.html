@@ -89,48 +89,55 @@ $(document).ready(function(){initNavTree('class_d_core_1_1_rendering_1_1_default
 <div class="title">DCore::Rendering::DefaultRenderer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Renderer for non-textured meshes.  
+ <a href="class_d_core_1_1_rendering_1_1_default_renderer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_default_renderer_8hh_source.html">DefaultRenderer.hh</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for DCore::Rendering::DefaultRenderer:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_d_core_1_1_rendering_1_1_default_renderer.png" usemap="#DCore::Rendering::DefaultRenderer_map" alt=""/>
   <map id="DCore::Rendering::DefaultRenderer_map" name="DCore::Rendering::DefaultRenderer_map">
-<area href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html" alt="DCore::Rendering::GraphicsPipelineRenderer" shape="rect" coords="0,0,268,24"/>
+<area href="class_d_core_1_1_rendering_1_1_renderer_base.html" alt="DCore::Rendering::RendererBase" shape="rect" coords="0,0,212,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">DCore::Rendering::GraphicsPipelineRenderer</a></td></tr>
-<tr class="memitem:a62793a25bff6253222047558fcdc3680 inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a62793a25bff6253222047558fcdc3680"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GraphicsPipelineRenderer</b> (std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt;, lava::SharedGraphicsPipeline pipeline, lava::SharedPipelineLayout layout)</td></tr>
-<tr class="separator:a62793a25bff6253222047558fcdc3680 inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab00f69af656d6889d15613f627fc5267 inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="ab00f69af656d6889d15613f627fc5267"></a>
+<tr class="inherit_header pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_d_core_1_1_rendering_1_1_renderer_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">DCore::Rendering::RendererBase</a></td></tr>
+<tr class="memitem:a9f699892f39e527cb890b08e2a63350a inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="a9f699892f39e527cb890b08e2a63350a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RendererBase</b> (std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt;, lava::SharedGraphicsPipeline pipeline, lava::SharedPipelineLayout layout)</td></tr>
+<tr class="separator:a9f699892f39e527cb890b08e2a63350a inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4655eafa1e009cc3c7013cadf53c3b6a inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="a4655eafa1e009cc3c7013cadf53c3b6a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareRendering</b> (lava::InlineSubpass *sub, lava::SharedDescriptorSet cameraDescriptor)</td></tr>
-<tr class="separator:ab00f69af656d6889d15613f627fc5267 inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42bda88dfd216fc11da6a4f027d1facc inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a42bda88dfd216fc11da6a4f027d1facc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>renderGameObjects</b> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_component_system_1_1_game_object.html">GameObject</a> &gt;&gt; gos)</td></tr>
-<tr class="separator:a42bda88dfd216fc11da6a4f027d1facc inherit pub_methods_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">DCore::Rendering::GraphicsPipelineRenderer</a></td></tr>
-<tr class="memitem:a347a9e8363e6e3a29cdf50668824ae29 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a347a9e8363e6e3a29cdf50668824ae29"></a>
+<tr class="separator:a4655eafa1e009cc3c7013cadf53c3b6a inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c04a907face2fc84897c52ce5defacc inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="a9c04a907face2fc84897c52ce5defacc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>renderGameObjects</b> (const std::vector&lt; std::tuple&lt; <a class="el" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a> &amp;, <a class="el" href="struct_d_core_1_1_component_system_1_1_transform_component.html">TransformComponent</a> &amp; &gt;&gt; &amp;gos)</td></tr>
+<tr class="separator:a9c04a907face2fc84897c52ce5defacc inherit pub_methods_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">DCore::Rendering::RendererBase</a></td></tr>
+<tr class="memitem:a5a3d4dae1f8db27b1eb02febce7ceac6 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="a5a3d4dae1f8db27b1eb02febce7ceac6"></a>
 lava::SharedGraphicsPipeline&#160;</td><td class="memItemRight" valign="bottom"><b>mPipeline</b></td></tr>
-<tr class="separator:a347a9e8363e6e3a29cdf50668824ae29 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68bd3fe4cc4bd953d5f8ae72b8bb3734 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a68bd3fe4cc4bd953d5f8ae72b8bb3734"></a>
+<tr class="separator:a5a3d4dae1f8db27b1eb02febce7ceac6 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adec103350b3301f829b8e2e3d4b5b570 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="adec103350b3301f829b8e2e3d4b5b570"></a>
 lava::SharedPipelineLayout&#160;</td><td class="memItemRight" valign="bottom"><b>mLayout</b></td></tr>
-<tr class="separator:a68bd3fe4cc4bd953d5f8ae72b8bb3734 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75817b6a63f889bb31f75fd50e40dc9e inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a75817b6a63f889bb31f75fd50e40dc9e"></a>
+<tr class="separator:adec103350b3301f829b8e2e3d4b5b570 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a2c90c6a5f206bf6ed375b8af438682 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="a4a2c90c6a5f206bf6ed375b8af438682"></a>
 lava::SharedDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><b>mCameraDescriptor</b></td></tr>
-<tr class="separator:a75817b6a63f889bb31f75fd50e40dc9e inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a308e3a00807bd2cf410db4e1d047ab42 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a308e3a00807bd2cf410db4e1d047ab42"></a>
+<tr class="separator:a4a2c90c6a5f206bf6ed375b8af438682 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af787cca69c878dff46caf4de8fe0a7e9 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="af787cca69c878dff46caf4de8fe0a7e9"></a>
 lava::InlineSubpass *&#160;</td><td class="memItemRight" valign="bottom"><b>mCurrentSubpass</b></td></tr>
-<tr class="separator:a308e3a00807bd2cf410db4e1d047ab42 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f4f9ab652862ff98f13b446be87d706 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memItemLeft" align="right" valign="top"><a id="a9f4f9ab652862ff98f13b446be87d706"></a>
+<tr class="separator:af787cca69c878dff46caf4de8fe0a7e9 inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6a53352d37a9226d9d92193f20d081d inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memItemLeft" align="right" valign="top"><a id="ac6a53352d37a9226d9d92193f20d081d"></a>
 std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mAdvancedPipeline</b></td></tr>
-<tr class="separator:a9f4f9ab652862ff98f13b446be87d706 inherit pro_attribs_class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ac6a53352d37a9226d9d92193f20d081d inherit pro_attribs_class_d_core_1_1_rendering_1_1_renderer_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>K:/Projekte/dreamroam/src/RenderingSystem/<a class="el" href="_default_renderer_8hh_source.html">DefaultRenderer.hh</a></li>
-<li>K:/Projekte/dreamroam/src/RenderingSystem/DefaultRenderer.cc</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Renderer for non-textured meshes. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>K:/Projekte/dreamroam/src/RenderingSystem/Renders/<a class="el" href="_default_renderer_8hh_source.html">DefaultRenderer.hh</a></li>
+<li>K:/Projekte/dreamroam/src/RenderingSystem/Renders/DefaultRenderer.cc</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

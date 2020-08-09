@@ -1,11 +1,14 @@
 #pragma once
-#include "../Pipeline/GraphicsPipelineRenderer.hh"
+#include <RenderingSystem/Renders/RendererBase.hh>
 
 namespace DCore {
 	namespace Rendering {
-		class DefaultRenderer : public GraphicsPipelineRenderer
+		/// <summary>
+		/// Renderer for non-textured meshes.
+		/// </summary>
+		class DefaultRenderer : public RendererBase
 		{
-			using GraphicsPipelineRenderer::GraphicsPipelineRenderer;
+			using RendererBase::RendererBase;
 
 		private:
 			void renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go) override;

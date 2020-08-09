@@ -2,7 +2,7 @@
 
 #include <lava/raii/ActiveRenderPass.hh>
 #include <lava/objects/GraphicsPipeline.hh>
-#include "AdvancedRenderingPipeline.hh"
+#include <RenderingSystem/Pipeline/AdvancedRenderingPipeline.hh>
 #include "../RenderComponent.hh"
 #include <ComponentBased/BaseComponents.hh>
 
@@ -12,15 +12,15 @@ namespace DCore {
 	namespace Rendering {
 		using namespace DCore::ComponentSystem;
 
-		class GraphicsPipelineRenderer
+		class RendererBase
 		{
 		public:
-			explicit GraphicsPipelineRenderer(
+			explicit RendererBase(
 				std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline>,
 				lava::SharedGraphicsPipeline pipeline,
 				lava::SharedPipelineLayout layout);
 
-			virtual ~GraphicsPipelineRenderer() {};
+			virtual ~RendererBase() {};
 
 			void prepareRendering(
 				lava::InlineSubpass* sub, lava::SharedDescriptorSet cameraDescriptor);

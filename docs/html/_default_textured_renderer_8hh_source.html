@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dreamroam: K:/Projekte/dreamroam/src/RenderingSystem/DefaultTexturedRenderer.hh Source File</title>
+<title>Dreamroam: K:/Projekte/dreamroam/src/RenderingSystem/Renders/DefaultTexturedRenderer.hh Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,30 +88,31 @@ $(document).ready(function(){initNavTree('_default_textured_renderer_8hh_source.
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GraphicsPipelineRenderer.hh&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;PushConstants.hh&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Components/RenderComponent.hh&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/GameObject.hh&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">    8</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DefaultTexturedRenderer</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            <span class="keyword">using</span> GraphicsPipelineRenderer::GraphicsPipelineRenderer;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            <span class="keywordtype">void</span> renderSingleGameObject(std::shared_ptr&lt;GameObject&gt; go) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        };</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;RenderingSystem/Renders/RendererBase.hh&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;RenderingSystem/RenderComponent.hh&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/Entity.hh&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>DCore::ComponentSystem;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">   12</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DefaultTexturedRenderer</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="keyword">using</span> RendererBase::RendererBase;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keywordtype">void</span> renderSingleGameObject(<span class="keyword">const</span> std::tuple&lt;RenderComponent&amp;, TransformComponent&amp;&gt; go) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        };</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">DCore::Rendering::GraphicsPipelineRenderer</a></div><div class="ttdef"><b>Definition:</b> GraphicsPipelineRenderer.hh:13</div></div>
-<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_default_textured_renderer_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DCore::Rendering::DefaultTexturedRenderer</a></div><div class="ttdef"><b>Definition:</b> DefaultTexturedRenderer.hh:9</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AComponent.cc:9</div></div>
+<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_renderer_base_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_renderer_base.html">DCore::Rendering::RendererBase</a></div><div class="ttdef"><b>Definition:</b> RendererBase.hh:16</div></div>
+<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_default_textured_renderer_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DCore::Rendering::DefaultTexturedRenderer</a></div><div class="ttdoc">Renderer for textured objects.</div><div class="ttdef"><b>Definition:</b> DefaultTexturedRenderer.hh:13</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d3724ca37bfdd188d1c89fc98abad067.html">RenderingSystem</a></li><li class="navelem"><b>DefaultTexturedRenderer.hh</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d3724ca37bfdd188d1c89fc98abad067.html">RenderingSystem</a></li><li class="navelem"><a class="el" href="dir_cad123ac391e7d83bb048793598a5424.html">Renders</a></li><li class="navelem"><b>DefaultTexturedRenderer.hh</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

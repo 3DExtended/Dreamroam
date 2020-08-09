@@ -8,7 +8,7 @@
 #include "RenderComponent.hh"
 #include <ComponentBased/Systems/SystemBase.hh>
 #include <ComponentBased/BaseComponents.hh>
-#include <RenderingSystem/Pipeline/GraphicsPipelineRenderer.hh>
+#include <RenderingSystem/Renders/RendererBase.hh>
 #include <RenderingSystem/RenderingSystemBase.hh>
 
 namespace DCore {
@@ -52,11 +52,11 @@ namespace DCore {
 			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayoutForwarPass;
 
 			// Pipelines
-			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueUntextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueTextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mTransparendUntextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mTransparendTextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mShadowMap;
+			std::shared_ptr<RendererBase> mOpaqueUntextured;
+			std::shared_ptr<RendererBase> mOpaqueTextured;
+			std::shared_ptr<RendererBase> mTransparendUntextured;
+			std::shared_ptr<RendererBase> mTransparendTextured;
+			std::shared_ptr<RendererBase> mShadowMap;
 
 			std::vector<lava::SharedFramebuffer> companionWindowFBO;
 

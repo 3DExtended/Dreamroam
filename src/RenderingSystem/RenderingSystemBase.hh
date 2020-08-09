@@ -8,7 +8,6 @@
 #include "RenderComponent.hh"
 #include <ComponentBased/Systems/SystemBase.hh>
 #include <ComponentBased/BaseComponents.hh>
-#include <RenderingSystem/Pipeline/GraphicsPipelineRenderer.hh>
 
 namespace DCore {
 	namespace Rendering {
