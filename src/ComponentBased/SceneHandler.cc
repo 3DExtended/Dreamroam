@@ -269,15 +269,17 @@ void SceneHandler::render()
 	// TODO find all entities with transform and renderComponent and call
 	// the render methode of the active renderingSystem
 
+	/*
 	//classify gameObjects based on their renderers
-	std::vector<std::tuple<RenderComponent&, TransformComponent&>> objectsToRender = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
+	std::vector<std::tuple<RenderComponent&, TransformComponent&>> objectsToRender2 = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
-	auto group = curScene->m_Registry.group<RenderComponent>(entt::get<TransformComponent>);
-	for (auto entity : group) {
-		auto tuple = group.get<RenderComponent, TransformComponent>(entity);
-		objectsToRender.push_back(tuple);
-	}
-	this->rendererSystem->Render(objectsToRender);
+	auto view = curScene->m_Registry.view<RenderComponent, TransformComponent>();
+	for (auto entity : view) {
+		auto tuple = view.get<RenderComponent, TransformComponent>(entity);
+		objectsToRender2.push_back(tuple);
+	}//*/
+
+	this->rendererSystem->InternalRender(this->curScene->m_Registry);
 }
 
 bool SceneHandler::onKey(int key, int scancode, int action, int mods)

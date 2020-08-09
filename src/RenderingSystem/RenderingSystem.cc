@@ -39,7 +39,7 @@ RenderingSystem::RenderingSystem(
 	mShadowMap = GraphicsPipelineFactory::createRenderer_shadowMap(mDevice, mPlLayout, mPipeline);
 }
 
-void RenderingSystem::Render(std::vector<std::tuple<RenderComponent&, TransformComponent&>> entities)
+void RenderingSystem::Render(entt::basic_view<entt::entity, entt::exclude_t<>, RenderComponent, TransformComponent> entities)
 {
 	std::vector<std::tuple<RenderComponent&, TransformComponent&>>
 		opaqueUntexturedObjects,
@@ -50,19 +50,22 @@ void RenderingSystem::Render(std::vector<std::tuple<RenderComponent&, TransformC
 
 	for each (auto entity in entities)
 	{
-		auto& [renderer, transform] = entity;
+		auto& [renderer, transform] = entities.get<RenderComponent, TransformComponent>(entity);
+
+		// TODO this is actually bad code... it results in a lot of copying components around. This needs to be fixed.
+		auto tuple = entities.get<RenderComponent, TransformComponent>(entity);
 		if (renderer.active)
 		{
 			if (renderer.isThrowingShadow) {
-				shadowThrowingObjects.push_back(entity);
+				shadowThrowingObjects.push_back(tuple);
 			}
 			if (renderer.hasTexture)
 			{
-				renderer.isTransparent ? transparendTexturedObjects.push_back(entity) : opaqueTexturedObjects.push_back(entity);
+				renderer.isTransparent ? transparendTexturedObjects.push_back(tuple) : opaqueTexturedObjects.push_back(tuple);
 			}
 			else
 			{
-				renderer.isTransparent ? transparendUntexturedObjects.push_back(entity) : opaqueUntexturedObjects.push_back(entity);
+				renderer.isTransparent ? transparendUntexturedObjects.push_back(tuple) : opaqueUntexturedObjects.push_back(tuple);
 			}
 		}
 	}

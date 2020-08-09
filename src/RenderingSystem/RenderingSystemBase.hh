@@ -13,16 +13,20 @@
 namespace DCore {
 	namespace Rendering {
 		using namespace DCore::ComponentSystem;
-		class RenderingSystemBase : SystemBase<RenderComponent&, TransformComponent&>
+		class RenderingSystemBase : public SystemBase<RenderComponent, TransformComponent>
 		{
 		public:
 			RenderingSystemBase() = default;
 
 			~RenderingSystemBase() = default;
 
-			virtual void Render(std::vector<std::tuple<RenderComponent&, TransformComponent&>> entities) {};
+			virtual void Render(entt::basic_view<entt::entity, entt::exclude_t<>, RenderComponent, TransformComponent> entities) {};
 			virtual void Resize(int width, int height) {};
 			virtual lava::camera::SharedGenericCamera getCamera() = 0;
+
+		private:
+			friend class DCore::ComponentSystem::SceneHandler;
+			virtual void InternalRender(entt::registry& reg) { this->Render(GetEntitiesFromRegistry(reg)); }
 		};
 	}
 }

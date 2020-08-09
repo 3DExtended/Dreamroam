@@ -9,6 +9,8 @@ namespace DCore {
 		struct RenderComponent
 		{
 			RenderComponent() = default;
+			RenderComponent(const RenderComponent&) = default;
+
 			std::shared_ptr<Geometry> geometryObj = nullptr;
 
 			bool isTransparent = false;

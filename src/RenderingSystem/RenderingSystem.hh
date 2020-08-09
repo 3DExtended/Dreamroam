@@ -25,7 +25,7 @@ namespace DCore {
 
 			~RenderingSystem() = default;
 
-			void Render(std::vector<std::tuple<RenderComponent&, TransformComponent&>> entities) override;
+			void Render(entt::basic_view<entt::entity, entt::exclude_t<>, RenderComponent, TransformComponent> entities) override;
 
 			void Resize(int width, int height) override;
 
