@@ -12,7 +12,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 #include <lava/common/log.hh>
-#include <lava/features/MultiView.hh>
 #include <lava/features/GlfwOutput.hh>
 #include <lava/gpuselection/NthOfTypeStrategy.hh>
 #include <lava/objects/Instance.hh>
@@ -72,11 +71,6 @@ uint16_t SceneHandler::_addScene(std::shared_ptr<AScene> newScene)
 lava::SharedDevice SceneHandler::_getDevice() const
 {
 	return mDevice;
-}
-
-std::shared_ptr<lava::features::GlfwOutput> SceneHandler::getGlfwOutput() const
-{
-	return mGlfwOutput;
 }
 
 void SceneHandler::run()
@@ -163,11 +157,6 @@ SceneHandler::SceneHandler()
 {
 	// Create device handle for vulkan
 	std::vector<lava::features::SharedFeature> lavaFeatures;
-
-	// TODO do we need this?
-	// Multiview
-	auto multiview = lava::features::MultiView::create();
-	lavaFeatures.push_back(multiview);
 
 	// GLFW Output
 	mGlfwOutput = lava::features::GlfwOutput::create();

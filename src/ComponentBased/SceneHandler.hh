@@ -59,9 +59,24 @@ namespace DCore
 			/// <param name="sceneIndex">The index of the scene to switch to.</param>
 			static void switchScene(uint16_t sceneIndex) { getInstance()->_switchScene(sceneIndex); }
 
+			/// <summary>
+			/// If you want to supply a custom rendering system for rendering your scene, call this method
+			/// after you have registered all scenes in your main.cc.
+			/// You can take a look of the implementation of the default rendering system at
+			/// RenderingSystem.cc
+			/// </summary>
+			/// <param name="renderer">The new renderer to use for the scene.</param>
 			void setupRenderer(RenderingSystemBase* renderer) { this->rendererSystem = renderer; };
 
-			std::shared_ptr<lava::features::GlfwOutput> getGlfwOutput() const;
+			/// <summary>
+			/// Creates a new instance of the scene handler. Should only be called ONCE by the main function.
+			/// </summary>
+			/// <remarks>This should not be used to create a new instance. Instead, please use the GetInstance method.</remarks>
+			/// <remarks>This needs to be public in order to create a new instance using std::make_shared in the GetInstance method.</remarks>
+			/// <returns>A new SceneHandler</returns>
+			SceneHandler();
+
+			~SceneHandler();
 
 			void run();
 			void updateCamera(double elapsedSeconds);
@@ -86,32 +101,18 @@ namespace DCore
 			glm::vec2 mClickPos;
 			lava::Stopwatch mClickTimer;
 
-		public:
+		private:
 			static std::shared_ptr<SceneHandler> instance;
 			std::vector<std::shared_ptr<AScene>> scenes;
-
 			std::shared_ptr<AScene> curScene = nullptr;
-
 			std::shared_ptr<lava::features::GlfwOutput> mGlfwOutput;
 			std::shared_ptr<lava::features::Validation> mValidation;
 			std::shared_ptr<lava::features::GlfwWindow> mWindow;
 			lava::SharedDevice mDevice;
-
-			/// <summary>
-			/// Creates a new instance of the scene handler. Should only be called ONCE by the main function.
-			/// </summary>
-			/// <remarks>This should not be used to create a new instance. Instead, please use the GetInstance method.</remarks>
-			/// <remarks>This needs to be public in order to create a new instance using std::make_shared in the GetInstance method.</remarks>
-			/// <returns>A new SceneHandler</returns>
-			SceneHandler();
-
-			~SceneHandler();
-
-		private:
 			RenderingSystemBase* rendererSystem = nullptr;
-			void setupGlfwCallbacks();
 
 		private:
+			void setupGlfwCallbacks();
 
 			void _switchScene(uint16_t index);
 
