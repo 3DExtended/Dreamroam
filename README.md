@@ -35,7 +35,7 @@ This README originates from the repository https://github.com/othneildrew/Best-R
   <p align="center">
     An awesome README template to jumpstart your projects!
     <br />
-    <a href="https://github.com/3DExtended/Dreamroam"><strong>Explore the docs »</strong></a>
+    <a href="https://3dextended.github.io/Dreamroam/html/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/3DExtended/Dreamroam">View Demo</a>
