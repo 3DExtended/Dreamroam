@@ -1,8 +1,7 @@
 #include "DefaultRenderer.hh"
 #include <RenderingSystem/PushConstants.hh>
-#include <Components/RenderComponent.hh>
+#include "../RenderComponent.hh"
 
-using namespace DCore::Components;
 using namespace DCore::Rendering;
 
 void DefaultRenderer::renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go)

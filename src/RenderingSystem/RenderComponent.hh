@@ -5,7 +5,7 @@
 using namespace DCore::Meshes;
 using namespace DCore::Textures;
 namespace DCore {
-	namespace Components {
+	namespace Rendering {
 		struct RenderComponent
 		{
 			RenderComponent() = default;

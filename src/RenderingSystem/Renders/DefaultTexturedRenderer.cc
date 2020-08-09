@@ -6,7 +6,6 @@
 #include <ComponentBased/Entity.hh>
 #include <lava/objects/DescriptorSet.hh>
 
-using namespace DCore::Components;
 using namespace DCore::ComponentSystem;
 using namespace DCore::Rendering;
 void DefaultTexturedRenderer::renderSingleGameObject(const std::tuple<RenderComponent&, TransformComponent&> go)

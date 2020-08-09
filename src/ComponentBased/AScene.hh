@@ -61,6 +61,11 @@ namespace DCore
 			/// <returns>A new entity instance.</returns>
 			Entity CreateEntity(const std::string& name = std::string());
 
+			/// <summary>
+			/// Returns the texture layout of the scenes current texture store.
+			/// </summary>
+			/// <returns>The texture layout of the texture store</returns>
+			const lava::SharedDescriptorSetLayout GetCurrentSceneTextureStoreTextureLayout();
 		protected:
 			/// <summary>
 			/// The device which is used to render the scene.
@@ -100,12 +105,6 @@ namespace DCore
 			void gameObjectUpdate(double dt);
 			void gameObjectLateUpdate();
 			void gameObjectDestroy();*/
-
-			/// <summary>
-			/// Returns the texture layout of the scenes current texture store.
-			/// </summary>
-			/// <returns>The texture layout of the texture store</returns>
-			const lava::SharedDescriptorSetLayout GetCurrentSceneTextureStoreTextureLayout();
 		};
 	}
 }

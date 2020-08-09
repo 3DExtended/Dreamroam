@@ -1,14 +1,14 @@
 #include "GraphicsPipelineFactory.hh"
-#include "Renders/DefaultRenderer.hh"
-#include "Renders/DefaultTexturedRenderer.hh"
-#include "PushConstants.hh"
+#include "../Renders/DefaultRenderer.hh"
+#include "../Renders/DefaultTexturedRenderer.hh"
+#include "../PushConstants.hh"
 
 #include <lava-extras/geometry/Geometry.hh>
 #include <lava-extras/pack/pack.hh>
 
 using namespace DCore::Rendering;
 
-std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_opaqueUntextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -38,7 +38,7 @@ GraphicsPipelineFactory::createRenderer_opaqueUntextured(
 	return renderer;
 }
 
-std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_opaqueTextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -72,7 +72,7 @@ GraphicsPipelineFactory::createRenderer_opaqueTextured(
 	return renderer;
 }
 
-std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_transparentUntextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -119,7 +119,7 @@ GraphicsPipelineFactory::createRenderer_transparentUntextured(
 	return renderer;
 }
 
-std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_transparentTextured(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,
@@ -166,7 +166,7 @@ GraphicsPipelineFactory::createRenderer_transparentTextured(
 	return renderer;
 }
 
-std::shared_ptr<GraphicsPipelineRenderer>
+inline std::shared_ptr<GraphicsPipelineRenderer>
 GraphicsPipelineFactory::createRenderer_shadowMap(
 	lava::SharedDevice device,
 	lava::SharedPipelineLayout plLayout,

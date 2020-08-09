@@ -4,7 +4,6 @@
 #include <ComponentBased/Entity.hh>
 
 using namespace DCore::ComponentSystem;
-using namespace DCore::Components;
 using namespace DCore::Meshes;
 using namespace DCore::Textures;
 using namespace DCore::Example;

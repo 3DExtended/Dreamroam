@@ -2,6 +2,7 @@
 #include <ComponentBased/AScene.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.hh>
 #include <RenderingSystem/Pipeline/AdvancedRenderingPipeline.hh>
+#include <RenderingSystem/RenderingSystemBase.hh>
 
 #include <vector>
 #include <iostream>
@@ -11,6 +12,8 @@
 #include <lava-extras/glfw/GlfwApp.hh>
 
 #include <ComponentBased/AScene.hh>
+
+#include <ComponentBased/Systems/SystemBase.hh>
 
 namespace DCore
 {
@@ -56,6 +59,8 @@ namespace DCore
 			/// <param name="sceneIndex">The index of the scene to switch to.</param>
 			static void switchScene(uint16_t sceneIndex) { getInstance()->_switchScene(sceneIndex); }
 
+			void setupRenderer(RenderingSystemBase* renderer) { this->rendererSystem = renderer; };
+
 			std::shared_ptr<lava::features::GlfwOutput> getGlfwOutput() const;
 
 			void run();
@@ -81,12 +86,6 @@ namespace DCore
 			glm::vec2 mClickPos;
 			lava::Stopwatch mClickTimer;
 
-			lava::SharedBuffer mViewProjBufferPrePass;
-
-			lava::SharedBuffer mViewProjBufferForwardPass;
-			lava::SharedDescriptorSet mViewProjDescriptorForward;
-			lava::SharedDescriptorSet mViewProjDescriptorPre;
-
 		public:
 			static std::shared_ptr<SceneHandler> instance;
 			std::vector<std::shared_ptr<AScene>> scenes;
@@ -97,18 +96,6 @@ namespace DCore
 			std::shared_ptr<lava::features::Validation> mValidation;
 			std::shared_ptr<lava::features::GlfwWindow> mWindow;
 			lava::SharedDevice mDevice;
-
-			void setupPipeline(const lava::SharedDescriptorSetLayout textureLayout);
-
-			void getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 projection);
-
-			std::tuple<glm::mat4, glm::mat4> rotateCameraFrustrumCornersToLightSpace(glm::vec3 forward, glm::vec3 camPosition, glm::vec3 upDirection);
-
-			lava::SharedPipelineLayout mPlLayout;
-			std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> mPipeline;
-			std::vector<lava::SharedFramebuffer> companionWindowFBO;
-
-			void setupGlfwCallbacks();
 
 			/// <summary>
 			/// Creates a new instance of the scene handler. Should only be called ONCE by the main function.
@@ -121,8 +108,8 @@ namespace DCore
 			~SceneHandler();
 
 		private:
-			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayoutPrePass;
-			lava::SharedDescriptorSetLayout mViewProjDescriptorSetLayoutForwarPass;
+			RenderingSystemBase* rendererSystem = nullptr;
+			void setupGlfwCallbacks();
 
 		private:
 
@@ -135,7 +122,6 @@ namespace DCore
 			std::shared_ptr<AScene> _getCurrentScene() { return curScene; }
 
 			void start();
-			void setupRendering();
 			void update(double dt);
 			void render();
 			bool onKey(int key, int scancode, int action, int mods);
@@ -151,13 +137,6 @@ namespace DCore
 			void internalOnMouseButton(double x, double y, int button, int action, int mods);
 			void onResize(int w, int h);
 			void updateInput();
-
-		protected:
-			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueUntextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mOpaqueTextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mTransparendUntextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mTransparendTextured;
-			std::shared_ptr<GraphicsPipelineRenderer> mShadowMap;
 		};
 	}
 }

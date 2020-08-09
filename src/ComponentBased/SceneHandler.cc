@@ -2,6 +2,7 @@
 #include "GlobalSettings.hh"
 #include <RenderingSystem/PushConstants.hh>
 #include <RenderingSystem/RenderComponent.hh>
+#include <RenderingSystem/RenderingSystem.hh>
 
 #include <thread>
 #include <limits>
@@ -25,10 +26,7 @@
 #include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
 
-#include "SceneHandler.hh"
 #include "ComponentBased/BaseComponents.hh"
-
-using namespace DCore::Components;
 
 std::shared_ptr<SceneHandler> SceneHandler::instance = nullptr;
 
@@ -88,7 +86,19 @@ void SceneHandler::run()
 	switchScene(0);
 	mWindowWidth = GlobalSettings::windowWidth;
 	mWindowHeight = GlobalSettings::windowHeight;
-	setupRendering();
+
+	// the swapchain is setup in the rendering system
+	mWindow = mGlfwOutput->openWindow(GlobalSettings::windowWidth, GlobalSettings::windowHeight, false, "DreamRoam");
+
+	if (this->rendererSystem == nullptr) {
+		this->rendererSystem = new RenderingSystem(
+			getDevice(),
+			getCurrentScene()->GetCurrentSceneTextureStoreTextureLayout(),
+			mGlfwOutput,
+			mWindow);
+	}
+
+	this->setupGlfwCallbacks();
 
 	double lastCpuTime = glfwGetTime();
 
@@ -128,24 +138,24 @@ void SceneHandler::run()
 void SceneHandler::updateCamera(double elapsedSeconds)
 {
 	auto window = mWindow->window();
-	if (mPipeline->getCamera())
+	if (rendererSystem->getCamera())
 	{
 		auto speed = mCameraMoveSpeed;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 			speed *= mCameraMoveSpeedFactor;
 
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			mPipeline->getCamera()->moveForward(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveForward(elapsedSeconds * speed);
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			mPipeline->getCamera()->moveBack(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveBack(elapsedSeconds * speed);
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			mPipeline->getCamera()->moveLeft(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveLeft(elapsedSeconds * speed);
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			mPipeline->getCamera()->moveRight(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveRight(elapsedSeconds * speed);
 		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-			mPipeline->getCamera()->moveDown(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveDown(elapsedSeconds * speed);
 		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-			mPipeline->getCamera()->moveUp(elapsedSeconds * speed);
+			rendererSystem->getCamera()->moveUp(elapsedSeconds * speed);
 	}
 }
 
@@ -154,6 +164,7 @@ SceneHandler::SceneHandler()
 	// Create device handle for vulkan
 	std::vector<lava::features::SharedFeature> lavaFeatures;
 
+	// TODO do we need this?
 	// Multiview
 	auto multiview = lava::features::MultiView::create();
 	lavaFeatures.push_back(multiview);
@@ -169,8 +180,8 @@ SceneHandler::SceneHandler()
 	}
 
 	// === Create instance and device: ===
+	// TODO make this parameterized
 	lava::SharedInstance lavaInstance = lava::Instance::create(lavaFeatures);
-
 	mDevice = lavaInstance->createDevice(
 		{ lava::QueueRequest::graphics("graphics") },
 		lava::NthOfTypeStrategy(vk::PhysicalDeviceType::eDiscreteGpu));
@@ -264,307 +275,24 @@ void SceneHandler::update(double dt)
 	// curScene->gameObjectLateUpdate();
 }
 
-void SceneHandler::setupRendering()
-{
-	uint32_t width = GlobalSettings::windowWidth;
-	uint32_t height = GlobalSettings::windowHeight;
-	mWindow = getGlfwOutput()->openWindow(width, height, false, "Lava Companion Window");
-
-	mWindow->buildSwapchainWith(
-		[&](std::vector<lava::SharedImageView> const&) {});
-
-	setupPipeline(curScene->GetCurrentSceneTextureStoreTextureLayout());
-
-	mOpaqueUntextured = GraphicsPipelineFactory::createRenderer_opaqueUntextured(mDevice, mPlLayout, mPipeline);
-	mOpaqueTextured = GraphicsPipelineFactory::createRenderer_opaqueTextured(mDevice, mPlLayout, mPipeline);
-	mTransparendUntextured = GraphicsPipelineFactory::createRenderer_transparentUntextured(mDevice, mPlLayout, mPipeline);
-	mTransparendTextured = GraphicsPipelineFactory::createRenderer_transparentTextured(mDevice, mPlLayout, mPipeline);
-	mShadowMap = GraphicsPipelineFactory::createRenderer_shadowMap(mDevice, mPlLayout, mPipeline);
-}
-
-void SceneHandler::setupPipeline(const lava::SharedDescriptorSetLayout textureLayout)
-{
-	// Setup GLFW
-	{
-		mWindow = mGlfwOutput->openWindow(GlobalSettings::windowWidth, GlobalSettings::windowHeight, false, "DreamRoam");
-		this->setupGlfwCallbacks();
-	}
-
-	// create CameraDataBuffer
-	{
-		// pre pass
-		{
-			mViewProjBufferPrePass = mDevice->createBuffer(
-				lava::uniformBuffer(sizeof(CameraDataPrePass)));
-
-			mViewProjBufferPrePass->keepStagingBuffer();
-			mViewProjBufferPrePass->realizeVRAM();
-
-			auto dslinfo = lava::DescriptorSetLayoutCreateInfo{};
-			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
-			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
-
-			mViewProjDescriptorSetLayoutPrePass = dslinfo.create(mDevice);
-
-			mViewProjDescriptorPre =
-				mViewProjDescriptorSetLayoutPrePass->createDescriptorSet();
-			mViewProjDescriptorPre->writeUniformBuffer(mViewProjBufferPrePass, 0);
-		}
-
-		// forward pass
-		{
-			mViewProjBufferForwardPass = mDevice->createBuffer(
-				lava::uniformBuffer(sizeof(CameraDataForwardPass)));
-
-			mViewProjBufferForwardPass->keepStagingBuffer();
-			mViewProjBufferForwardPass->realizeVRAM();
-
-			auto dslinfo = lava::DescriptorSetLayoutCreateInfo{};
-			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
-			dslinfo.addUniformBuffer(vk::ShaderStageFlagBits::eAllGraphics);
-
-			mViewProjDescriptorSetLayoutForwarPass = dslinfo.create(mDevice);
-
-			mViewProjDescriptorForward =
-				mViewProjDescriptorSetLayoutForwarPass->createDescriptorSet();
-			mViewProjDescriptorForward->writeUniformBuffer(mViewProjBufferForwardPass, 0);
-		}
-	}
-
-	// Object Rendering Pipeline
-	{
-		VkPushConstantRange pushConstantRange{
-			VK_SHADER_STAGE_ALL,
-			0,
-			sizeof(PushConstants) };
-
-		mPipeline = std::make_shared<lava::pipeline::AdvancedRenderingPipeline>(
-			mDevice, mGlfwOutput->format());
-
-		mPlLayout = mDevice->createPipelineLayout(
-			{ pushConstantRange },
-			{ mViewProjDescriptorForward->layout(), textureLayout, mPipeline->mForwardDescriptorLayout });
-
-		mPipeline->getCamera()->setVerticalFieldOfView(60);
-		mPipeline->getCamera()->setFarClippingPlane(25);
-		mPipeline->getCamera()->setPosition({ 5, 2, 5 });
-	}
-
-	mWindow->buildSwapchainWith(
-		[&](std::vector<lava::SharedImageView> const& views) {
-			mPipeline->resize(mWindow->width(), mWindow->height());
-			companionWindowFBO.clear();
-			for (auto& view : views)
-				companionWindowFBO.push_back(mPipeline->outputPass()->createFramebuffer({ view }));
-		});
-}
-
-void SceneHandler::getFrustumCorners(std::vector<glm::vec4>& corners, glm::mat4 inverseProjection)
-{
-	corners.clear();
-
-	// homogeneous corner coords
-	glm::vec4 hcorners[8];
-	// near
-	hcorners[0] = glm::vec4(-1, 1, 1, 1);
-	hcorners[1] = glm::vec4(1, 1, 1, 1);
-	hcorners[2] = glm::vec4(1, -1, 1, 1);
-	hcorners[3] = glm::vec4(-1, -1, 1, 1);
-	// far
-	hcorners[4] = glm::vec4(-1, 1, -1, 1);
-	hcorners[5] = glm::vec4(1, 1, -1, 1);
-	hcorners[6] = glm::vec4(1, -1, -1, 1);
-	hcorners[7] = glm::vec4(-1, -1, -1, 1);
-
-	glm::mat4 inverseProj = inverseProjection;
-	for (int i = 0; i < 8; i++) {
-		hcorners[i] = inverseProj * hcorners[i];
-		hcorners[i] /= hcorners[i].w;
-
-		corners.push_back(hcorners[i]);
-	}
-}
-
-std::tuple<glm::mat4, glm::mat4> SceneHandler::rotateCameraFrustrumCornersToLightSpace(
-	glm::vec3 lightDir,
-	glm::vec3 camPosition,
-	glm::vec3 upDirection = glm::vec3(0, 1, 0))
-{
-	std::vector<glm::vec4> corners;
-
-	glm::vec3 cameraForward = mPipeline->getCamera()->getForwardDirection();
-	glm::vec3 cameraUp = mPipeline->getCamera()->getUpDirection();
-
-	glm::mat4 inverseCameraViewProj = glm::inverse(
-		mPipeline->getCamera()->getProjectionMatrix()
-		* glm::lookAt(glm::vec3(0), glm::vec3(0) + cameraForward, cameraUp)
-		* mPipeline->getCamera()->getTranslationMatrix4()
-	);
-
-	this->getFrustumCorners(corners, inverseCameraViewProj);
-
-	float minX = std::numeric_limits<float>::max();
-	float maxX = std::numeric_limits<float>::min();
-	float minY = std::numeric_limits<float>::max();
-	float maxY = std::numeric_limits<float>::min();
-	float minZ = std::numeric_limits<float>::max();
-	float maxZ = std::numeric_limits<float>::min();
-
-	for (auto c : corners) {
-		if (c[0] < minX) minX = c[0];
-		if (c[0] > maxX) maxX = c[0];
-		if (c[1] < minY) minY = c[1];
-		if (c[1] > maxY) maxY = c[1];
-		if (c[2] < minZ) minZ = c[2];
-		if (c[2] > maxZ) maxZ = c[2];
-	}
-
-	glm::vec3 frustumCenter = glm::vec3((maxX + minX) / 2.0f, (maxY + minY) / 2.0f, (maxZ + minZ) / 2.0f);
-
-	float maxDistance = 0.0;
-	for (auto c : corners) {
-		auto tempDistance = glm::distance(glm::vec4(frustumCenter, 1.0f), c);
-		if (tempDistance > maxDistance) {
-			maxDistance = tempDistance;
-		}
-	}
-
-	glm::mat4 proj = glm::orthoRH_ZO(maxDistance, -maxDistance, maxDistance, -maxDistance, 0.0f, maxDistance * 2.0f);
-
-	glm::vec3 newEyePosition = frustumCenter - glm::normalize(lightDir) * maxDistance;
-	glm::mat4 view =
-		glm::lookAt(newEyePosition, newEyePosition + lightDir, glm::vec3(0, 1, 0));
-
-	return std::tuple<glm::mat4, glm::mat4 >(proj, view);
-}
-
 void SceneHandler::render()
 {
+	// TODO find all entities with transform and renderComponent and call
+	// the render methode of the active renderingSystem
+
 	//classify gameObjects based on their renderers
-	std::vector<std::tuple<RenderComponent&, TransformComponent&>>
-		opaqueUntexturedObjects,
-		opaqueTexturedObjects,
-		transparendUntexturedObjects,
-		transparendTexturedObjects,
-		shadowThrowingObjects = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
+	std::vector<std::tuple<RenderComponent&, TransformComponent&>> objectsToRender = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
 	auto group = curScene->m_Registry.group<RenderComponent>(entt::get<TransformComponent>);
 	for (auto entity : group) {
 		auto tuple = group.get<RenderComponent, TransformComponent>(entity);
-		auto& [renderer, transform] = tuple;
-
-		if (renderer.active)
-		{
-			if (renderer.isThrowingShadow) {
-				shadowThrowingObjects.push_back(tuple);
-			}
-			if (renderer.hasTexture)
-			{
-				renderer.isTransparent ? transparendTexturedObjects.push_back(tuple) : opaqueTexturedObjects.push_back(tuple);
-			}
-			else
-			{
-				renderer.isTransparent ? transparendUntexturedObjects.push_back(tuple) : opaqueUntexturedObjects.push_back(tuple);
-			}
-		}
+		objectsToRender.push_back(tuple);
 	}
-
-	// todo for shadow:
-	// DONE 1.: create a new pipeline for rendering shadows
-	// DONE 2.: setup a camera using this command for perspective rendering  (mPipeline->updateViewProjMatrices(cmd, mCamera->getViewMatrix(), mCamera->getProjectionMatrix());)
-	// 2a.: figure out which area we want to render to the shadow map!
-	// DONE 3.: render objects that throw shadow
-	// 4.: use shadowmap in default shaders (textured and colored) (figure out how to bind mShadowPipelineOutput as an 2D image for shader access)
-	mDevice->graphicsQueue().handle().waitIdle();
-
-	{
-		auto frame = mWindow->startFrame();
-		auto cmd = mDevice->graphicsQueue().beginCommandBuffer();
-
-		cmd.wait(frame.imageReady());
-
-		// Create light view and projection matrix
-		glm::mat4 lightProjMatrix;
-		glm::mat4 lightViewMatrix;
-
-		std::tie(lightProjMatrix, lightViewMatrix) = this->rotateCameraFrustrumCornersToLightSpace(
-			glm::vec3(0.5f, 1.0f, -0.5f),
-			mPipeline->getCamera()->getPosition(),
-			mPipeline->getCamera()->getUpDirection());
-		{
-			CameraDataPrePass matrixData
-			{
-				lightViewMatrix,
-				lightProjMatrix
-			};
-			mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
-		}
-
-		// load scene camera
-		{
-			CameraDataForwardPass matrixData
-			{
-				mPipeline->getCamera()->getViewMatrix(),
-				mPipeline->getCamera()->getProjectionMatrix(),
-				lightProjMatrix * lightViewMatrix
-			};
-			mViewProjBufferForwardPass->setDataVRAM(&matrixData, sizeof(matrixData), cmd);
-		}
-
-		// render all objects.
-		// Note that this includes two render passes.
-		// The first one beeing for rendering objects to the shadow map and the second one rendering all objects.
-		mPipeline->render(cmd, companionWindowFBO[frame.imageIndex()],
-			[&](lava::pipeline::AdvancedRenderPass const& pass) {
-				auto sub = pass.pass.startInlineSubpass();
-
-				if (pass.type == lava::pipeline::RenderPassType::Shadow)
-				{
-					sub.setViewports(
-						{ {0, 0, float(mWindow->width()), float(mWindow->height())} });
-
-					mShadowMap->prepareRendering(&sub, mViewProjDescriptorPre);
-					mShadowMap->renderGameObjects(shadowThrowingObjects);
-				}
-				else if (pass.type == lava::pipeline::RenderPassType::Opaque)
-				{
-					sub.setViewports(
-						{ {0, 0, float(mWindow->width()), float(mWindow->height())} });
-
-					if (opaqueUntexturedObjects.size() > 0) {
-						mOpaqueUntextured->prepareRendering(&sub, mViewProjDescriptorForward);
-						mOpaqueUntextured->renderGameObjects(opaqueUntexturedObjects);
-					}
-
-					if (opaqueTexturedObjects.size() > 0) {
-						mOpaqueTextured->prepareRendering(&sub, mViewProjDescriptorForward);
-						mOpaqueTextured->renderGameObjects(opaqueTexturedObjects);
-					}
-
-					if (transparendUntexturedObjects.size() > 0) {
-						mTransparendUntextured->prepareRendering(&sub, mViewProjDescriptorForward);
-						mTransparendUntextured->renderGameObjects(transparendUntexturedObjects);
-					}
-
-					if (transparendTexturedObjects.size() > 0) {
-						mTransparendTextured->prepareRendering(&sub, mViewProjDescriptorForward);
-						mTransparendTextured->renderGameObjects(transparendTexturedObjects);
-					}
-				}
-			});
-		cmd.signal(frame.renderingComplete());
-	}
+	this->rendererSystem->Render(objectsToRender);
 }
 
 bool SceneHandler::onKey(int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_F && action == GLFW_PRESS && mPipeline)
-	{
-		mPipeline->setFXAA(!mPipeline->getFXAA());
-		std::cout << "Turned FXAA "
-			<< ((mPipeline->getFXAA()) ? "on" : "off");
-	}
-
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		mCatchCursor = !mCatchCursor;
@@ -584,7 +312,7 @@ bool SceneHandler::onMousePosition(double x, double y)
 	auto window = mWindow->window();
 	mWindowWidth = mWindow->width();
 	mWindowHeight = mWindow->height();
-	if (mCatchCursor && mMouseLastX != 0.0 && mPipeline->getCamera())
+	if (mCatchCursor && mMouseLastX != 0.0 && rendererSystem->getCamera())
 	{
 		auto alt = glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS;
 		auto ctrl = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
@@ -597,7 +325,7 @@ bool SceneHandler::onMousePosition(double x, double y)
 
 		if (!alt && !ctrl) // from cam
 		{
-			mPipeline->getCamera()->FPSstyleLookAround(ax, ay);
+			rendererSystem->getCamera()->FPSstyleLookAround(ax, ay);
 		}
 	}
 
@@ -656,10 +384,9 @@ void SceneHandler::internalOnMouseButton(double x, double y, int button, int act
 
 void SceneHandler::onResize(int w, int h)
 {
-	if (mPipeline->getCamera())
-		mPipeline->getCamera()->resize(w, h);
-	if (mPipeline)
-		mPipeline->resize(w, h);
+	if (rendererSystem != nullptr) {
+		rendererSystem->Resize(w, h);
+	}
 }
 
 void SceneHandler::updateInput()

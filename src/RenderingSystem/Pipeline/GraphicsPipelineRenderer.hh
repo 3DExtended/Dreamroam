@@ -3,14 +3,13 @@
 #include <lava/raii/ActiveRenderPass.hh>
 #include <lava/objects/GraphicsPipeline.hh>
 #include "AdvancedRenderingPipeline.hh"
-#include "RenderComponent.hh"
+#include "../RenderComponent.hh"
 #include <ComponentBased/BaseComponents.hh>
 
 #include <entt/entt.hpp>
 
 namespace DCore {
 	namespace Rendering {
-		using namespace DCore::Components;
 		using namespace DCore::ComponentSystem;
 
 		class GraphicsPipelineRenderer

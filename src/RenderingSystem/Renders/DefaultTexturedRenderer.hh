@@ -1,5 +1,5 @@
 #pragma once
-#include "../GraphicsPipelineRenderer.hh"
+#include "../Pipeline/GraphicsPipelineRenderer.hh"
 #include <RenderingSystem/RenderComponent.hh>
 #include <ComponentBased/Entity.hh>
 
