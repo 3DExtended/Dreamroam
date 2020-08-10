@@ -15,8 +15,8 @@ namespace DCore
 
 			virtual void InternalAwake(entt::registry& reg) {};
 			virtual void InternalStart(entt::registry& reg) {};
-			virtual void InternalUpdate(entt::registry& reg) {};
-			virtual void InternalLateUpdate(entt::registry& reg) {};
+			virtual void InternalUpdate(entt::registry& reg, double dt) {};
+			virtual void InternalLateUpdate(entt::registry& reg, double dt) {};
 			virtual void InternalDestroy(entt::registry& reg) {};
 		};
 	} // namespace ComponentSystem

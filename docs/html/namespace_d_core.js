@@ -6,7 +6,8 @@ var namespace_d_core =
       [ "SceneHandler", "class_d_core_1_1_component_system_1_1_scene_handler.html", "class_d_core_1_1_component_system_1_1_scene_handler" ],
       [ "SystemBase", "class_d_core_1_1_component_system_1_1_system_base.html", "class_d_core_1_1_component_system_1_1_system_base" ],
       [ "TagComponent", "struct_d_core_1_1_component_system_1_1_tag_component.html", "struct_d_core_1_1_component_system_1_1_tag_component" ],
-      [ "TransformComponent", "struct_d_core_1_1_component_system_1_1_transform_component.html", "struct_d_core_1_1_component_system_1_1_transform_component" ]
+      [ "TransformComponent", "struct_d_core_1_1_component_system_1_1_transform_component.html", "struct_d_core_1_1_component_system_1_1_transform_component" ],
+      [ "UntypedSystemBase", "class_d_core_1_1_component_system_1_1_untyped_system_base.html", "class_d_core_1_1_component_system_1_1_untyped_system_base" ]
     ] ],
     [ "Example", null, [
       [ "DreamroamScene", "class_d_core_1_1_example_1_1_dreamroam_scene.html", "class_d_core_1_1_example_1_1_dreamroam_scene" ]

@@ -67,6 +67,13 @@ namespace DCore
 			/// </summary>
 			/// <returns>The texture layout of the texture store</returns>
 			const lava::SharedDescriptorSetLayout GetCurrentSceneTextureStoreTextureLayout();
+
+			/// <summary>
+			/// When you want to act on entities and their oponents, write a custom system (using the SystemBase templated class)
+			/// and register it using this method.
+			/// </summary>
+			/// <param name="systemPtr">A pointer to a system you want to register.</param>
+			void RegisterEntitySystem(std::shared_ptr<UntypedSystemBase> systemPtr) { m_Systems.push_back(systemPtr); }
 		protected:
 			/// <summary>
 			/// The device which is used to render the scene.
@@ -100,6 +107,9 @@ namespace DCore
 			/// </summary>
 			entt::registry m_Registry;
 
+			/// <summary>
+			/// The list of systems of the scene which will get called when the scene is active.
+			/// </summary>
 			std::vector<std::shared_ptr<UntypedSystemBase>> m_Systems;
 		};
 	}

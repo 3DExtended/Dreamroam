@@ -10,6 +10,7 @@
 `namespace `[`lava::pipeline`](#namespacelava_1_1pipeline) | 
 `namespace `[`UtilsLava`](#namespace_utils_lava) | Partially taken from the Vulkan Cookbook: [https://github.com/PacktPublishing/Vulkan-Cookbook](https://github.com/PacktPublishing/Vulkan-Cookbook)
 `class `[`GlobalSettings`](#class_global_settings) | 
+`class `[`RotateCubesSystem`](#class_rotate_cubes_system) | 
 `struct `[`stbi_io_callbacks`](#structstbi__io__callbacks) | 
 
 # namespace `DCore::ComponentSystem` 
@@ -22,6 +23,7 @@
 `class `[`DCore::ComponentSystem::Entity`](#class_d_core_1_1_component_system_1_1_entity) | 
 `class `[`DCore::ComponentSystem::SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler) | A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the manager of the game engine. It implements the singleton pattern and provides getters for the current scene, the switch scene method and more.
 `class `[`DCore::ComponentSystem::SystemBase`](#class_d_core_1_1_component_system_1_1_system_base) | System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
+`class `[`DCore::ComponentSystem::UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base) | 
 `struct `[`DCore::ComponentSystem::TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component) | This component stores the name and the tags of the entity.
 `struct `[`DCore::ComponentSystem::TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component) | This class is a part of each GameObject which stores rotation position and a three dimensional scale value for the object. It also provides a methods for creating (for the rendering of the object) the model matrix.
 
@@ -40,6 +42,7 @@ This class is abstract and has to be inherited. It provides the standard functio
 `public inline virtual void `[`destroy`](#class_d_core_1_1_component_system_1_1_a_scene_a420362ec1665e379fd3136b98c92c295_1a420362ec1665e379fd3136b98c92c295)`()` | This is called right before this scene is destroyed. Use this to deconstruct any game objects and handlers.
 `public `[`Entity`](#class_d_core_1_1_component_system_1_1_entity)` `[`CreateEntity`](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88)`(const std::string & name)` | Creates and registers a new entity for your scene. Please note that you need to keep the returned entity when you want to update it in the scene. The preferred version for updating entities however should be the system feature.
 `public const lava::SharedDescriptorSetLayout `[`GetCurrentSceneTextureStoreTextureLayout`](#class_d_core_1_1_component_system_1_1_a_scene_a8466933c7f155a1d5c778c0432680d6f_1a8466933c7f155a1d5c778c0432680d6f)`()` | Returns the texture layout of the scenes current texture store.
+`public inline void `[`RegisterEntitySystem`](#class_d_core_1_1_component_system_1_1_a_scene_aeb6adb5503e9e41014cc84847cb3ccc8_1aeb6adb5503e9e41014cc84847cb3ccc8)`(std::shared_ptr< `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` > systemPtr)` | When you want to act on entities and their oponents, write a custom system (using the [SystemBase](#class_d_core_1_1_component_system_1_1_system_base) templated class) and register it using this method.
 `protected lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_a_scene_aea101e43d1950af16e725b7a53ec136b_1aea101e43d1950af16e725b7a53ec136b) | The device which is used to render the scene. This will be used for a number of initialization procedures.
 `protected std::shared_ptr< `[`GeometryStore`](#class_d_core_1_1_meshes_1_1_geometry_store)` > `[`mGeometryStore`](#class_d_core_1_1_component_system_1_1_a_scene_a4082224d4bc85a7536a5f830a44bd446_1a4082224d4bc85a7536a5f830a44bd446) | This GeometryStore is used to load meshes and push them to the GPU.
 `protected std::shared_ptr< `[`TextureStore`](#class_d_core_1_1_textures_1_1_texture_store)` > `[`mTextureStore`](#class_d_core_1_1_component_system_1_1_a_scene_a9f5432333052579e1af732c2ba94fd74_1a9f5432333052579e1af732c2ba94fd74) | This TextureStore is used to load textures and push them to the GPU.
@@ -83,6 +86,13 @@ Returns the texture layout of the scenes current texture store.
 
 #### Returns
 The texture layout of the texture store
+
+#### `public inline void `[`RegisterEntitySystem`](#class_d_core_1_1_component_system_1_1_a_scene_aeb6adb5503e9e41014cc84847cb3ccc8_1aeb6adb5503e9e41014cc84847cb3ccc8)`(std::shared_ptr< `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` > systemPtr)` 
+
+When you want to act on entities and their oponents, write a custom system (using the [SystemBase](#class_d_core_1_1_component_system_1_1_system_base) templated class) and register it using this method.
+
+#### Parameters
+* `systemPtr` A pointer to a system you want to register.
 
 #### `protected lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_a_scene_aea101e43d1950af16e725b7a53ec136b_1aea101e43d1950af16e725b7a53ec136b) 
 
@@ -219,6 +229,11 @@ A new [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler)
 
 # class `DCore::ComponentSystem::SystemBase` 
 
+```
+class DCore::ComponentSystem::SystemBase
+  : public DCore::ComponentSystem::UntypedSystemBase
+```  
+
 System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
 
 For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class RenderingSystemBase : public [SystemBase<RenderComponent, TransformComponent>](#class_d_core_1_1_component_system_1_1_system_base)
@@ -244,8 +259,8 @@ This pattern was chosen as it allows multithreading at a later point.
 `public  `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base_1a801dc9c90b3542530e0d49e180609dfe)`(const `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base)` & other) = default` | 
 `public inline virtual void `[`Awake`](#class_d_core_1_1_component_system_1_1_system_base_a26630b06b616740f618530f5e513dbdf_1a26630b06b616740f618530f5e513dbdf)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called before the systems start method is called for all components already present in the scene.
 `public inline virtual void `[`Start`](#class_d_core_1_1_component_system_1_1_system_base_a6154ab285d5099fa7ffaec1579142d95_1a6154ab285d5099fa7ffaec1579142d95)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called on the systems start right before we enter the game loop for all components already present in the scene.
-`public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a6163c11e3bb5ed83b0e9146f99cf7641_1a6163c11e3bb5ed83b0e9146f99cf7641)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called in every game logic update for all components already present in the scene.
-`public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a930ba30bf734f81b45f8feb141d2a939_1a930ba30bf734f81b45f8feb141d2a939)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
+`public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a13842f60de651d2e6abfb23112202524_1a13842f60de651d2e6abfb23112202524)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` | This method is called in every game logic update for all components already present in the scene.
+`public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a19cbe3186ad3a6e81271845fdc04da89_1a19cbe3186ad3a6e81271845fdc04da89)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` | This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
 `public inline virtual void `[`Destroy`](#class_d_core_1_1_component_system_1_1_system_base_ad5243d0dd5378e3bb987b00780189c57_1ad5243d0dd5378e3bb987b00780189c57)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called right before application shutdown. Use this to clean up your systems when they need component access.
 `protected inline auto `[`GetEntitiesFromRegistry`](#class_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395_1a6d6c8a31b3d0c65674a46a94b2995395)`(entt::registry & reg)` | Returns a view for a given registry for this system.
 
@@ -269,14 +284,14 @@ This method is called on the systems start right before we enter the game loop f
 #### Parameters
 * `entities` A view on the entities that match the systems component selection.
 
-#### `public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a6163c11e3bb5ed83b0e9146f99cf7641_1a6163c11e3bb5ed83b0e9146f99cf7641)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` 
+#### `public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a13842f60de651d2e6abfb23112202524_1a13842f60de651d2e6abfb23112202524)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` 
 
 This method is called in every game logic update for all components already present in the scene.
 
 #### Parameters
 * `entities` A view on the entities that match the systems component selection.
 
-#### `public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a930ba30bf734f81b45f8feb141d2a939_1a930ba30bf734f81b45f8feb141d2a939)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` 
+#### `public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a19cbe3186ad3a6e81271845fdc04da89_1a19cbe3186ad3a6e81271845fdc04da89)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` 
 
 This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
 
@@ -299,6 +314,36 @@ Returns a view for a given registry for this system.
 
 #### Returns
 A view of the entities present in the registry
+
+# class `DCore::ComponentSystem::UntypedSystemBase` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a2843f8c175038607f98f58e2aa15d5aa)`() = default` | 
+`public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1ab622c0c0ee35fb7e74d4ae569bf134f9)`(const `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` & other) = default` | 
+`protected inline virtual void `[`InternalAwake`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a8dab3ba7756ea400777cb3e85bd50447)`(entt::registry & reg)` | 
+`protected inline virtual void `[`InternalStart`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a65c6a9af549fa2fd1b4bb9d925ad5c38)`(entt::registry & reg)` | 
+`protected inline virtual void `[`InternalUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1abddacc4449bcaa0c3774de4f9cbf32ff)`(entt::registry & reg,double dt)` | 
+`protected inline virtual void `[`InternalLateUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a9cca10b6463984083a6cdc22f5b4ee7f)`(entt::registry & reg,double dt)` | 
+`protected inline virtual void `[`InternalDestroy`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1aa944d3a744fec1c44b0f94907261c5ed)`(entt::registry & reg)` | 
+
+## Members
+
+#### `public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a2843f8c175038607f98f58e2aa15d5aa)`() = default` 
+
+#### `public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1ab622c0c0ee35fb7e74d4ae569bf134f9)`(const `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` & other) = default` 
+
+#### `protected inline virtual void `[`InternalAwake`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a8dab3ba7756ea400777cb3e85bd50447)`(entt::registry & reg)` 
+
+#### `protected inline virtual void `[`InternalStart`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a65c6a9af549fa2fd1b4bb9d925ad5c38)`(entt::registry & reg)` 
+
+#### `protected inline virtual void `[`InternalUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1abddacc4449bcaa0c3774de4f9cbf32ff)`(entt::registry & reg,double dt)` 
+
+#### `protected inline virtual void `[`InternalLateUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a9cca10b6463984083a6cdc22f5b4ee7f)`(entt::registry & reg,double dt)` 
+
+#### `protected inline virtual void `[`InternalDestroy`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1aa944d3a744fec1c44b0f94907261c5ed)`(entt::registry & reg)` 
 
 # struct `DCore::ComponentSystem::TagComponent` 
 
@@ -988,6 +1033,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 --------------------------------|---------------------------------------------
 
 ## Members
+
+# class `RotateCubesSystem` 
+
+```
+class RotateCubesSystem
+  : public DCore::ComponentSystem::SystemBase< TransformComponent, TagComponent >
+```  
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`RotateCubesSystem`](#class_rotate_cubes_system_1a84af0f45f9ecbc42f0ff9cb030ea9a92)`() = default` | 
+`public  `[`~RotateCubesSystem`](#class_rotate_cubes_system_1a6c42d71171fdab6c1d7e0d47050985db)`() = default` | 
+`public inline void `[`Update`](#class_rotate_cubes_system_1a03842096f2a3373d318f76f33ba157d4)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component), [TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` > entities,double dt)` | 
+
+## Members
+
+#### `public  `[`RotateCubesSystem`](#class_rotate_cubes_system_1a84af0f45f9ecbc42f0ff9cb030ea9a92)`() = default` 
+
+#### `public  `[`~RotateCubesSystem`](#class_rotate_cubes_system_1a6c42d71171fdab6c1d7e0d47050985db)`() = default` 
+
+#### `public inline void `[`Update`](#class_rotate_cubes_system_1a03842096f2a3373d318f76f33ba157d4)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component), [TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` > entities,double dt)` 
 
 # struct `stbi_io_callbacks` 
 

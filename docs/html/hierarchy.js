@@ -20,15 +20,20 @@ var hierarchy =
     ] ],
     [ "DCore::ComponentSystem::SceneHandler", "class_d_core_1_1_component_system_1_1_scene_handler.html", null ],
     [ "stbi_io_callbacks", "structstbi__io__callbacks.html", null ],
-    [ "DCore::ComponentSystem::SystemBase< firstType, Types >", "class_d_core_1_1_component_system_1_1_system_base.html", null ],
-    [ "DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >", "class_d_core_1_1_component_system_1_1_system_base.html", [
-      [ "DCore::Rendering::RenderingSystemBase", "class_d_core_1_1_rendering_1_1_rendering_system_base.html", [
-        [ "DCore::Rendering::RenderingSystem", "class_d_core_1_1_rendering_1_1_rendering_system.html", null ]
-      ] ]
-    ] ],
     [ "DCore::ComponentSystem::TagComponent", "struct_d_core_1_1_component_system_1_1_tag_component.html", null ],
     [ "DCore::Textures::Texture", "class_d_core_1_1_textures_1_1_texture.html", null ],
     [ "DCore::Textures::TextureStore", "class_d_core_1_1_textures_1_1_texture_store.html", null ],
     [ "DCore::ComponentSystem::TransformComponent", "struct_d_core_1_1_component_system_1_1_transform_component.html", null ],
+    [ "DCore::ComponentSystem::UntypedSystemBase", "class_d_core_1_1_component_system_1_1_untyped_system_base.html", [
+      [ "DCore::ComponentSystem::SystemBase< firstType, Types >", "class_d_core_1_1_component_system_1_1_system_base.html", null ],
+      [ "DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >", "class_d_core_1_1_component_system_1_1_system_base.html", [
+        [ "DCore::Rendering::RenderingSystemBase", "class_d_core_1_1_rendering_1_1_rendering_system_base.html", [
+          [ "DCore::Rendering::RenderingSystem", "class_d_core_1_1_rendering_1_1_rendering_system.html", null ]
+        ] ]
+      ] ],
+      [ "DCore::ComponentSystem::SystemBase< TransformComponent, TagComponent >", "class_d_core_1_1_component_system_1_1_system_base.html", [
+        [ "RotateCubesSystem", "class_rotate_cubes_system.html", null ]
+      ] ]
+    ] ],
     [ "DCore::Rendering::VertexAttributes", "struct_d_core_1_1_rendering_1_1_vertex_attributes.html", null ]
 ];

@@ -272,12 +272,12 @@ void SceneHandler::update(double dt)
 	curScene->update(dt);
 	for each (auto system in curScene->m_Systems)
 	{
-		system->InternalUpdate(curScene->m_Registry);
+		system->InternalUpdate(curScene->m_Registry, dt);
 	}
 
 	for each (auto system in curScene->m_Systems)
 	{
-		system->InternalLateUpdate(curScene->m_Registry);
+		system->InternalLateUpdate(curScene->m_Registry, dt);
 	}
 }
 
@@ -286,13 +286,14 @@ void SceneHandler::render()
 	// TODO find all entities with transform and renderComponent and call
 	// the render methode of the active renderingSystem
 
-	/*
 	//classify gameObjects based on their renderers
-	std::vector<std::tuple<RenderComponent&, TransformComponent&>> objectsToRender2 = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
+	/*std::vector<std::tuple<RenderComponent&, TransformComponent&>> objectsToRender2 = std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
 	auto view = curScene->m_Registry.view<RenderComponent, TransformComponent>();
+	// using an input iterator
 	for (auto entity : view) {
-		auto tuple = view.get<RenderComponent, TransformComponent>(entity);
+		auto& tuple = view.get<RenderComponent, TransformComponent>(entity);
+		auto [render, transform] = view.get<RenderComponent, TransformComponent>(entity);
 		objectsToRender2.push_back(tuple);
 	}//*/
 

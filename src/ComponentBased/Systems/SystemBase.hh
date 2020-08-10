@@ -80,13 +80,13 @@ namespace DCore
 			/// This method is called in every game logic update for all components already present in the scene.
 			/// </summary>
 			/// <param name="entities">A view on the entities that match the systems component selection.</param>
-			virtual void Update(entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...> entities) {};
+			virtual void Update(entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...> entities, double dt) {};
 
 			/// <summary>
 			/// This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
 			/// </summary>
 			/// <param name="entities">A view on the entities that match the systems component selection.</param>
-			virtual void LateUpdate(entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...> entities) {};
+			virtual void LateUpdate(entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...> entities, double dt) {};
 
 			/// <summary>
 			/// This method is called right before application shutdown. Use this to clean up your systems when they need component access.
@@ -109,8 +109,8 @@ namespace DCore
 			friend class DCore::ComponentSystem::SceneHandler;
 			void InternalAwake(entt::registry& reg)      override { this->Awake(GetEntitiesFromRegistry(reg)); }
 			void InternalStart(entt::registry& reg)      override { this->Start(GetEntitiesFromRegistry(reg)); }
-			void InternalUpdate(entt::registry& reg)     override { this->Update(GetEntitiesFromRegistry(reg)); }
-			void InternalLateUpdate(entt::registry& reg) override { this->LateUpdate(GetEntitiesFromRegistry(reg)); }
+			void InternalUpdate(entt::registry& reg, double dt)     override { this->Update(GetEntitiesFromRegistry(reg), dt); }
+			void InternalLateUpdate(entt::registry& reg, double dt) override { this->LateUpdate(GetEntitiesFromRegistry(reg), dt); }
 			void InternalDestroy(entt::registry& reg)    override { this->Destroy(GetEntitiesFromRegistry(reg)); }
 		};
 	} // namespace ComponentSystem

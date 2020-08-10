@@ -13,6 +13,8 @@ namespace DCore {
 
 		private:
 			void createGameObjects();
+
+			void registerSystems();
 		};
 	}
 }
