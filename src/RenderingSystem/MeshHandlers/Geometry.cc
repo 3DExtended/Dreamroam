@@ -3,11 +3,6 @@
 using namespace DCore::Meshes;
 
 Geometry::Geometry(const lava::geometry::SharedGeometry geometry)
-    : mGeometry(geometry)
-{
-}
+    : mGeometry(geometry) {}
 
-void Geometry::draw(lava::InlineSubpass &pass)
-{
-    mGeometry->draw(pass);
-}
+void Geometry::draw(lava::InlineSubpass &pass) { mGeometry->draw(pass); }

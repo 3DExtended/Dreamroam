@@ -2,8 +2,5 @@
 
 using namespace DCore::Textures;
 
-Texture::Texture(
-	lava::SharedDescriptorSet descriptorSet)
-	: mDescriptorSet(descriptorSet)
-{
-}
+Texture::Texture(lava::SharedDescriptorSet descriptorSet)
+    : mDescriptorSet(descriptorSet) {}

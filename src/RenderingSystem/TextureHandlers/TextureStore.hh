@@ -1,45 +1,36 @@
 #pragma once
 
-#include <memory>
-#include <map>
-#include <string>
-
 #include <lava/objects/Device.hh>
+#include <map>
+#include <memory>
+#include <string>
 namespace DCore {
-	namespace Textures {
-		using namespace lava;
-		class Texture;
+namespace Textures {
+using namespace lava;
+class Texture;
 
-		class TextureStore
-		{
-		public:
-			TextureStore(
-				lava::SharedDevice device);
+class TextureStore {
+public:
+    TextureStore(lava::SharedDevice device);
 
-			TextureStore(
-				lava::SharedDevice device,
-				std::vector<std::pair<std::string, std::string>> imageTexturePathsAndNames);
+    TextureStore(lava::SharedDevice device,
+                 std::vector<std::pair<std::string, std::string>>
+                     imageTexturePathsAndNames);
 
-			~TextureStore();
+    ~TextureStore();
 
-			std::shared_ptr<Texture>
-				getTextureWithName(
-					std::string name)
-				const;
+    std::shared_ptr<Texture> getTextureWithName(std::string name) const;
 
-			lava::SharedDescriptorSetLayout
-				getTextureLayout()
-				const;
+    lava::SharedDescriptorSetLayout getTextureLayout() const;
 
-		private:
-			void
-				createAllTextures(
-					lava::SharedDevice device,
-					std::vector<std::pair<std::string, std::string>>& texturePathsAndNames);
+private:
+    void createAllTextures(
+        lava::SharedDevice device,
+        std::vector<std::pair<std::string, std::string>>& texturePathsAndNames);
 
-			std::map<std::string, std::shared_ptr<Texture>> mTextures;
+    std::map<std::string, std::shared_ptr<Texture>> mTextures;
 
-			lava::SharedDescriptorSetLayout mTextureLayout;
-		};
-	}
-}
+    lava::SharedDescriptorSetLayout mTextureLayout;
+};
+}  // namespace Textures
+}  // namespace DCore

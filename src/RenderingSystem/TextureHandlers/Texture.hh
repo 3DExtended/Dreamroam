@@ -3,16 +3,15 @@
 #include <lava/objects/DescriptorSet.hh>
 
 namespace DCore {
-	namespace Textures {
-		class Texture
-		{
-		public:
-			Texture(lava::SharedDescriptorSet descriptorSet);
+namespace Textures {
+class Texture {
+public:
+    Texture(lava::SharedDescriptorSet descriptorSet);
 
-			lava::SharedDescriptorSet getDescriptorSet() { return mDescriptorSet; };
+    lava::SharedDescriptorSet getDescriptorSet() { return mDescriptorSet; };
 
-		private:
-			lava::SharedDescriptorSet mDescriptorSet;
-		};
-	}
-}
+private:
+    lava::SharedDescriptorSet mDescriptorSet;
+};
+}  // namespace Textures
+}  // namespace DCore
