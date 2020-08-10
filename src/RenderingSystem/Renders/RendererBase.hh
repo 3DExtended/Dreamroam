@@ -32,7 +32,7 @@ protected:
     lava::SharedGraphicsPipeline mPipeline;
     lava::SharedPipelineLayout mLayout;
     lava::SharedDescriptorSet mCameraDescriptor;
-    lava::InlineSubpass* mCurrentSubpass;
+    lava::InlineSubpass* mCurrentSubpass = nullptr;
 
     std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline>
         mAdvancedPipeline;
