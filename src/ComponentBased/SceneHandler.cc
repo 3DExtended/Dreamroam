@@ -54,7 +54,10 @@ void SceneHandler::_switchScene(uint16_t index)
 	{
 		if (curScene != nullptr)
 		{
-			// curScene->gameObjectDestroy();
+			for each (auto system in curScene->m_Systems)
+			{
+				system->InternalDestroy(curScene->m_Registry);
+			}
 			curScene->destroy();
 		}
 		curScene = scenes.at(index);
@@ -82,7 +85,7 @@ void SceneHandler::run()
 	mWindowHeight = GlobalSettings::windowHeight;
 
 	// the swapchain is setup in the rendering system
-	mWindow = mGlfwOutput->openWindow(GlobalSettings::windowWidth, GlobalSettings::windowHeight, false, "DreamRoam");
+	mWindow = mGlfwOutput->openWindow(GlobalSettings::windowWidth, GlobalSettings::windowHeight, true, "DreamRoam");
 
 	if (this->rendererSystem == nullptr) {
 		this->rendererSystem = new RenderingSystem(
@@ -96,7 +99,7 @@ void SceneHandler::run()
 
 	double lastCpuTime = glfwGetTime();
 
-	//FPS measuring
+	// FPS measuring
 	uint16_t frames = 0;
 	double FPStime = glfwGetTime();
 
@@ -253,15 +256,29 @@ void SceneHandler::setupGlfwCallbacks()
 void SceneHandler::start()
 {
 	curScene->start();
-	// curScene->gameObjectAwake();
-	// curScene->gameObjectStart();
+	for each (auto system in curScene->m_Systems)
+	{
+		system->InternalAwake(curScene->m_Registry);
+	}
+
+	for each (auto system in curScene->m_Systems)
+	{
+		system->InternalStart(curScene->m_Registry);
+	}
 }
 
 void SceneHandler::update(double dt)
 {
 	curScene->update(dt);
-	// curScene->gameObjectUpdate(dt);
-	// curScene->gameObjectLateUpdate();
+	for each (auto system in curScene->m_Systems)
+	{
+		system->InternalUpdate(curScene->m_Registry);
+	}
+
+	for each (auto system in curScene->m_Systems)
+	{
+		system->InternalLateUpdate(curScene->m_Registry);
+	}
 }
 
 void SceneHandler::render()

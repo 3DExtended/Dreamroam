@@ -19,6 +19,8 @@
 
 #include "../AScene.hh"
 
+#include "UntypedSystemBase.hh"
+
 namespace DCore
 {
 	namespace ComponentSystem
@@ -53,7 +55,7 @@ namespace DCore
 		/// <typeparam name="firstType">The component you want to access</typeparam>
 		/// <typeparam name="...Types">A list of components you need access to</typeparam>
 		template <class firstType, class... Types>
-		class SystemBase
+		class SystemBase : public UntypedSystemBase
 		{
 		public:
 			SystemBase() = default;
@@ -105,11 +107,11 @@ namespace DCore
 
 		private:
 			friend class DCore::ComponentSystem::SceneHandler;
-			virtual void InternalAwake(entt::registry& reg) { this->Awake(GetEntitiesFromRegistry(reg)); }
-			virtual void InternalStart(entt::registry& reg) { this->Start(GetEntitiesFromRegistry(reg)); }
-			virtual void InternalUpdate(entt::registry& reg) { this->Update(GetEntitiesFromRegistry(reg)); }
-			virtual void InternalLateUpdate(entt::registry& reg) { this->LateUpdate(GetEntitiesFromRegistry(reg)); }
-			virtual void InternalDestroy(entt::registry& reg) { this->Destroy(GetEntitiesFromRegistry(reg)); }
+			void InternalAwake(entt::registry& reg)      override { this->Awake(GetEntitiesFromRegistry(reg)); }
+			void InternalStart(entt::registry& reg)      override { this->Start(GetEntitiesFromRegistry(reg)); }
+			void InternalUpdate(entt::registry& reg)     override { this->Update(GetEntitiesFromRegistry(reg)); }
+			void InternalLateUpdate(entt::registry& reg) override { this->LateUpdate(GetEntitiesFromRegistry(reg)); }
+			void InternalDestroy(entt::registry& reg)    override { this->Destroy(GetEntitiesFromRegistry(reg)); }
 		};
 	} // namespace ComponentSystem
 } // namespace DCore

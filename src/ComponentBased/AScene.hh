@@ -6,6 +6,7 @@
 #include <RenderingSystem/MeshHandlers/GeometryStore.hh>
 #include <RenderingSystem/TextureHandlers/TextureStore.hh>
 #include "entt/entt.hpp"
+#include "Systems/UntypedSystemBase.hh"
 
 namespace DCore
 {
@@ -98,6 +99,8 @@ namespace DCore
 			/// The registry for entities in the scene.
 			/// </summary>
 			entt::registry m_Registry;
+
+			std::vector<std::shared_ptr<UntypedSystemBase>> m_Systems;
 		};
 	}
 }
