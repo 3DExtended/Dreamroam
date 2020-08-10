@@ -44,10 +44,9 @@ void SceneHandler::_switchScene(uint16_t index) {
                   << std::endl;
     } else {
         if (curScene != nullptr) {
-            for
-                each(auto system in curScene->m_Systems) {
-                    system->InternalDestroy(curScene->m_Registry);
-                }
+            for (auto system : curScene->m_Systems) {
+                system->InternalDestroy(curScene->m_Registry);
+            }
             curScene->destroy();
         }
         curScene = scenes.at(index);
@@ -234,28 +233,24 @@ void SceneHandler::setupGlfwCallbacks() {
 
 void SceneHandler::start() {
     curScene->start();
-    for
-        each(auto system in curScene->m_Systems) {
-            system->InternalAwake(curScene->m_Registry);
-        }
+    for (auto system : curScene->m_Systems) {
+        system->InternalAwake(curScene->m_Registry);
+    }
 
-    for
-        each(auto system in curScene->m_Systems) {
-            system->InternalStart(curScene->m_Registry);
-        }
+    for (auto system : curScene->m_Systems) {
+        system->InternalStart(curScene->m_Registry);
+    }
 }
 
 void SceneHandler::update(double dt) {
     curScene->update(dt);
-    for
-        each(auto system in curScene->m_Systems) {
-            system->InternalUpdate(curScene->m_Registry, dt);
-        }
+    for (auto system : curScene->m_Systems) {
+        system->InternalUpdate(curScene->m_Registry, dt);
+    }
 
-    for
-        each(auto system in curScene->m_Systems) {
-            system->InternalLateUpdate(curScene->m_Registry, dt);
-        }
+    for (auto system : curScene->m_Systems) {
+        system->InternalLateUpdate(curScene->m_Registry, dt);
+    }
 }
 
 void SceneHandler::render() {
