@@ -10,8 +10,7 @@
 #include "RenderComponent.hh"
 
 namespace DCore {
-namespace Rendering {
-using namespace DCore::ComponentSystem;
+namespace ComponentSystem {
 class RenderingSystemBase
     : public SystemBase<RenderComponent, TransformComponent> {
 public:
@@ -31,5 +30,5 @@ private:
         this->Render(GetEntitiesFromRegistry(reg));
     }
 };
-}  // namespace Rendering
+}  // namespace ComponentSystem
 }  // namespace DCore
