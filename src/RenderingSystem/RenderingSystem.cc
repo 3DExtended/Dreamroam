@@ -56,7 +56,7 @@ void RenderingSystem::Render(
             std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
     for (auto entity : entities) {
-        auto& [renderer, transform] =
+        auto [renderer, transform] =
             entities.get<RenderComponent, TransformComponent>(entity);
 
         // TODO this is actually bad code... it results in a lot of copying
