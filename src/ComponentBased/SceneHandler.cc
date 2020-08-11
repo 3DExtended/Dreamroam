@@ -94,6 +94,10 @@ void SceneHandler::run() {
         auto cpustart = glfwGetTime();
         auto dt = cpustart - lastCpuTime;
 
+        // TODO this 2 should not be hard coded but instead use a counter for
+        // how many command buffers are used per frame
+        mDevice->graphicsQueue().catchUp(2);
+
         // update
         updateInput();
         update(dt);
