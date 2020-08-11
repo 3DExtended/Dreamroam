@@ -5,6 +5,7 @@
 #include <RenderingSystem/PushConstants.hh>
 #include <RenderingSystem/RenderComponent.hh>
 #include <RenderingSystem/RenderingSystem.hh>
+#include <Utils/Base.hh>
 #include <glm/common.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <lava-extras/camera/GenericCamera.hh>
@@ -62,7 +63,7 @@ uint16_t SceneHandler::_addScene(std::shared_ptr<AScene> newScene) {
 lava::SharedDevice SceneHandler::_getDevice() const { return mDevice; }
 
 void SceneHandler::run() {
-    assert(scenes.size() > 0);
+    DR_ASSERT(scenes.size() > 0);
 
     switchScene(0);
     mWindowWidth = GlobalSettings::windowWidth;
@@ -165,7 +166,7 @@ void SceneHandler::setupGlfwCallbacks() {
 
     auto window = mWindow->window();
     auto insertion = sWindowApps.insert({window, this}).second;
-    assert(insertion && "You can only have one app per GLFWwindow.");
+    DR_ASSERT(insertion && "You can only have one app per GLFWwindow.");
 
     glfwSetKeyCallback(window, [](GLFWwindow* win, int key, int scancode,
                                   int action, int mods) {

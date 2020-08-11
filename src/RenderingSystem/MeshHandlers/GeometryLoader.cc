@@ -3,6 +3,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
+#include <Utils/Base.hh>
 #include <assimp/Importer.hpp>
 #include <fstream>
 #include <glm/vec4.hpp>
@@ -154,9 +155,9 @@ void GeometryLoader::loadRawCombined(
     loadRawMulti(filename, verticesPerMesh, indicesPerMesh,
                  materialIndexPerMesh, namePerMesh);
 
-    assert(verticesPerMesh.size() == indicesPerMesh.size());
-    assert(verticesPerMesh.size() == materialIndexPerMesh.size());
-    assert(verticesPerMesh.size() == namePerMesh.size());
+    DR_ASSERT(verticesPerMesh.size() == indicesPerMesh.size());
+    DR_ASSERT(verticesPerMesh.size() == materialIndexPerMesh.size());
+    DR_ASSERT(verticesPerMesh.size() == namePerMesh.size());
 
     // Clear and resize the result vectors:
     size_t finalNumberVertices = 0;
@@ -202,9 +203,9 @@ GeometryLoader::meshesFromFile(const std::string& filename,
     loadRawMulti(filename, verticesPerMesh, indicesPerMesh, meshMaterialIndices,
                  meshNames);
 
-    assert(verticesPerMesh.size() == indicesPerMesh.size());
-    assert(verticesPerMesh.size() == meshMaterialIndices.size());
-    assert(verticesPerMesh.size() == meshNames.size());
+    DR_ASSERT(verticesPerMesh.size() == indicesPerMesh.size());
+    DR_ASSERT(verticesPerMesh.size() == meshMaterialIndices.size());
+    DR_ASSERT(verticesPerMesh.size() == meshNames.size());
 
     std::vector<std::shared_ptr<lava::geometry::GeometryData>>
         geometryDataPointers;

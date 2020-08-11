@@ -1,5 +1,6 @@
 #include "AdvancedRenderingPipeline.hh"
 
+#include <Utils/Base.hh>
 #include <array>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
@@ -206,8 +207,8 @@ void AdvancedRenderingPipeline::render(
     lava::RecordingCommandBuffer& cmd, lava::SharedFramebuffer const& fbo,
     std::function<void(lava::pipeline::AdvancedRenderPass const& pass)> const&
         renderFunc) {
-    assert(renderFunc != nullptr && "no render function provided");
-    assert(mCamera != nullptr && "no camera provided");
+    DR_ASSERT(renderFunc != nullptr && "no render function provided");
+    DR_ASSERT(mCamera != nullptr && "no camera provided");
 
     camera::FixedCamera cam(mCamera->getPosition(),          //
                             mCamera->getViewMatrix(),        //

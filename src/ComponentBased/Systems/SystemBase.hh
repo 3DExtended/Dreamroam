@@ -129,7 +129,7 @@ protected:
     }
 
 private:
-    friend class DCore::ComponentSystem::SceneHandler;
+    friend class SceneHandler;
     void InternalAwake(entt::registry& reg) override {
         this->Awake(GetEntitiesFromRegistry(reg));
     }

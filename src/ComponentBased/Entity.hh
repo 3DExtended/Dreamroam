@@ -6,7 +6,7 @@
   However, if you'd like to add external functionalities, this namespace should
   provide typesafty.
   */
-
+#include <Utils/Base.hh>
 #include <lava-extras/camera/fwd.hh>
 #include <lava-extras/geometry/fwd.hh>
 #include <lava-extras/pipeline/RenderingPipeline.hh>
@@ -28,14 +28,14 @@ public:
 
     template <typename T, typename... Args>
     T& AddComponent(Args&&... args) {
-        assert(!HasComponent<T>(), "Entity already has component!");
+        DR_ASSERT(!HasComponent<T>(), "Entity already has component!");
         return m_Scene->m_Registry.emplace<T>(m_EntityHandle,
                                               std::forward<Args>(args)...);
     }
 
     template <typename T>
     T& GetComponent() {
-        assert(HasComponent<T>(), "Entity does not have component!");
+        DR_ASSERT(HasComponent<T>(), "Entity does not have component!");
         return m_Scene->m_Registry.get<T>(m_EntityHandle);
     }
 
@@ -46,7 +46,7 @@ public:
 
     template <typename T>
     void RemoveComponent() {
-        assert(HasComponent<T>(), "Entity does not have component!");
+        DR_ASSERT(HasComponent<T>(), "Entity does not have component!");
         m_Scene->m_Registry.remove<T>(m_EntityHandle);
     }
 

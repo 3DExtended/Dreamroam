@@ -26,7 +26,7 @@ public:
     virtual lava::camera::SharedGenericCamera getCamera() = 0;
 
 private:
-    friend class DCore::ComponentSystem::SceneHandler;
+    friend class SceneHandler;
     virtual void InternalRender(entt::registry& reg) {
         this->Render(GetEntitiesFromRegistry(reg));
     }
