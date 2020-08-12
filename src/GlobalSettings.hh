@@ -9,4 +9,6 @@ public:
 
     static uint16_t windowWidth;
     static uint16_t windowHeight;
+
+    static uint16_t shadowMapSize;
 };

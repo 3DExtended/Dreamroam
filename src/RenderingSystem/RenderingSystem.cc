@@ -2,6 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include <GlobalSettings.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.cc>
 #include <glm/common.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -121,8 +122,9 @@ void RenderingSystem::Render(
                 auto sub = pass.pass.startInlineSubpass();
 
                 if (pass.type == lava::pipeline::RenderPassType::Shadow) {
-                    sub.setViewports({{0, 0, float(mWindow->width()),
-                                       float(mWindow->height())}});
+                    sub.setViewports(
+                        {{0, 0, float(GlobalSettings::shadowMapSize),
+                          float(GlobalSettings::shadowMapSize)}});
 
                     mShadowMap->prepareRendering(&sub, mViewProjDescriptorPre);
                     mShadowMap->renderGameObjects(shadowThrowingObjects);
@@ -305,7 +307,7 @@ void RenderingSystem::setupPipeline(
          mPipeline->mForwardDescriptorLayout});
 
     mPipeline->getCamera()->setVerticalFieldOfView(60);
-    mPipeline->getCamera()->setFarClippingPlane(25);
+    mPipeline->getCamera()->setFarClippingPlane(60);
     mPipeline->getCamera()->setPosition({5, 2, 5});
 }
 

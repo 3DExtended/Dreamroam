@@ -1,5 +1,6 @@
 #include "AdvancedRenderingPipeline.hh"
 
+#include <GlobalSettings.hh>
 #include <Utils/Base.hh>
 #include <array>
 #include <glm/ext.hpp>
@@ -143,7 +144,9 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     mHeight = h;
 
     mImageDepthPre =
-        lava::attachment2D(mWidth, mHeight, Format::DEPTH_COMPONENT16)
+        lava::attachment2D(GlobalSettings::shadowMapSize,
+                           GlobalSettings::shadowMapSize,
+                           Format::DEPTH_COMPONENT16)
             .setUsage(vk::ImageUsageFlagBits::eDepthStencilAttachment |
                       vk::ImageUsageFlagBits::eSampled)
             .create(mDevice);
@@ -156,6 +159,8 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
             .setLevelCount(1)
             .setLayerCount(1));
 
+    mFboPre = mPassPre->createFramebuffer({mViewDepthPre});
+
     mImageColor =
         lava::attachment2D(mWidth, mHeight, Format::RGBA16F).create(mDevice);
     mImageColor->realizeAttachment();
@@ -167,15 +172,13 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     mImageDepth->realizeAttachment();
     mViewDepth = mImageDepth->createView();
 
-    mFboPre = mPassPre->createFramebuffer({mViewDepthPre});
-
     mFboForward = mPassForward->createFramebuffer({mViewDepth, mViewColor});
 
     auto forwardSampler = mDevice->createSampler(
         SamplerCreateInfo{}
             .setMagFilter(vk::Filter::eLinear)
             .setMinFilter(vk::Filter::eLinear)
-            .setMipmapMode(vk::SamplerMipmapMode::eNearest)
+            .setMipmapMode(vk::SamplerMipmapMode::eLinear)
             .setAddressModeU(vk::SamplerAddressMode::eClampToEdge)
             .setAddressModeV(vk::SamplerAddressMode::eClampToEdge)
             .setAddressModeW(vk::SamplerAddressMode::eClampToEdge)
