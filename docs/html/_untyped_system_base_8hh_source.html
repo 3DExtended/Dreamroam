@@ -90,31 +90,29 @@ $(document).ready(function(){initNavTree('_untyped_system_base_8hh_source.html',
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;entt/entt.hpp&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">namespace </span>ComponentSystem</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">    8</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>(<span class="keyword">const</span> <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>&amp; other) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalAwake(entt::registry&amp; reg) {};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalStart(entt::registry&amp; reg) {};</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalUpdate(entt::registry&amp; reg, <span class="keywordtype">double</span> dt) {};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalLateUpdate(entt::registry&amp; reg, <span class="keywordtype">double</span> dt) {};</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalDestroy(entt::registry&amp; reg) {};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        };</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    } <span class="comment">// namespace ComponentSystem</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace DCore</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>ComponentSystem {</div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>(<span class="keyword">const</span> <a class="code" href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">UntypedSystemBase</a>&amp; other) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalAwake(entt::registry&amp; reg){};</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalStart(entt::registry&amp; reg){};</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalUpdate(entt::registry&amp; reg, <span class="keywordtype">double</span> dt){};</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalLateUpdate(entt::registry&amp; reg, <span class="keywordtype">double</span> dt){};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalDestroy(entt::registry&amp; reg){};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}  <span class="comment">// namespace ComponentSystem</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}  <span class="comment">// namespace DCore</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_scene_handler_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_scene_handler.html">DCore::ComponentSystem::SceneHandler</a></div><div class="ttdoc">A SceneHandler is the manager of the game engine. It implements the singleton pattern and provides ge...</div><div class="ttdef"><b>Definition:</b> SceneHandler.hh:28</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:12</div></div>
-<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_untyped_system_base_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">DCore::ComponentSystem::UntypedSystemBase</a></div><div class="ttdef"><b>Definition:</b> UntypedSystemBase.hh:9</div></div>
+<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_scene_handler_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_scene_handler.html">DCore::ComponentSystem::SceneHandler</a></div><div class="ttdoc">A SceneHandler is the manager of the game engine. It implements the singleton pattern and provides ge...</div><div class="ttdef"><b>Definition:</b> SceneHandler.hh:21</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
+<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_untyped_system_base_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_untyped_system_base.html">DCore::ComponentSystem::UntypedSystemBase</a></div><div class="ttdef"><b>Definition:</b> UntypedSystemBase.hh:6</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

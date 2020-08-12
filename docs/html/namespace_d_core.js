@@ -3,11 +3,21 @@ var namespace_d_core =
     [ "ComponentSystem", null, [
       [ "AScene", "class_d_core_1_1_component_system_1_1_a_scene.html", "class_d_core_1_1_component_system_1_1_a_scene" ],
       [ "Entity", "class_d_core_1_1_component_system_1_1_entity.html", "class_d_core_1_1_component_system_1_1_entity" ],
+      [ "RenderingSystemBase", "class_d_core_1_1_component_system_1_1_rendering_system_base.html", "class_d_core_1_1_component_system_1_1_rendering_system_base" ],
       [ "SceneHandler", "class_d_core_1_1_component_system_1_1_scene_handler.html", "class_d_core_1_1_component_system_1_1_scene_handler" ],
       [ "SystemBase", "class_d_core_1_1_component_system_1_1_system_base.html", "class_d_core_1_1_component_system_1_1_system_base" ],
       [ "TagComponent", "struct_d_core_1_1_component_system_1_1_tag_component.html", "struct_d_core_1_1_component_system_1_1_tag_component" ],
       [ "TransformComponent", "struct_d_core_1_1_component_system_1_1_transform_component.html", "struct_d_core_1_1_component_system_1_1_transform_component" ],
       [ "UntypedSystemBase", "class_d_core_1_1_component_system_1_1_untyped_system_base.html", "class_d_core_1_1_component_system_1_1_untyped_system_base" ]
+    ] ],
+    [ "Debug", null, [
+      [ "InstrumentorUtils", null, [
+        [ "ChangeResult", "struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result.html", "struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result" ]
+      ] ],
+      [ "InstrumentationSession", "struct_d_core_1_1_debug_1_1_instrumentation_session.html", "struct_d_core_1_1_debug_1_1_instrumentation_session" ],
+      [ "InstrumentationTimer", "class_d_core_1_1_debug_1_1_instrumentation_timer.html", "class_d_core_1_1_debug_1_1_instrumentation_timer" ],
+      [ "Instrumentor", "class_d_core_1_1_debug_1_1_instrumentor.html", "class_d_core_1_1_debug_1_1_instrumentor" ],
+      [ "ProfileResult", "struct_d_core_1_1_debug_1_1_profile_result.html", "struct_d_core_1_1_debug_1_1_profile_result" ]
     ] ],
     [ "Example", null, [
       [ "DreamroamScene", "class_d_core_1_1_example_1_1_dreamroam_scene.html", "class_d_core_1_1_example_1_1_dreamroam_scene" ]
@@ -27,7 +37,6 @@ var namespace_d_core =
       [ "RenderComponent", "struct_d_core_1_1_rendering_1_1_render_component.html", "struct_d_core_1_1_rendering_1_1_render_component" ],
       [ "RendererBase", "class_d_core_1_1_rendering_1_1_renderer_base.html", "class_d_core_1_1_rendering_1_1_renderer_base" ],
       [ "RenderingSystem", "class_d_core_1_1_rendering_1_1_rendering_system.html", "class_d_core_1_1_rendering_1_1_rendering_system" ],
-      [ "RenderingSystemBase", "class_d_core_1_1_rendering_1_1_rendering_system_base.html", "class_d_core_1_1_rendering_1_1_rendering_system_base" ],
       [ "VertexAttributes", "struct_d_core_1_1_rendering_1_1_vertex_attributes.html", "struct_d_core_1_1_rendering_1_1_vertex_attributes" ]
     ] ],
     [ "Textures", null, [

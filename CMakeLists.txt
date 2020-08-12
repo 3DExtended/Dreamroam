@@ -9,6 +9,10 @@ set(BUILD_STATIC_LIBS ON)
 add_compile_definitions(_USE_MATH_DEFINES)
 add_compile_definitions(GLM_FORCE_DEPTH_ZERO_TO_ONE)
 
+IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
+	add_compile_definitions(DR_DEBUG)
+ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG)
+
 
 # add glm 
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/glm/glm")

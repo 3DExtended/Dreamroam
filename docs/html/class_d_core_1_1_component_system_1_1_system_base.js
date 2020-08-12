@@ -8,5 +8,5 @@ var class_d_core_1_1_component_system_1_1_system_base =
     [ "LateUpdate", "class_d_core_1_1_component_system_1_1_system_base_a19cbe3186ad3a6e81271845fdc04da89.html#a19cbe3186ad3a6e81271845fdc04da89", null ],
     [ "Start", "class_d_core_1_1_component_system_1_1_system_base_a6154ab285d5099fa7ffaec1579142d95.html#a6154ab285d5099fa7ffaec1579142d95", null ],
     [ "Update", "class_d_core_1_1_component_system_1_1_system_base_a13842f60de651d2e6abfb23112202524.html#a13842f60de651d2e6abfb23112202524", null ],
-    [ "DCore::ComponentSystem::SceneHandler", "class_d_core_1_1_component_system_1_1_system_base.html#a23d2895c6191098d350bc6cb9b8ec453", null ]
+    [ "SceneHandler", "class_d_core_1_1_component_system_1_1_system_base.html#a84c005717b67e3cf91be9a75267dbee2", null ]
 ];

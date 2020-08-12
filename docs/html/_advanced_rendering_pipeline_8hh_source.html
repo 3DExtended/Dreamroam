@@ -89,112 +89,110 @@ $(document).ready(function(){initNavTree('_advanced_rendering_pipeline_8hh_sourc
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/vec3.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;lava-extras/camera/fwd.hh&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;lava-extras/pipeline/RenderPass.hh&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;lava/fwd.hh&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;lava-extras/pipeline/fwd.hh&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;lava/common/GlLikeFormats.hh&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;lava/common/property.hh&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;lava/common/GlLikeFormats.hh&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;lava-extras/camera/fwd.hh&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;lava-extras/pipeline/fwd.hh&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;lava/objects/RenderPass.hh&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;glm/vec3.hpp&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>lava {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">namespace </span>pipeline {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">   23</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">AdvancedRenderingPipeline</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            camera::SharedGenericCamera mCamera = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordtype">int</span> mWidth = 2;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordtype">int</span> mHeight = 2;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="comment">// === RENDER TARGETS ===</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            SharedImage mImageDepthPre; <span class="comment">// used for shadowMapping</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            SharedImage mImageColor;    <span class="comment">// actual rendering target</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            SharedImage mImageDepth;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            SharedImageView mViewDepthPre;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            SharedImageView mViewColor;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            SharedImageView mViewDepth;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="comment">// === Framebuffers ===</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            SharedFramebuffer mFboPre;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            SharedFramebuffer mFboForward;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="comment">// === (Vulkan) RenderPasses ===</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            SharedRenderPass mPassPre; <span class="comment">// 1 subpass</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            SharedRenderPass mPassForward; <span class="comment">// 2 subpasses</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            SharedRenderPass mPassOutput;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="comment">// === Pipelines ===</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            SharedGraphicsPipeline mPipelineOutputFXAA;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            SharedGraphicsPipeline mPipelineOutputNoFXAA;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="comment">// TODO make getters for the descriptors!</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="comment">// === Descriptor Sets</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            SharedDescriptorSetLayout mForwardDescriptorLayout;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            SharedDescriptorSet mForwardDescriptor;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            SharedDescriptorSetLayout mOutputDescriptorLayout;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            SharedDescriptorSet mOutputDescriptor;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="comment">// === SETTINGS ===</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordtype">bool</span> mFXAA = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordtype">bool</span> mTransparentPass = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">float</span> mDitheringStrength = 1 / 256.f;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;lava/fwd.hh&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;lava/objects/RenderPass.hh&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>lava {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>pipeline {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">AdvancedRenderingPipeline</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    camera::SharedGenericCamera mCamera = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">int</span> mWidth = 2;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">int</span> mHeight = 2;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// === RENDER TARGETS ===</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    SharedImage mImageDepthPre;  <span class="comment">// used for shadowMapping</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    SharedImage mImageColor;     <span class="comment">// actual rendering target</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    SharedImage mImageDepth;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    SharedImageView mViewDepthPre;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    SharedImageView mViewColor;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    SharedImageView mViewDepth;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// === Framebuffers ===</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    SharedFramebuffer mFboPre;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    SharedFramebuffer mFboForward;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// === (Vulkan) RenderPasses ===</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    SharedRenderPass mPassPre;      <span class="comment">// 1 subpass</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    SharedRenderPass mPassForward;  <span class="comment">// 2 subpasses</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    SharedRenderPass mPassOutput;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// === Pipelines ===</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    SharedGraphicsPipeline mPipelineOutputFXAA;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    SharedGraphicsPipeline mPipelineOutputNoFXAA;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// TODO make getters for the descriptors!</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// === Descriptor Sets</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SharedDescriptorSetLayout mForwardDescriptorLayout;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    SharedDescriptorSet mForwardDescriptor;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    SharedDescriptorSetLayout mOutputDescriptorLayout;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    SharedDescriptorSet mOutputDescriptor;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// === SETTINGS ===</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">bool</span> mFXAA = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">bool</span> mTransparentPass = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">float</span> mDitheringStrength = 1 / 256.f;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    SharedDevice mDevice;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    vk::Format mOutputFormat;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            SharedDevice mDevice;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            vk::Format mOutputFormat;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">public</span>:  <span class="comment">// getter, setter</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    LAVA_PROPERTY(Camera);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">public</span>: <span class="comment">// getter, setter</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            LAVA_PROPERTY(Camera);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    LAVA_GETTER(Width);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    LAVA_GETTER(Height);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            LAVA_GETTER(Width);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            LAVA_GETTER(Height);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            LAVA_PROPERTY(FXAA);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            LAVA_PROPERTY(DitheringStrength);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            LAVA_PROPERTY(TransparentPass);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    LAVA_PROPERTY(FXAA);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    LAVA_PROPERTY(DitheringStrength);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    LAVA_PROPERTY(TransparentPass);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">int</span> getOutputWidth() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">int</span> getOutputHeight() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordtype">int</span> getOutputWidth() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordtype">int</span> getOutputHeight() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">AdvancedRenderingPipeline</a>(SharedDevice <span class="keyword">const</span>&amp; device, GenericFormat outputFormat);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#af49d70314aa2dd31be69e908097a9c8e">resize</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa.html#a19caa69565b7b3d6211495bcf1ef9dfa">assignCamera</a>(camera::SharedGenericCamera <span class="keyword">const</span>&amp; cam,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordtype">bool</span> useCamViewport = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8.html#a51a5fe665107400269ce2eba976da1f8">render</a>(lava::RecordingCommandBuffer&amp; cmd,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                lava::SharedFramebuffer <span class="keyword">const</span>&amp; fbo,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keyword">const</span> std::function&lt;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordtype">void</span>(lava::pipeline::AdvancedRenderPass <span class="keyword">const</span>&amp; pass)&gt;&amp; renderFunc);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">  105</a></span>&#160;            SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">outputPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassOutput; }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">  108</a></span>&#160;            SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">prePass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassPre; }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">  111</a></span>&#160;            SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">forwardPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassForward; }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="comment">/*Subpass zPrePass() const { return { mPassForward, 0 }; }</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">            Subpass opaquePass() const { return { mPassForward, 1 }; }*/</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        };</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">AdvancedRenderingPipeline</a>(SharedDevice <span class="keyword">const</span>&amp; device,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                              GenericFormat outputFormat);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#af49d70314aa2dd31be69e908097a9c8e">resize</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa.html#a19caa69565b7b3d6211495bcf1ef9dfa">assignCamera</a>(camera::SharedGenericCamera <span class="keyword">const</span>&amp; cam,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                      <span class="keywordtype">bool</span> useCamViewport = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8.html#a51a5fe665107400269ce2eba976da1f8">render</a>(</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        lava::RecordingCommandBuffer&amp; cmd, lava::SharedFramebuffer <span class="keyword">const</span>&amp; fbo,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">const</span> std::function&lt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordtype">void</span>(lava::pipeline::AdvancedRenderPass <span class="keyword">const</span>&amp; pass)&gt;&amp; renderFunc);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">  103</a></span>&#160;    SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">outputPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassOutput; }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">  106</a></span>&#160;    SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">prePass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassPre; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">  109</a></span>&#160;    SharedRenderPass <span class="keyword">const</span>&amp; <a class="code" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">forwardPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mPassForward; }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">/*Subpass zPrePass() const { return { mPassForward, 0 }; }</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">    Subpass opaquePass() const { return { mPassForward, 1 }; }*/</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}  <span class="comment">// namespace pipeline</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}  <span class="comment">// namespace lava</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_a0cf45d26d2ad982caf4fc8f501595f5e"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">lava::pipeline::AdvancedRenderingPipeline::prePass</a></div><div class="ttdeci">SharedRenderPass const  &amp; prePass() const</div><div class="ttdoc">Use this to create the Pipelines to render the shadow pass.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:108</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a></div><div class="ttdoc">A Forward+ Rendering Pipeline with post-processing support It provides features such as shadow mappin...</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:23</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa_html_a19caa69565b7b3d6211495bcf1ef9dfa"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa.html#a19caa69565b7b3d6211495bcf1ef9dfa">lava::pipeline::AdvancedRenderingPipeline::assignCamera</a></div><div class="ttdeci">void assignCamera(camera::SharedGenericCamera const &amp;cam, bool useCamViewport=true)</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:198</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_aa2be9635a6d0a5f575f13bf1714791e8"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">lava::pipeline::AdvancedRenderingPipeline::outputPass</a></div><div class="ttdeci">SharedRenderPass const  &amp; outputPass() const</div><div class="ttdoc">Use this to create the FBOs for the Pipeline to output to.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:105</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_afbf56fa324abb5d2b20e34caf66cfaaf"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">lava::pipeline::AdvancedRenderingPipeline::forwardPass</a></div><div class="ttdeci">SharedRenderPass const  &amp; forwardPass() const</div><div class="ttdoc">Use this to create the Pipelines to render the forward pass.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:111</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8_html_a51a5fe665107400269ce2eba976da1f8"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8.html#a51a5fe665107400269ce2eba976da1f8">lava::pipeline::AdvancedRenderingPipeline::render</a></div><div class="ttdeci">void render(lava::RecordingCommandBuffer &amp;cmd, lava::SharedFramebuffer const &amp;fbo, const std::function&lt; void(lava::pipeline::AdvancedRenderPass const &amp;pass)&gt; &amp;renderFunc)</div><div class="ttdoc">executes the whole rendering pipeline</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:206</div></div>
-<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_af49d70314aa2dd31be69e908097a9c8e"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#af49d70314aa2dd31be69e908097a9c8e">lava::pipeline::AdvancedRenderingPipeline::resize</a></div><div class="ttdeci">void resize(int w, int h)</div><div class="ttdoc">Resizes the internal pipeline size.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:137</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_a0cf45d26d2ad982caf4fc8f501595f5e"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#a0cf45d26d2ad982caf4fc8f501595f5e">lava::pipeline::AdvancedRenderingPipeline::prePass</a></div><div class="ttdeci">SharedRenderPass const  &amp; prePass() const</div><div class="ttdoc">Use this to create the Pipelines to render the shadow pass.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:106</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a></div><div class="ttdoc">A Forward+ Rendering Pipeline with post-processing support It provides features such as shadow mappin...</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:20</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa_html_a19caa69565b7b3d6211495bcf1ef9dfa"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a19caa69565b7b3d6211495bcf1ef9dfa.html#a19caa69565b7b3d6211495bcf1ef9dfa">lava::pipeline::AdvancedRenderingPipeline::assignCamera</a></div><div class="ttdeci">void assignCamera(camera::SharedGenericCamera const &amp;cam, bool useCamViewport=true)</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:206</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_aa2be9635a6d0a5f575f13bf1714791e8"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#aa2be9635a6d0a5f575f13bf1714791e8">lava::pipeline::AdvancedRenderingPipeline::outputPass</a></div><div class="ttdeci">SharedRenderPass const  &amp; outputPass() const</div><div class="ttdoc">Use this to create the FBOs for the Pipeline to output to.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:103</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_afbf56fa324abb5d2b20e34caf66cfaaf"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#afbf56fa324abb5d2b20e34caf66cfaaf">lava::pipeline::AdvancedRenderingPipeline::forwardPass</a></div><div class="ttdeci">SharedRenderPass const  &amp; forwardPass() const</div><div class="ttdoc">Use this to create the Pipelines to render the forward pass.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.hh:109</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8_html_a51a5fe665107400269ce2eba976da1f8"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline_a51a5fe665107400269ce2eba976da1f8.html#a51a5fe665107400269ce2eba976da1f8">lava::pipeline::AdvancedRenderingPipeline::render</a></div><div class="ttdeci">void render(lava::RecordingCommandBuffer &amp;cmd, lava::SharedFramebuffer const &amp;fbo, const std::function&lt; void(lava::pipeline::AdvancedRenderPass const &amp;pass)&gt; &amp;renderFunc)</div><div class="ttdoc">executes the whole rendering pipeline</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:216</div></div>
+<div class="ttc" id="aclasslava_1_1pipeline_1_1_advanced_rendering_pipeline_html_af49d70314aa2dd31be69e908097a9c8e"><div class="ttname"><a href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html#af49d70314aa2dd31be69e908097a9c8e">lava::pipeline::AdvancedRenderingPipeline::resize</a></div><div class="ttdeci">void resize(int w, int h)</div><div class="ttdoc">Resizes the internal pipeline size.</div><div class="ttdef"><b>Definition:</b> AdvancedRenderingPipeline.cc:143</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

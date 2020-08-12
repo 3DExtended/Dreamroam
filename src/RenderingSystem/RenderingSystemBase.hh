@@ -2,6 +2,7 @@
 
 #include <ComponentBased/BaseComponents.hh>
 #include <ComponentBased/Systems/SystemBase.hh>
+#include <Utils/Debug/Profiling.hh>
 #include <lava/objects/Device.hh>
 #include <map>
 #include <memory>
@@ -27,6 +28,8 @@ public:
 private:
     friend class SceneHandler;
     virtual void InternalRender(entt::registry& reg) {
+        DR_PROFILE_FUNCTION();
+
         this->Render(GetEntitiesFromRegistry(reg));
     }
 };

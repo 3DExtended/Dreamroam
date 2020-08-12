@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['tagcomponent_89',['TagComponent',['../struct_d_core_1_1_component_system_1_1_tag_component.html',1,'DCore::ComponentSystem']]],
-  ['texture_90',['Texture',['../class_d_core_1_1_textures_1_1_texture.html',1,'DCore::Textures']]],
-  ['texturestore_91',['TextureStore',['../class_d_core_1_1_textures_1_1_texture_store.html',1,'DCore::Textures']]],
-  ['transformcomponent_92',['TransformComponent',['../struct_d_core_1_1_component_system_1_1_transform_component.html',1,'DCore::ComponentSystem']]]
+  ['scenehandler_94',['SceneHandler',['../class_d_core_1_1_component_system_1_1_scene_handler.html',1,'DCore::ComponentSystem']]],
+  ['stbi_5fio_5fcallbacks_95',['stbi_io_callbacks',['../structstbi__io__callbacks.html',1,'']]],
+  ['systembase_96',['SystemBase',['../class_d_core_1_1_component_system_1_1_system_base.html',1,'DCore::ComponentSystem']]],
+  ['systembase_3c_20rendercomponent_2c_20transformcomponent_20_3e_97',['SystemBase&lt; RenderComponent, TransformComponent &gt;',['../class_d_core_1_1_component_system_1_1_system_base.html',1,'DCore::ComponentSystem']]],
+  ['systembase_3c_20transformcomponent_2c_20tagcomponent_20_3e_98',['SystemBase&lt; TransformComponent, TagComponent &gt;',['../class_d_core_1_1_component_system_1_1_system_base.html',1,'DCore::ComponentSystem']]]
 ];

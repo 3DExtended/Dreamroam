@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dcore_95',['DCore',['../namespace_d_core.html',1,'']]]
+  ['dcore_105',['DCore',['../namespace_d_core.html',1,'']]]
 ];

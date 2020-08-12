@@ -2,6 +2,7 @@
 
 #include <GlobalSettings.hh>
 #include <Utils/Base.hh>
+#include <Utils/Debug/Profiling.hh>
 #include <array>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
@@ -37,6 +38,8 @@ int AdvancedRenderingPipeline::getOutputHeight() const {
 AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
                                                      GenericFormat outputFormat)
     : mDevice(device), mOutputFormat(outputFormat.vkhpp()) {
+    DR_PROFILE_FUNCTION();
+
     mCamera = std::make_shared<camera::GenericCamera>();
     mCamera->setPosition({0.f, 0.f, 0.f});
     mCamera->setTarget({0.f, 0.f, -1.f});
@@ -138,6 +141,8 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
 }
 
 void AdvancedRenderingPipeline::resize(int w, int h) {
+    DR_PROFILE_FUNCTION();
+
     if (w == mWidth && h == mHeight) return;  // no change
 
     mWidth = w;
@@ -200,6 +205,8 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
 
 void AdvancedRenderingPipeline::assignCamera(
     const camera::SharedGenericCamera& cam, bool useCamViewport) {
+    DR_PROFILE_FUNCTION();
+
     mCamera = cam;
 
     if (cam && useCamViewport)
@@ -210,6 +217,8 @@ void AdvancedRenderingPipeline::render(
     lava::RecordingCommandBuffer& cmd, lava::SharedFramebuffer const& fbo,
     std::function<void(lava::pipeline::AdvancedRenderPass const& pass)> const&
         renderFunc) {
+    DR_PROFILE_FUNCTION();
+
     DR_ASSERT(renderFunc != nullptr && "no render function provided");
     DR_ASSERT(mCamera != nullptr && "no camera provided");
 

@@ -31,6 +31,7 @@
 std::shared_ptr<SceneHandler> SceneHandler::instance = nullptr;
 
 std::shared_ptr<SceneHandler> SceneHandler::getInstance() {
+    DR_PROFILE_FUNCTION();
     if (instance == nullptr) instance = std::make_shared<SceneHandler>();
     return instance;
 }
@@ -38,6 +39,7 @@ std::shared_ptr<SceneHandler> SceneHandler::getInstance() {
 SceneHandler::~SceneHandler() {}
 
 void SceneHandler::_switchScene(uint16_t index) {
+    DR_PROFILE_FUNCTION();
     if (curScene == nullptr && scenes.size() == 0) {
         std::cerr << "There are no scenes to switch to.." << std::endl;
     } else if (index >= scenes.size()) {
@@ -63,6 +65,7 @@ uint16_t SceneHandler::_addScene(std::shared_ptr<AScene> newScene) {
 lava::SharedDevice SceneHandler::_getDevice() const { return mDevice; }
 
 void SceneHandler::run() {
+    DR_PROFILE_FUNCTION();
     DR_ASSERT(scenes.size() > 0);
 
     switchScene(0);
@@ -90,6 +93,7 @@ void SceneHandler::run() {
     double FPStime = glfwGetTime();
 
     while (!glfwWindowShouldClose(mWindow->window())) {
+        DR_PROFILE_SCOPE("Main Game Loop");
         // timing
         auto cpustart = glfwGetTime();
         auto dt = cpustart - lastCpuTime;
@@ -123,6 +127,7 @@ void SceneHandler::run() {
 }
 
 void SceneHandler::updateCamera(double elapsedSeconds) {
+    DR_PROFILE_FUNCTION();
     auto window = mWindow->window();
     if (rendererSystem->getCamera()) {
         auto speed = mCameraMoveSpeed;
@@ -145,6 +150,7 @@ void SceneHandler::updateCamera(double elapsedSeconds) {
 }
 
 SceneHandler::SceneHandler() {
+    DR_PROFILE_FUNCTION();
     // Create device handle for vulkan
     std::vector<lava::features::SharedFeature> lavaFeatures;
 
@@ -166,6 +172,7 @@ SceneHandler::SceneHandler() {
 }
 
 void SceneHandler::setupGlfwCallbacks() {
+    DR_PROFILE_FUNCTION();
     static std::unordered_map<GLFWwindow*, SceneHandler*> sWindowApps;
 
     auto window = mWindow->window();
@@ -237,6 +244,7 @@ void SceneHandler::setupGlfwCallbacks() {
 }
 
 void SceneHandler::start() {
+    DR_PROFILE_FUNCTION();
     curScene->start();
     for (auto system : curScene->m_Systems) {
         system->InternalAwake(curScene->m_Registry);
@@ -248,6 +256,7 @@ void SceneHandler::start() {
 }
 
 void SceneHandler::update(double dt) {
+    DR_PROFILE_FUNCTION();
     curScene->update(dt);
     for (auto system : curScene->m_Systems) {
         system->InternalUpdate(curScene->m_Registry, dt);
@@ -259,6 +268,7 @@ void SceneHandler::update(double dt) {
 }
 
 void SceneHandler::render() {
+    DR_PROFILE_FUNCTION();
     // TODO find all entities with transform and renderComponent and call
     // the render methode of the active renderingSystem
 
@@ -280,6 +290,7 @@ void SceneHandler::render() {
 }
 
 bool SceneHandler::onKey(int key, int scancode, int action, int mods) {
+    DR_PROFILE_FUNCTION();
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         mCatchCursor = !mCatchCursor;
         if (!mCatchCursor) {
@@ -292,6 +303,7 @@ bool SceneHandler::onKey(int key, int scancode, int action, int mods) {
 }
 
 bool SceneHandler::onMousePosition(double x, double y) {
+    DR_PROFILE_FUNCTION();
     // if (TwEventMousePosGLFW(mWindow, x, y))
     //    return true;
     auto window = mWindow->window();
@@ -341,6 +353,7 @@ bool SceneHandler::onChar(unsigned int codepoint, int mods) { return false; }
 
 void SceneHandler::internalOnMouseButton(double x, double y, int button,
                                          int action, int mods) {
+    DR_PROFILE_FUNCTION();
     // check double click
     if (distance(mClickPos, glm::vec2(x, y)) > 5)  // too far
         mClickCount = 0;
@@ -364,6 +377,7 @@ void SceneHandler::onResize(int w, int h) {
 }
 
 void SceneHandler::updateInput() {
+    DR_PROFILE_FUNCTION();
     if (mCatchCursor == true) {
         glfwSetInputMode(mWindow->window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
