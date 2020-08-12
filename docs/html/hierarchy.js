@@ -6,12 +6,17 @@ var hierarchy =
     ] ],
     [ "DCore::Rendering::CameraDataForwardPass", "struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html", null ],
     [ "DCore::Rendering::CameraDataPrePass", "struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html", null ],
+    [ "DCore::Debug::InstrumentorUtils::ChangeResult< N >", "struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result.html", null ],
     [ "DCore::ComponentSystem::Entity", "class_d_core_1_1_component_system_1_1_entity.html", null ],
     [ "DCore::Meshes::Geometry", "class_d_core_1_1_meshes_1_1_geometry.html", null ],
     [ "DCore::Meshes::GeometryLoader", "class_d_core_1_1_meshes_1_1_geometry_loader.html", null ],
     [ "DCore::Meshes::GeometryStore", "class_d_core_1_1_meshes_1_1_geometry_store.html", null ],
     [ "GlobalSettings", "class_global_settings.html", null ],
     [ "DCore::Rendering::GraphicsPipelineFactory", "class_d_core_1_1_rendering_1_1_graphics_pipeline_factory.html", null ],
+    [ "DCore::Debug::InstrumentationSession", "struct_d_core_1_1_debug_1_1_instrumentation_session.html", null ],
+    [ "DCore::Debug::InstrumentationTimer", "class_d_core_1_1_debug_1_1_instrumentation_timer.html", null ],
+    [ "DCore::Debug::Instrumentor", "class_d_core_1_1_debug_1_1_instrumentor.html", null ],
+    [ "DCore::Debug::ProfileResult", "struct_d_core_1_1_debug_1_1_profile_result.html", null ],
     [ "DCore::Rendering::PushConstants", "struct_d_core_1_1_rendering_1_1_push_constants.html", null ],
     [ "DCore::Rendering::RenderComponent", "struct_d_core_1_1_rendering_1_1_render_component.html", null ],
     [ "DCore::Rendering::RendererBase", "class_d_core_1_1_rendering_1_1_renderer_base.html", [
@@ -27,7 +32,7 @@ var hierarchy =
     [ "DCore::ComponentSystem::UntypedSystemBase", "class_d_core_1_1_component_system_1_1_untyped_system_base.html", [
       [ "DCore::ComponentSystem::SystemBase< firstType, Types >", "class_d_core_1_1_component_system_1_1_system_base.html", null ],
       [ "DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >", "class_d_core_1_1_component_system_1_1_system_base.html", [
-        [ "DCore::Rendering::RenderingSystemBase", "class_d_core_1_1_rendering_1_1_rendering_system_base.html", [
+        [ "DCore::ComponentSystem::RenderingSystemBase", "class_d_core_1_1_component_system_1_1_rendering_system_base.html", [
           [ "DCore::Rendering::RenderingSystem", "class_d_core_1_1_rendering_1_1_rendering_system.html", null ]
         ] ]
       ] ],

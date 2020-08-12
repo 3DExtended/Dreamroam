@@ -89,43 +89,50 @@ $(document).ready(function(){initNavTree('_rendering_system_base_8hh_source.html
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/BaseComponents.hh&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/Systems/SystemBase.hh&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Utils/Debug/Profiling.hh&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;lava/objects/Device.hh&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;RenderComponent.hh&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/Systems/SystemBase.hh&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/BaseComponents.hh&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keyword">using namespace </span>DCore::ComponentSystem;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">   15</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">RenderingSystemBase</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_component_system_1_1_system_base.html">SystemBase</a>&lt;RenderComponent, TransformComponent&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <a class="code" href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">RenderingSystemBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;RenderComponent.hh&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>ComponentSystem {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">RenderingSystemBase</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_component_system_1_1_system_base.html">SystemBase</a>&lt;RenderComponent, TransformComponent&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">RenderingSystemBase</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            ~<a class="code" href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">RenderingSystemBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ~<a class="code" href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">RenderingSystemBase</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render(entt::basic_view&lt;entt::entity, entt::exclude_t&lt;&gt;, <a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a>, <a class="code" href="struct_d_core_1_1_component_system_1_1_transform_component.html">TransformComponent</a>&gt; entities) {};</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> Resize(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height) {};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <span class="keyword">virtual</span> lava::camera::SharedGenericCamera getCamera() = 0;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_scene_handler.html">DCore::ComponentSystem::SceneHandler</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalRender(entt::registry&amp; reg) { this-&gt;Render(GetEntitiesFromRegistry(reg)); }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render(entt::basic_view&lt;entt::entity, entt::exclude_t&lt;&gt;,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                         <a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a>, <a class="code" href="struct_d_core_1_1_component_system_1_1_transform_component.html">TransformComponent</a>&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                            entities){};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Resize(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height){};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span> lava::camera::SharedGenericCamera getCamera() = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InternalRender(entt::registry&amp; reg) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        DR_PROFILE_FUNCTION();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        this-&gt;Render(<a class="code" href="class_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395.html#a6d6c8a31b3d0c65674a46a94b2995395">GetEntitiesFromRegistry</a>(reg));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}  <span class="comment">// namespace ComponentSystem</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}  <span class="comment">// namespace DCore</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclass_d_core_1_1_component_system_1_1_system_base_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_system_base.html">DCore::ComponentSystem::SystemBase</a></div><div class="ttdoc">System base is the recommended method for accessing your entities and their components....</div><div class="ttdef"><b>Definition:</b> SystemBase.hh:59</div></div>
-<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_scene_handler_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_scene_handler.html">DCore::ComponentSystem::SceneHandler</a></div><div class="ttdoc">A SceneHandler is the manager of the game engine. It implements the singleton pattern and provides ge...</div><div class="ttdef"><b>Definition:</b> SceneHandler.hh:28</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:12</div></div>
-<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_render_component_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_render_component.html">DCore::Rendering::RenderComponent</a></div><div class="ttdef"><b>Definition:</b> RenderComponent.hh:10</div></div>
-<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_rendering_system_base_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">DCore::Rendering::RenderingSystemBase</a></div><div class="ttdef"><b>Definition:</b> RenderingSystemBase.hh:16</div></div>
-<div class="ttc" id="astruct_d_core_1_1_component_system_1_1_transform_component_html"><div class="ttname"><a href="struct_d_core_1_1_component_system_1_1_transform_component.html">DCore::ComponentSystem::TransformComponent</a></div><div class="ttdoc">This class is a part of each GameObject which stores rotation position and a three dimensional scale ...</div><div class="ttdef"><b>Definition:</b> BaseComponents.hh:16</div></div>
+<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_scene_handler_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_scene_handler.html">DCore::ComponentSystem::SceneHandler</a></div><div class="ttdoc">A SceneHandler is the manager of the game engine. It implements the singleton pattern and provides ge...</div><div class="ttdef"><b>Definition:</b> SceneHandler.hh:21</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_render_component_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_render_component.html">DCore::Rendering::RenderComponent</a></div><div class="ttdef"><b>Definition:</b> RenderComponent.hh:9</div></div>
+<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395_html_a6d6c8a31b3d0c65674a46a94b2995395"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395.html#a6d6c8a31b3d0c65674a46a94b2995395">DCore::ComponentSystem::SystemBase&lt; RenderComponent, TransformComponent &gt;::GetEntitiesFromRegistry</a></div><div class="ttdeci">auto GetEntitiesFromRegistry(entt::registry &amp;reg)</div><div class="ttdoc">Returns a view for a given registry for this system.</div><div class="ttdef"><b>Definition:</b> SystemBase.hh:126</div></div>
+<div class="ttc" id="astruct_d_core_1_1_component_system_1_1_transform_component_html"><div class="ttname"><a href="struct_d_core_1_1_component_system_1_1_transform_component.html">DCore::ComponentSystem::TransformComponent</a></div><div class="ttdoc">This class is a part of each GameObject which stores rotation position and a three dimensional scale ...</div><div class="ttdef"><b>Definition:</b> BaseComponents.hh:14</div></div>
+<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_rendering_system_base_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">DCore::ComponentSystem::RenderingSystemBase</a></div><div class="ttdef"><b>Definition:</b> RenderingSystemBase.hh:16</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -140,18 +140,18 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a23d2895c6191098d350bc6cb9b8ec453"><td class="memItemLeft" align="right" valign="top"><a id="a23d2895c6191098d350bc6cb9b8ec453"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>DCore::ComponentSystem::SceneHandler</b></td></tr>
-<tr class="separator:a23d2895c6191098d350bc6cb9b8ec453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84c005717b67e3cf91be9a75267dbee2"><td class="memItemLeft" align="right" valign="top"><a id="a84c005717b67e3cf91be9a75267dbee2"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>SceneHandler</b></td></tr>
+<tr class="separator:a84c005717b67e3cf91be9a75267dbee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class firstType, class... Types&gt;<br />
 class DCore::ComponentSystem::SystemBase&lt; firstType, Types &gt;</h3>
 
 <p>System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system. </p>
-<p>For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class RenderingSystemBase : public <a class="el" href="class_d_core_1_1_component_system_1_1_system_base.html">SystemBase&lt;RenderComponent, TransformComponent&gt;</a></p>
+<p>For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class <a class="el" href="class_d_core_1_1_component_system_1_1_rendering_system_base.html">RenderingSystemBase</a> : public <a class="el" href="class_d_core_1_1_component_system_1_1_system_base.html" title="System base is the recommended method for accessing your entities and their components....">SystemBase</a>&lt;RenderComponent, <a class="el" href="struct_d_core_1_1_component_system_1_1_transform_component.html" title="This class is a part of each GameObject which stores rotation position and a three dimensional scale ...">TransformComponent</a>&gt;</p>
 <p>Now, in order to act on those selected entities we can implement one of the five methods: Awake, Start, Update, LateUpdate, Destroy. A registered system (see the Samples/Systems folder for an example) can now access the entities like this:</p>
-<p>for each (auto entity in entities) auto&amp; [renderer, transform] = entities.get&lt;RenderComponent, TransformComponent&gt;(entity);</p>
+<p>for each (auto entity in entities) auto&amp; [renderer, transform] = entities.get&lt;RenderComponent, <a class="el" href="struct_d_core_1_1_component_system_1_1_transform_component.html" title="This class is a part of each GameObject which stores rotation position and a three dimensional scale ...">TransformComponent</a>&gt;(entity);</p>
 <p>Use this pattern to update your entities (i.e. their components) as you wish.</p>
 <p>This pattern was chosen as it allows multithreading at a later point.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>

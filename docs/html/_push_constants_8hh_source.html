@@ -93,52 +93,49 @@ $(document).ready(function(){initNavTree('_push_constants_8hh_source.html',''); 
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;lava/createinfos/PipelineVertexInputStateCreateInfo.hh&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_push_constants.html">    8</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_push_constants.html">PushConstants</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            glm::mat4 modelMatrix;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            glm::mat4 normalMatrix;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            <span class="keywordtype">float</span> alpha = 1.0;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        };</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">   15</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">CameraDataPrePass</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            glm::mat4 view;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            glm::mat4 proj;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        };</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">   20</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">CameraDataForwardPass</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            glm::mat4 view;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            glm::mat4 proj;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            glm::mat4 depthViewProj;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        };</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">   26</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">VertexAttributes</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            glm::vec3 position;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            glm::vec3 normal;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            glm::vec3 tangent;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            glm::vec2 texCoord;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            glm::vec4 color = glm::vec4(1, 0, 0, 1);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> putAttributes(lava::PipelineVertexInputStateCreateInfo&amp; info)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                info.binding(0,                           <span class="comment">//</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                    &amp;VertexAttributes::position, <span class="comment">//</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                    &amp;VertexAttributes::normal,   <span class="comment">//</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                    &amp;VertexAttributes::tangent,  <span class="comment">//</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    &amp;VertexAttributes::texCoord, <span class="comment">//</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    &amp;VertexAttributes::color);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        };</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_push_constants.html">    8</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_push_constants.html">PushConstants</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    glm::mat4 modelMatrix;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    glm::mat4 normalMatrix;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">float</span> alpha = 1.0;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">CameraDataPrePass</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    glm::mat4 view;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    glm::mat4 proj;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">CameraDataForwardPass</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    glm::mat4 view;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    glm::mat4 proj;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    glm::mat4 depthViewProj;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">VertexAttributes</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    glm::vec3 position;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    glm::vec3 normal;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    glm::vec3 tangent;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    glm::vec2 texCoord;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    glm::vec4 color = glm::vec4(1, 0, 0, 1);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> putAttributes(lava::PipelineVertexInputStateCreateInfo&amp; info) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        info.binding(0,                            <span class="comment">//</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                     &amp;VertexAttributes::position,  <span class="comment">//</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                     &amp;VertexAttributes::normal,    <span class="comment">//</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                     &amp;VertexAttributes::tangent,   <span class="comment">//</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                     &amp;VertexAttributes::texCoord,  <span class="comment">//</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                     &amp;VertexAttributes::color);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}  <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}  <span class="comment">// namespace DCore</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_push_constants_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_push_constants.html">DCore::Rendering::PushConstants</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:9</div></div>
-<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_camera_data_pre_pass_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">DCore::Rendering::CameraDataPrePass</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:15</div></div>
-<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_camera_data_forward_pass_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">DCore::Rendering::CameraDataForwardPass</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:20</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:12</div></div>
-<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_vertex_attributes_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">DCore::Rendering::VertexAttributes</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:27</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_push_constants_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_push_constants.html">DCore::Rendering::PushConstants</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:8</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_camera_data_pre_pass_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_camera_data_pre_pass.html">DCore::Rendering::CameraDataPrePass</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:14</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_camera_data_forward_pass_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_camera_data_forward_pass.html">DCore::Rendering::CameraDataForwardPass</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:19</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_vertex_attributes_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_vertex_attributes.html">DCore::Rendering::VertexAttributes</a></div><div class="ttdef"><b>Definition:</b> PushConstants.hh:25</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

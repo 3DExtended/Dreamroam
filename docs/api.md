@@ -3,6 +3,8 @@
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `namespace `[`DCore::ComponentSystem`](#namespace_d_core_1_1_component_system) | 
+`namespace `[`DCore::Debug`](#namespace_d_core_1_1_debug) | 
+`namespace `[`DCore::Debug::InstrumentorUtils`](#namespace_d_core_1_1_debug_1_1_instrumentor_utils) | 
 `namespace `[`DCore::Example`](#namespace_d_core_1_1_example) | 
 `namespace `[`DCore::Meshes`](#namespace_d_core_1_1_meshes) | 
 `namespace `[`DCore::Rendering`](#namespace_d_core_1_1_rendering) | 
@@ -21,6 +23,7 @@
 --------------------------------|---------------------------------------------
 `class `[`DCore::ComponentSystem::AScene`](#class_d_core_1_1_component_system_1_1_a_scene) | This class is abstract and has to be inherited. It provides the standard functions as [start()](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e) or [update()](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec). Use your instance of this class in combination with the [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) to define your world. Note: You can create new entities using [CreateEntity()](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88).
 `class `[`DCore::ComponentSystem::Entity`](#class_d_core_1_1_component_system_1_1_entity) | 
+`class `[`DCore::ComponentSystem::RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base) | 
 `class `[`DCore::ComponentSystem::SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler) | A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the manager of the game engine. It implements the singleton pattern and provides getters for the current scene, the switch scene method and more.
 `class `[`DCore::ComponentSystem::SystemBase`](#class_d_core_1_1_component_system_1_1_system_base) | System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
 `class `[`DCore::ComponentSystem::UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base) | 
@@ -139,6 +142,35 @@ This TextureStore is used to load textures and push them to the GPU.
 
 #### `public inline  `[`operator bool`](#class_d_core_1_1_component_system_1_1_entity_1ac773c550e4e756439c1b83f515217c7f)`() const` 
 
+# class `DCore::ComponentSystem::RenderingSystemBase` 
+
+```
+class DCore::ComponentSystem::RenderingSystemBase
+  : public DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >
+```  
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1aa53aef169885c685f4ac06424a48bf25)`() = default` | 
+`public  `[`~RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a09a99f9b43378631bf77d87a57e5c764)`() = default` | 
+`public inline virtual void `[`Render`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a285ca2c4b6b05f269fa0c7aaf5eedfca)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` | 
+`public inline virtual void `[`Resize`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1afbe69cea9647062bccbd84d734b02585)`(int width,int height)` | 
+`public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a2a206c51073e54b64d25d87f862585f6)`()` | 
+
+## Members
+
+#### `public  `[`RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1aa53aef169885c685f4ac06424a48bf25)`() = default` 
+
+#### `public  `[`~RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a09a99f9b43378631bf77d87a57e5c764)`() = default` 
+
+#### `public inline virtual void `[`Render`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a285ca2c4b6b05f269fa0c7aaf5eedfca)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` 
+
+#### `public inline virtual void `[`Resize`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1afbe69cea9647062bccbd84d734b02585)`(int width,int height)` 
+
+#### `public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_component_system_1_1_rendering_system_base_1a2a206c51073e54b64d25d87f862585f6)`()` 
+
 # class `DCore::ComponentSystem::SceneHandler` 
 
 A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the manager of the game engine. It implements the singleton pattern and provides getters for the current scene, the switch scene method and more.
@@ -163,7 +195,7 @@ A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the ma
 `public int `[`mClickButton`](#class_d_core_1_1_component_system_1_1_scene_handler_1a508252728d7b4b1694b0bfc49571e8a4) | 
 `public glm::vec2 `[`mClickPos`](#class_d_core_1_1_component_system_1_1_scene_handler_1a3886340a8f142702a3e281fd81cbd1d2) | 
 `public lava::Stopwatch `[`mClickTimer`](#class_d_core_1_1_component_system_1_1_scene_handler_1a6acc7a9aa834b0402cb4c6eadc99dfaf) | 
-`public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base)` * renderer)` | If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc
+`public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base)` * renderer)` | If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc
 `public  `[`SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5_1a99fe4ea2e3e102ec3beeb448b6878cc5)`()` | Creates a new instance of the scene handler. Should only be called ONCE by the main function.
 `public  `[`~SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_1a2c9ece9bef2822697e77167ec3c5107e)`()` | 
 `public void `[`run`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa9ec234700b37ef3c8ba2c3530708305)`()` | 
@@ -203,7 +235,7 @@ A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the ma
 
 #### `public lava::Stopwatch `[`mClickTimer`](#class_d_core_1_1_component_system_1_1_scene_handler_1a6acc7a9aa834b0402cb4c6eadc99dfaf) 
 
-#### `public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base)` * renderer)` 
+#### `public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_component_system_1_1_rendering_system_base)` * renderer)` 
 
 If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc
 
@@ -236,11 +268,11 @@ class DCore::ComponentSystem::SystemBase
 
 System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
 
-For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class RenderingSystemBase : public [SystemBase<RenderComponent, TransformComponent>](#class_d_core_1_1_component_system_1_1_system_base)
+For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class [RenderingSystemBase](#class_d_core_1_1_component_system_1_1_rendering_system_base) : public [SystemBase](#class_d_core_1_1_component_system_1_1_system_base)<RenderComponent, [TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component)>
 
 Now, in order to act on those selected entities we can implement one of the five methods: Awake, Start, Update, LateUpdate, Destroy. A registered system (see the Samples/Systems folder for an example) can now access the entities like this:
 
-for each (auto entity in entities) auto& [renderer, transform] = entities.get<RenderComponent, TransformComponent>(entity);
+for each (auto entity in entities) auto& [renderer, transform] = entities.get<RenderComponent, [TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component)>(entity);
 
 Use this pattern to update your entities (i.e. their components) as you wish.
 
@@ -437,6 +469,133 @@ This method returns a matrix that positions the object using this Transform
 #### Returns
 The position matrix
 
+# namespace `DCore::Debug` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`class `[`DCore::Debug::InstrumentationTimer`](#class_d_core_1_1_debug_1_1_instrumentation_timer) | 
+`class `[`DCore::Debug::Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor) | This tool is used to profile your code. It saves the profiling data points into a JSON file which we can later use with external tools to review them. In order to use this tool, do the following:
+`struct `[`DCore::Debug::InstrumentationSession`](#struct_d_core_1_1_debug_1_1_instrumentation_session) | 
+`struct `[`DCore::Debug::ProfileResult`](#struct_d_core_1_1_debug_1_1_profile_result) | 
+
+# class `DCore::Debug::InstrumentationTimer` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public inline  `[`InstrumentationTimer`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a7d6019a0b41e8d2dc74dde7a36c2be65)`(const char * name)` | 
+`public inline  `[`~InstrumentationTimer`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a921635fa4fe2449dfcf1a9f4b0537cd4)`()` | 
+`public inline void `[`Stop`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a3514ad5c72b237492dd875f6daecee8c)`()` | 
+
+## Members
+
+#### `public inline  `[`InstrumentationTimer`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a7d6019a0b41e8d2dc74dde7a36c2be65)`(const char * name)` 
+
+#### `public inline  `[`~InstrumentationTimer`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a921635fa4fe2449dfcf1a9f4b0537cd4)`()` 
+
+#### `public inline void `[`Stop`](#class_d_core_1_1_debug_1_1_instrumentation_timer_1a3514ad5c72b237492dd875f6daecee8c)`()` 
+
+# class `DCore::Debug::Instrumentor` 
+
+This tool is used to profile your code. It saves the profiling data points into a JSON file which we can later use with external tools to review them. In order to use this tool, do the following:
+
+* First, start a profiling session using 'DR_PROFILE_BEGIN_SESSION("name", "profilingFile.json");'
+
+* To profile
+
+* a specific scope, use the 'DR_PROFILE_SCOPE("scopeName")' macro at the beginning of the scope.
+
+* a specific function, use the 'DR_PROFILE_FUNCTION()' macro at the beginning of the function. (This macro doesn't need a parameter as it retrieves its outer function name by itself.)
+
+In order to visualize the profiling results, we can use Google Chromes tracing feature. For this, open "chrome://tracing" in Chrome and upload the saved profile. You should now be able to see a visualization of each block you have profiled.
+
+Note: This profiler is kinda expensive in its cleanup. Use as few as possible macros in your code when profiling is turned on. This tool is only meant for finding bugs and not a constant stream of datapoints.
+
+To turn of profiling all together search this file for 'DR_PROFILE' and set it to 0 (to 1 for enabling).
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor_1aba1ecd3958b302303c881bfc4035a6ca)`(const `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor)` &) = delete` | 
+`public  `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor_1a533d3f24d24d261e8fbbb1e5392e32d0)`(`[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor)` &&) = delete` | 
+`public inline void `[`BeginSession`](#class_d_core_1_1_debug_1_1_instrumentor_1a9c0d6badc1530a3778b561b5c9ebe88f)`(const std::string & name,const std::string & filepath)` | 
+`public inline void `[`EndSession`](#class_d_core_1_1_debug_1_1_instrumentor_1a60cb853f0c1c6f9d558592fe4ca8fe27)`()` | 
+`public inline void `[`WriteProfile`](#class_d_core_1_1_debug_1_1_instrumentor_1ad1b4df33fbe10da5e0579957fd85efee)`(const `[`ProfileResult`](#struct_d_core_1_1_debug_1_1_profile_result)` & result)` | 
+
+## Members
+
+#### `public  `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor_1aba1ecd3958b302303c881bfc4035a6ca)`(const `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor)` &) = delete` 
+
+#### `public  `[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor_1a533d3f24d24d261e8fbbb1e5392e32d0)`(`[`Instrumentor`](#class_d_core_1_1_debug_1_1_instrumentor)` &&) = delete` 
+
+#### `public inline void `[`BeginSession`](#class_d_core_1_1_debug_1_1_instrumentor_1a9c0d6badc1530a3778b561b5c9ebe88f)`(const std::string & name,const std::string & filepath)` 
+
+#### `public inline void `[`EndSession`](#class_d_core_1_1_debug_1_1_instrumentor_1a60cb853f0c1c6f9d558592fe4ca8fe27)`()` 
+
+#### `public inline void `[`WriteProfile`](#class_d_core_1_1_debug_1_1_instrumentor_1ad1b4df33fbe10da5e0579957fd85efee)`(const `[`ProfileResult`](#struct_d_core_1_1_debug_1_1_profile_result)` & result)` 
+
+# struct `DCore::Debug::InstrumentationSession` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public std::string `[`Name`](#struct_d_core_1_1_debug_1_1_instrumentation_session_1adcd6e4e53766d64a3b057a5afd9a3e29) | 
+
+## Members
+
+#### `public std::string `[`Name`](#struct_d_core_1_1_debug_1_1_instrumentation_session_1adcd6e4e53766d64a3b057a5afd9a3e29) 
+
+# struct `DCore::Debug::ProfileResult` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public std::string `[`Name`](#struct_d_core_1_1_debug_1_1_profile_result_1a5bf4793ba17e7b7a201b5431b537c708) | 
+`public FloatingPointMicroseconds `[`Start`](#struct_d_core_1_1_debug_1_1_profile_result_1a52a2a3d3328d3a8924471d6a8ebf2855) | 
+`public std::chrono::microseconds `[`ElapsedTime`](#struct_d_core_1_1_debug_1_1_profile_result_1aa9bb84486d03bf56b9eb3091bdc0fffc) | 
+`public std::thread::id `[`ThreadID`](#struct_d_core_1_1_debug_1_1_profile_result_1aae574530d5a350093d8a77737f101149) | 
+
+## Members
+
+#### `public std::string `[`Name`](#struct_d_core_1_1_debug_1_1_profile_result_1a5bf4793ba17e7b7a201b5431b537c708) 
+
+#### `public FloatingPointMicroseconds `[`Start`](#struct_d_core_1_1_debug_1_1_profile_result_1a52a2a3d3328d3a8924471d6a8ebf2855) 
+
+#### `public std::chrono::microseconds `[`ElapsedTime`](#struct_d_core_1_1_debug_1_1_profile_result_1aa9bb84486d03bf56b9eb3091bdc0fffc) 
+
+#### `public std::thread::id `[`ThreadID`](#struct_d_core_1_1_debug_1_1_profile_result_1aae574530d5a350093d8a77737f101149) 
+
+# namespace `DCore::Debug::InstrumentorUtils` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public template<>`  <br/>`constexpr auto `[`CleanupOutputString`](#_profiling_8hh_1afaa9d127e107181cafacf8b852d7d3f7)`(const char(&) expr,const char(&) remove)`            | 
+`struct `[`DCore::Debug::InstrumentorUtils::ChangeResult`](#struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result) | 
+
+## Members
+
+#### `public template<>`  <br/>`constexpr auto `[`CleanupOutputString`](#_profiling_8hh_1afaa9d127e107181cafacf8b852d7d3f7)`(const char(&) expr,const char(&) remove)` 
+
+# struct `DCore::Debug::InstrumentorUtils::ChangeResult` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public char `[`Data`](#struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result_1a89cd97cc1b5b9b773c0acb6228a819ce) | 
+
+## Members
+
+#### `public char `[`Data`](#struct_d_core_1_1_debug_1_1_instrumentor_utils_1_1_change_result_1a89cd97cc1b5b9b773c0acb6228a819ce) 
+
 # namespace `DCore::Example` 
 
 ## Summary
@@ -584,7 +743,6 @@ Loads all meshes inside the given file separated and stores the vertex data and 
 `class `[`DCore::Rendering::GraphicsPipelineFactory`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_factory) | Factory for all different renderers.
 `class `[`DCore::Rendering::RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base) | 
 `class `[`DCore::Rendering::RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system) | 
-`class `[`DCore::Rendering::RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base) | 
 `struct `[`DCore::Rendering::CameraDataForwardPass`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass) | 
 `struct `[`DCore::Rendering::CameraDataPrePass`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass) | 
 `struct `[`DCore::Rendering::PushConstants`](#struct_d_core_1_1_rendering_1_1_push_constants) | 
@@ -674,7 +832,7 @@ Factory for all different renderers.
 
 ```
 class DCore::Rendering::RenderingSystem
-  : public DCore::Rendering::RenderingSystemBase
+  : public DCore::ComponentSystem::RenderingSystemBase
 ```  
 
 ## Summary
@@ -698,35 +856,6 @@ class DCore::Rendering::RenderingSystem
 #### `public virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_1a695964cbc4dd8a98ca904246e126285d)`(int width,int height)` 
 
 #### `public inline virtual lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_1a5933b8a6f5def4c8accc7a9526f0a891)`()` 
-
-# class `DCore::Rendering::RenderingSystemBase` 
-
-```
-class DCore::Rendering::RenderingSystemBase
-  : public DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >
-```  
-
-## Summary
-
- Members                        | Descriptions                                
---------------------------------|---------------------------------------------
-`public  `[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1aa52b303b528e5a6cd0b3b6ee372703af)`() = default` | 
-`public  `[`~RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a7c1565deddfb104ecbead1d74bd702d3)`() = default` | 
-`public inline virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a9cc52a8e2c5c8081e81ce966d8f0a392)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` | 
-`public inline virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a1e8b533abea3279d1123c0590945e103)`(int width,int height)` | 
-`public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1ab3dbd250ceeb66e06691a9568f35347a)`()` | 
-
-## Members
-
-#### `public  `[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1aa52b303b528e5a6cd0b3b6ee372703af)`() = default` 
-
-#### `public  `[`~RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a7c1565deddfb104ecbead1d74bd702d3)`() = default` 
-
-#### `public inline virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a9cc52a8e2c5c8081e81ce966d8f0a392)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` 
-
-#### `public inline virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a1e8b533abea3279d1123c0590945e103)`(int width,int height)` 
-
-#### `public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1ab3dbd250ceeb66e06691a9568f35347a)`()` 
 
 # struct `DCore::Rendering::CameraDataForwardPass` 
 

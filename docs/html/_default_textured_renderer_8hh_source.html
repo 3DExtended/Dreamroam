@@ -88,27 +88,27 @@ $(document).ready(function(){initNavTree('_default_textured_renderer_8hh_source.
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;RenderingSystem/Renders/RendererBase.hh&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/Entity.hh&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;RenderingSystem/RenderComponent.hh&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/Entity.hh&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;RenderingSystem/Renders/RendererBase.hh&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>DCore::ComponentSystem;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">   12</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DefaultTexturedRenderer</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="keyword">using</span> RendererBase::RendererBase;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keywordtype">void</span> renderSingleGameObject(<span class="keyword">const</span> std::tuple&lt;RenderComponent&amp;, TransformComponent&amp;&gt; go) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        };</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DefaultTexturedRenderer</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">using</span> RendererBase::RendererBase;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> renderSingleGameObject(</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">const</span> std::tuple&lt;RenderComponent&amp;, TransformComponent&amp;&gt; go) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}  <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}  <span class="comment">// namespace DCore</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_renderer_base_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_renderer_base.html">DCore::Rendering::RendererBase</a></div><div class="ttdef"><b>Definition:</b> RendererBase.hh:16</div></div>
-<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_default_textured_renderer_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DCore::Rendering::DefaultTexturedRenderer</a></div><div class="ttdoc">Renderer for textured objects.</div><div class="ttdef"><b>Definition:</b> DefaultTexturedRenderer.hh:13</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:12</div></div>
+<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_renderer_base_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_renderer_base.html">DCore::Rendering::RendererBase</a></div><div class="ttdef"><b>Definition:</b> RendererBase.hh:15</div></div>
+<div class="ttc" id="aclass_d_core_1_1_rendering_1_1_default_textured_renderer_html"><div class="ttname"><a href="class_d_core_1_1_rendering_1_1_default_textured_renderer.html">DCore::Rendering::DefaultTexturedRenderer</a></div><div class="ttdoc">Renderer for textured objects.</div><div class="ttdef"><b>Definition:</b> DefaultTexturedRenderer.hh:12</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:11</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
