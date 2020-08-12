@@ -2,7 +2,7 @@
 
 #include <GlobalSettings.hh>
 #include <Utils/Base.hh>
-#include <Utils\Debug\Profiling.hh>
+#include <Utils/Debug/Profiling.hh>
 #include <array>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
