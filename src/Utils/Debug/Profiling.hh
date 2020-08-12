@@ -27,6 +27,33 @@ struct InstrumentationSession {
     std::string Name;
 };
 
+/// <summary>
+/// This tool is used to profile your code.
+/// It saves the profiling data points into a JSON file which we can later use
+/// with external tools to review them.
+/// In order to use this tool, do the following:
+///
+/// 1. First, start a profiling session using 'DR_PROFILE_BEGIN_SESSION("name",
+/// "profilingFile.json");'
+/// 2. To profile
+///    - a specific scope, use the 'DR_PROFILE_SCOPE("scopeName")' macro at the
+///    beginning of the scope.
+///    - a specific function, use the 'DR_PROFILE_FUNCTION()' macro at the
+///    beginning of the function. (This macro doesn't need a parameter as it
+///    retrieves its outer function name by itself.)
+///
+/// In order to visualize the profiling results, we can use Google Chromes
+/// tracing feature. For this, open "chrome://tracing" in Chrome and upload the
+/// saved profile. You should now be able to see a visualization of each block
+/// you have profiled.
+///
+/// Note: This profiler is kinda expensive in its cleanup. Use as few as
+/// possible macros in your code when profiling is turned on. This tool is only
+/// meant for finding bugs and not a constant stream of datapoints.
+///
+/// To turn of profiling all together search this file for 'DR_PROFILE' and set
+/// it to 0 (to 1 for enabling).
+/// </summary>
 class Instrumentor {
 public:
     Instrumentor(const Instrumentor&) = delete;
