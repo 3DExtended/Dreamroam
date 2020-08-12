@@ -4,6 +4,7 @@
 
 #include <GlobalSettings.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.cc>
+#include <Utils/Debug/Profiling.hh>
 #include <glm/common.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <lava-extras/camera/GenericCamera.hh>

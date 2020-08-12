@@ -4,6 +4,7 @@
 #include <ComponentBased/Entity.hh>
 #include <ComponentBased/Systems/SystemBase.hh>
 #include <RenderingSystem/RenderComponent.hh>
+#include <Utils/Debug/Profiling.hh>
 
 using namespace DCore::ComponentSystem;
 using namespace DCore::Meshes;
@@ -53,8 +54,8 @@ inline void DreamroamScene::createGameObjects() {
     DR_PROFILE_FUNCTION();
 
     mGeometryStore->registerGeometryFromFileSingle("assets/world.obj", "World");
-    for (auto x = 0; x < 10; x++) {
-        for (auto y = 0; y < 10; y++) {
+    for (auto x = 0; x < 20; x++) {
+        for (auto y = 0; y < 20; y++) {
             {  // load world.obj
                 auto houseGO = this->CreateEntity("World");
                 auto& renderer = houseGO.AddComponent<RenderComponent>();

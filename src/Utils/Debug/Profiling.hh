@@ -177,7 +177,7 @@ constexpr auto CleanupOutputString(const char (&expr)[N],
 }  // namespace Debug
 }  // namespace DCore
 
-#define DR_PROFILE 1
+#define DR_PROFILE 0
 #if DR_PROFILE
    // Resolve which function signature macro will be used. Note that this only
 // is resolved when the (pre)compiler starts, so the syntax highlighting

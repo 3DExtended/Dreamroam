@@ -24,22 +24,15 @@ float normpdf(in float x, in float sigma)
 	return 0.39894*exp(-0.5*x*x/(sigma*sigma))/sigma;
 }
 
-const int kernelSize = 2;
+const int kernelSize = 1;
+const float bias = 0.0023;
 
 void main() {
-	
-
 	vec3 lightFragmentPosition = mlightviewVertexPos.xyz;
 	lightFragmentPosition.xy = lightFragmentPosition.xy * 0.5 + 0.5;
-	vec2 texSize = vec2(textureSize(shadowTexture, 0));
-
 	float shadowFactor = 0.0;
-	float bias = 0.0023;
 
 	vec2 inc = 1.0 / textureSize(shadowTexture, 0);
-	int counter = 0;
-	int missedCounter = 0;
-	vec2 originalUV = lightFragmentPosition.xy;
 
 	for(int row = -kernelSize; row <= kernelSize; ++row)
 	{
@@ -52,8 +45,7 @@ void main() {
 			float textDepth = texture(shadowTexture, uv).r;
 			shadowFactor += lightFragmentPosition.z + bias < textDepth ? 1.0 * rowColShadowEffectWeight : 0.0;        
 		}    
-	}
-
+	}//*/
 	const float usedShadowPixels = kernelSize * 2 + 1;
 	shadowFactor = 1.0-(shadowFactor / usedShadowPixels);
 	

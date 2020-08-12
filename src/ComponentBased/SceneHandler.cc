@@ -93,6 +93,7 @@ void SceneHandler::run() {
     double FPStime = glfwGetTime();
 
     while (!glfwWindowShouldClose(mWindow->window())) {
+        DR_PROFILE_SCOPE("Main Game Loop");
         // timing
         auto cpustart = glfwGetTime();
         auto dt = cpustart - lastCpuTime;
