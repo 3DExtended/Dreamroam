@@ -29,6 +29,8 @@ RenderingSystem::RenderingSystem(
     std::shared_ptr<lava::features::GlfwOutput> glfwOutput,
     std::shared_ptr<lava::features::GlfwWindow> glfwWindow)
     : mDevice(device), mGlfwOutput(glfwOutput), mWindow(glfwWindow) {
+    DR_PROFILE_FUNCTION();
+
     setupPipeline(textureLayout);
 
     mOpaqueUntextured =
@@ -50,6 +52,8 @@ void RenderingSystem::Render(
     entt::basic_view<entt::entity, entt::exclude_t<>, RenderComponent,
                      TransformComponent>
         entities) {
+    DR_PROFILE_FUNCTION();
+
     std::vector<std::tuple<RenderComponent&, TransformComponent&>>
         opaqueUntexturedObjects, opaqueTexturedObjects,
         transparendUntexturedObjects, transparendTexturedObjects,
@@ -82,6 +86,8 @@ void RenderingSystem::Render(
     mDevice->graphicsQueue().handle().waitIdle();
 
     {
+        DR_PROFILE_SCOPE("After graphics queue idle");
+
         auto frame = mWindow->startFrame();
         auto cmd = mDevice->graphicsQueue().beginCommandBuffer();
 
@@ -119,9 +125,12 @@ void RenderingSystem::Render(
         mPipeline->render(
             cmd, companionWindowFBO[frame.imageIndex()],
             [&](lava::pipeline::AdvancedRenderPass const& pass) {
+                DR_PROFILE_FUNCTION();
                 auto sub = pass.pass.startInlineSubpass();
 
                 if (pass.type == lava::pipeline::RenderPassType::Shadow) {
+                    DR_PROFILE_SCOPE(
+                        "Shadow map render pass cmd buffer builder");
                     sub.setViewports(
                         {{0, 0, float(GlobalSettings::shadowMapSize),
                           float(GlobalSettings::shadowMapSize)}});
@@ -130,6 +139,8 @@ void RenderingSystem::Render(
                     mShadowMap->renderGameObjects(shadowThrowingObjects);
                 } else if (pass.type ==
                            lava::pipeline::RenderPassType::Opaque) {
+                    DR_PROFILE_SCOPE("Opaque render pass cmd buffer builder");
+
                     sub.setViewports({{0, 0, float(mWindow->width()),
                                        float(mWindow->height())}});
 
@@ -173,6 +184,8 @@ void RenderingSystem::Resize(int width, int height) {
 
 void RenderingSystem::getFrustumCorners(std::vector<glm::vec4>& corners,
                                         glm::mat4 inverseProjection) {
+    DR_PROFILE_FUNCTION();
+
     corners.clear();
 
     // homogeneous corner coords
@@ -201,6 +214,8 @@ std::tuple<glm::mat4, glm::mat4>
 RenderingSystem::rotateCameraFrustrumCornersToLightSpace(
     glm::vec3 lightDir, glm::vec3 camPosition,
     glm::vec3 upDirection = glm::vec3(0, 1, 0)) {
+    DR_PROFILE_FUNCTION();
+
     std::vector<glm::vec4> corners;
 
     glm::vec3 cameraForward = mPipeline->getCamera()->getForwardDirection();
@@ -253,6 +268,8 @@ RenderingSystem::rotateCameraFrustrumCornersToLightSpace(
 
 void RenderingSystem::setupPipeline(
     const lava::SharedDescriptorSetLayout textureLayout) {
+    DR_PROFILE_FUNCTION();
+
     // create CameraDataBuffer
     {// pre pass
      {mViewProjBufferPrePass =

@@ -4,6 +4,7 @@
 #include <RenderingSystem/Pipeline/AdvancedRenderingPipeline.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.hh>
 #include <RenderingSystem/RenderingSystemBase.hh>
+#include <Utils/Debug/Profiling.hh>
 #include <iostream>
 #include <lava-extras/glfw/GlfwApp.hh>
 #include <lava/features/Validation.hh>
@@ -33,6 +34,7 @@ public:
     /// <param name="newScene">The scene you want to add.</param>
     /// <returns>The index of the newly added scene</returns>
     static uint16_t addScene(std::shared_ptr<AScene> newScene) {
+        DR_PROFILE_FUNCTION();
         return getInstance()->_addScene(newScene);
     }
 
@@ -41,6 +43,7 @@ public:
     /// </summary>
     /// <returns>A pointer to the currently loaded scene</returns>
     static std::shared_ptr<AScene> getCurrentScene() {
+        DR_PROFILE_FUNCTION();
         return getInstance()->_getCurrentScene();
     }
 
@@ -49,6 +52,7 @@ public:
     /// </summary>
     /// <returns>A pointer to the currently loaded scene</returns>
     static lava::SharedDevice getDevice() {
+        DR_PROFILE_FUNCTION();
         return getInstance()->_getDevice();
     }
 
@@ -58,6 +62,7 @@ public:
     /// </summary>
     /// <param name="sceneIndex">The index of the scene to switch to.</param>
     static void switchScene(uint16_t sceneIndex) {
+        DR_PROFILE_FUNCTION();
         getInstance()->_switchScene(sceneIndex);
     }
 
@@ -69,6 +74,7 @@ public:
     /// </summary>
     /// <param name="renderer">The new renderer to use for the scene.</param>
     void setupRenderer(RenderingSystemBase* renderer) {
+        DR_PROFILE_FUNCTION();
         this->rendererSystem = renderer;
     };
 

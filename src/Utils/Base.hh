@@ -48,6 +48,6 @@
         }                                                        \
     }
 #else
-#define DR_ASSERT(x, ...)
+#define DR_ASSERT(x, ...) (void)0
 #define DR_CORE_ASSERT(x, ...)
 #endif

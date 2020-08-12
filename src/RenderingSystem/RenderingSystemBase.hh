@@ -27,6 +27,8 @@ public:
 private:
     friend class SceneHandler;
     virtual void InternalRender(entt::registry& reg) {
+        DR_PROFILE_FUNCTION();
+
         this->Render(GetEntitiesFromRegistry(reg));
     }
 };
