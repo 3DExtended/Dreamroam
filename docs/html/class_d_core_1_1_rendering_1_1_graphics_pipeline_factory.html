@@ -90,28 +90,35 @@ $(document).ready(function(){initNavTree('class_d_core_1_1_rendering_1_1_graphic
 <div class="title">DCore::Rendering::GraphicsPipelineFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Factory for all different renderers.  
+ <a href="class_d_core_1_1_rendering_1_1_graphics_pipeline_factory.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_graphics_pipeline_factory_8hh_source.html">GraphicsPipelineFactory.hh</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ac1f67ae7bf27d1e9cb8b56cc18a747db"><td class="memItemLeft" align="right" valign="top"><a id="ac1f67ae7bf27d1e9cb8b56cc18a747db"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_opaqueUntextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
-<tr class="separator:ac1f67ae7bf27d1e9cb8b56cc18a747db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98ee1240a7a4f1fde399402d1a3279d7"><td class="memItemLeft" align="right" valign="top"><a id="a98ee1240a7a4f1fde399402d1a3279d7"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_opaqueTextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
-<tr class="separator:a98ee1240a7a4f1fde399402d1a3279d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac672ba2a12d7188b7e4ec94fd750bc11"><td class="memItemLeft" align="right" valign="top"><a id="ac672ba2a12d7188b7e4ec94fd750bc11"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_transparentUntextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
-<tr class="separator:ac672ba2a12d7188b7e4ec94fd750bc11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad26af4d06435400c96a2788e3516bf6e"><td class="memItemLeft" align="right" valign="top"><a id="ad26af4d06435400c96a2788e3516bf6e"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_transparentTextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
-<tr class="separator:ad26af4d06435400c96a2788e3516bf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907df11c95f3af1a6979a5e3b90292f1"><td class="memItemLeft" align="right" valign="top"><a id="a907df11c95f3af1a6979a5e3b90292f1"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_shadowMap</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
-<tr class="separator:a907df11c95f3af1a6979a5e3b90292f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1fadc7db8b4f5345fc7560a48f1e691"><td class="memItemLeft" align="right" valign="top"><a id="ab1fadc7db8b4f5345fc7560a48f1e691"></a>
+static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_opaqueUntextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
+<tr class="separator:ab1fadc7db8b4f5345fc7560a48f1e691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22ad8c3141551503e8942533e3981cc8"><td class="memItemLeft" align="right" valign="top"><a id="a22ad8c3141551503e8942533e3981cc8"></a>
+static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_opaqueTextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
+<tr class="separator:a22ad8c3141551503e8942533e3981cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aa5db3310e258349f979ebaafd53a91"><td class="memItemLeft" align="right" valign="top"><a id="a9aa5db3310e258349f979ebaafd53a91"></a>
+static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_transparentUntextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
+<tr class="separator:a9aa5db3310e258349f979ebaafd53a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a441177c0232981642af534ffba637033"><td class="memItemLeft" align="right" valign="top"><a id="a441177c0232981642af534ffba637033"></a>
+static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_transparentTextured</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
+<tr class="separator:a441177c0232981642af534ffba637033"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf9fc4b962beed975b9e9bc4cfac505a"><td class="memItemLeft" align="right" valign="top"><a id="adf9fc4b962beed975b9e9bc4cfac505a"></a>
+static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_renderer_base.html">RendererBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createRenderer_shadowMap</b> (lava::SharedDevice device, lava::SharedPipelineLayout plLayout, std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt; pipeline)</td></tr>
+<tr class="separator:adf9fc4b962beed975b9e9bc4cfac505a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>K:/Projekte/dreamroam/src/RenderingSystem/<a class="el" href="_graphics_pipeline_factory_8hh_source.html">GraphicsPipelineFactory.hh</a></li>
-<li>K:/Projekte/dreamroam/src/RenderingSystem/GraphicsPipelineFactory.cc</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Factory for all different renderers. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>K:/Projekte/dreamroam/src/RenderingSystem/Pipeline/<a class="el" href="_graphics_pipeline_factory_8hh_source.html">GraphicsPipelineFactory.hh</a></li>
+<li>K:/Projekte/dreamroam/src/RenderingSystem/Pipeline/GraphicsPipelineFactory.cc</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

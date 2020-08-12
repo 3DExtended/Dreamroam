@@ -3,16 +3,17 @@
 using namespace DCore::ComponentSystem;
 
 namespace DCore {
-	namespace Example {
-		class DreamroamScene : public AScene
-		{
-		public:
-			DreamroamScene();
-			void start();
-			void update(double dt);
+namespace Example {
+class DreamroamScene : public AScene {
+public:
+    DreamroamScene();
+    void start();
+    void update(double dt);
 
-		private:
-			void createGameObjects();
-		};
-	}
-}
+private:
+    void createGameObjects();
+
+    void registerSystems();
+};
+}  // namespace Example
+}  // namespace DCore

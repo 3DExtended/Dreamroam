@@ -31,26 +31,18 @@ SOFTWARE.
 
   */
 
+#include <lava/common/vulkan.hh>
 #include <lava/objects/Device.hh>
 #include <lava/objects/Image.hh>
-#include <lava/common/vulkan.hh>
 
-namespace UtilsLava
-{
-	lava::SharedImage
-		loadCreateAndUploadImg(
-			const std::string& filePath,
-			lava::SharedDevice device,
-			bool generateMipmaps);
+namespace UtilsLava {
+lava::SharedImage loadCreateAndUploadImg(const std::string& filePath,
+                                         lava::SharedDevice device,
+                                         bool generateMipmaps);
 
-	lava::SharedImage
-		loadCreateAndUploadImgForTexture_default(
-			const std::string& filePath,
-			lava::SharedDevice device);
+lava::SharedImage loadCreateAndUploadImgForTexture_default(
+    const std::string& filePath, lava::SharedDevice device);
 
-	bool createBuffer(
-		VkDevice logical_device,
-		VkDeviceSize size,
-		VkBufferUsageFlags usage,
-		VkBuffer& buffer);
-} // namespace UtilsLava
+bool createBuffer(VkDevice logical_device, VkDeviceSize size,
+                  VkBufferUsageFlags usage, VkBuffer& buffer);
+}  // namespace UtilsLava

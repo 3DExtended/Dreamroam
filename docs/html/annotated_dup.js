@@ -7,5 +7,6 @@ var annotated_dup =
       ] ]
     ] ],
     [ "GlobalSettings", "class_global_settings.html", null ],
+    [ "RotateCubesSystem", "class_rotate_cubes_system.html", "class_rotate_cubes_system" ],
     [ "stbi_io_callbacks", "structstbi__io__callbacks.html", "structstbi__io__callbacks" ]
 ];

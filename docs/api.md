@@ -2,8 +2,7 @@
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`namespace `[`DCore::Components`](#namespace_d_core_1_1_components) | 
-`namespace `[`DCore::ComponentSystem`](#namespace_d_core_1_1_component_system) | [ComponentSystem](#namespace_d_core_1_1_component_system) is the namespace for the component system of this engine. It provides classes to which implement ECS functionalities.
+`namespace `[`DCore::ComponentSystem`](#namespace_d_core_1_1_component_system) | 
 `namespace `[`DCore::Example`](#namespace_d_core_1_1_example) | 
 `namespace `[`DCore::Meshes`](#namespace_d_core_1_1_meshes) | 
 `namespace `[`DCore::Rendering`](#namespace_d_core_1_1_rendering) | 
@@ -11,123 +10,26 @@
 `namespace `[`lava::pipeline`](#namespacelava_1_1pipeline) | 
 `namespace `[`UtilsLava`](#namespace_utils_lava) | Partially taken from the Vulkan Cookbook: [https://github.com/PacktPublishing/Vulkan-Cookbook](https://github.com/PacktPublishing/Vulkan-Cookbook)
 `class `[`GlobalSettings`](#class_global_settings) | 
+`class `[`RotateCubesSystem`](#class_rotate_cubes_system) | 
 `struct `[`stbi_io_callbacks`](#structstbi__io__callbacks) | 
-
-# namespace `DCore::Components` 
-
-## Summary
-
- Members                        | Descriptions                                
---------------------------------|---------------------------------------------
-`class `[`DCore::Components::RenderComponent`](#class_d_core_1_1_components_1_1_render_component) | 
-
-# class `DCore::Components::RenderComponent` 
-
-```
-class DCore::Components::RenderComponent
-  : public DCore::ComponentSystem::AComponent
-```  
-
-## Summary
-
- Members                        | Descriptions                                
---------------------------------|---------------------------------------------
-`public std::shared_ptr< `[`Geometry`](#class_d_core_1_1_meshes_1_1_geometry)` > `[`geometryObj`](#class_d_core_1_1_components_1_1_render_component_1ac3f4908cdf0e2e86d0cd6983cfe17d5b) | 
-`public bool `[`isTransparent`](#class_d_core_1_1_components_1_1_render_component_1a5bced5c35fcad40fee355339fcabfe55) | 
-`public float `[`alpha`](#class_d_core_1_1_components_1_1_render_component_1a0e905b72e97a5afd15fd9a6f6763b393) | 
-`public bool `[`hasTexture`](#class_d_core_1_1_components_1_1_render_component_1a987d2cc4a2ff8771d7e7e875045ed043) | 
-`public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`textureObj`](#class_d_core_1_1_components_1_1_render_component_1ae7a4d3e36c43a11f623887b2830af3d7) | 
-`public bool `[`active`](#class_d_core_1_1_components_1_1_render_component_1aeec6a5934221414a5139f49ca4e73272) | 
-`public bool `[`isThrowingShadow`](#class_d_core_1_1_components_1_1_render_component_1a14dffdcaf02994032cd40a9f9658db49) | 
-`public inline  `[`RenderComponent`](#class_d_core_1_1_components_1_1_render_component_1aac39f1556be9f68a431ce977480c4d94)`()` | 
-
-## Members
-
-#### `public std::shared_ptr< `[`Geometry`](#class_d_core_1_1_meshes_1_1_geometry)` > `[`geometryObj`](#class_d_core_1_1_components_1_1_render_component_1ac3f4908cdf0e2e86d0cd6983cfe17d5b) 
-
-#### `public bool `[`isTransparent`](#class_d_core_1_1_components_1_1_render_component_1a5bced5c35fcad40fee355339fcabfe55) 
-
-#### `public float `[`alpha`](#class_d_core_1_1_components_1_1_render_component_1a0e905b72e97a5afd15fd9a6f6763b393) 
-
-#### `public bool `[`hasTexture`](#class_d_core_1_1_components_1_1_render_component_1a987d2cc4a2ff8771d7e7e875045ed043) 
-
-#### `public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`textureObj`](#class_d_core_1_1_components_1_1_render_component_1ae7a4d3e36c43a11f623887b2830af3d7) 
-
-#### `public bool `[`active`](#class_d_core_1_1_components_1_1_render_component_1aeec6a5934221414a5139f49ca4e73272) 
-
-#### `public bool `[`isThrowingShadow`](#class_d_core_1_1_components_1_1_render_component_1a14dffdcaf02994032cd40a9f9658db49) 
-
-#### `public inline  `[`RenderComponent`](#class_d_core_1_1_components_1_1_render_component_1aac39f1556be9f68a431ce977480c4d94)`()` 
 
 # namespace `DCore::ComponentSystem` 
 
-[ComponentSystem](#namespace_d_core_1_1_component_system) is the namespace for the component system of this engine. It provides classes to which implement ECS functionalities.
-
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`class `[`DCore::ComponentSystem::AComponent`](#class_d_core_1_1_component_system_1_1_a_component) | This class is abstract and has to be inherited. It provides the standard functions as start() or update() and when added to an active [GameObject](#class_d_core_1_1_component_system_1_1_game_object) instance is called by the engine. It also provides basic functionality to the engine like a ShowMouse function.
-`class `[`DCore::ComponentSystem::AScene`](#class_d_core_1_1_component_system_1_1_a_scene) | This class is abstract and has to be inherited. It provides the standard functions as [start()](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e) or [update()](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec). Use your instance of this class in combination with the [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) to define your world.
-`class `[`DCore::ComponentSystem::GameObject`](#class_d_core_1_1_component_system_1_1_game_object) | A gameobject is a object in the scene. It is used as a collection of components with some additional funcionallity: Each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) has a transform component which is used to store the position, the rotation and the scale of that object. GameObjects are also used to handle a parent-child relation of objects (for example useful to make a player object with different attatchments).
+`class `[`DCore::ComponentSystem::AScene`](#class_d_core_1_1_component_system_1_1_a_scene) | This class is abstract and has to be inherited. It provides the standard functions as [start()](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e) or [update()](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec). Use your instance of this class in combination with the [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) to define your world. Note: You can create new entities using [CreateEntity()](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88).
+`class `[`DCore::ComponentSystem::Entity`](#class_d_core_1_1_component_system_1_1_entity) | 
 `class `[`DCore::ComponentSystem::SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler) | A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the manager of the game engine. It implements the singleton pattern and provides getters for the current scene, the switch scene method and more.
-`class `[`DCore::ComponentSystem::Transform`](#class_d_core_1_1_component_system_1_1_transform) | This class is a part of each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) which stores rotation position and a three dimensional scale value for the object. It also provides a methods for creating (for the rendering of the object) the model matrix.
-
-# class `DCore::ComponentSystem::AComponent` 
-
-This class is abstract and has to be inherited. It provides the standard functions as start() or update() and when added to an active [GameObject](#class_d_core_1_1_component_system_1_1_game_object) instance is called by the engine. It also provides basic functionality to the engine like a ShowMouse function.
-
-## Summary
-
- Members                        | Descriptions                                
---------------------------------|---------------------------------------------
-`public inline  `[`AComponent`](#class_d_core_1_1_component_system_1_1_a_component_1ac7e35a094c399f42b5f98f60e4623334)`()` | 
-`public std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > `[`getCurrentScene`](#class_d_core_1_1_component_system_1_1_a_component_a14e745bfaee5215041126653e8a3a726_1a14e745bfaee5215041126653e8a3a726)`()` | Returns a handle to the active scene (to access their functionalities).
-`public inline std::weak_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`getCurrentGameObject`](#class_d_core_1_1_component_system_1_1_a_component_ae454fe4879331e8dceef913590fbc11b_1ae454fe4879331e8dceef913590fbc11b)`()` | Returns a pointer to the gameObject the component is running on/connected to.
-`public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_component_aba70c25a5e7d0ba865bf6f15e4186bbd_1aba70c25a5e7d0ba865bf6f15e4186bbd)`()` | Creates a new gameObject with name "". This [GameObject](#class_d_core_1_1_component_system_1_1_game_object) is introduced to the current scene.
-`public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_component_adcdcb50556a8d45ac913005223bf56b2_1adcdcb50556a8d45ac913005223bf56b2)`(std::string name)` | Creates a new gameObject with a specified name. This [GameObject](#class_d_core_1_1_component_system_1_1_game_object) is introduced to the current scene.
-`protected std::weak_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`gameObject`](#class_d_core_1_1_component_system_1_1_a_component_1a462a1e3afdcea8155464cc267ca0ed8b) | 
-
-## Members
-
-#### `public inline  `[`AComponent`](#class_d_core_1_1_component_system_1_1_a_component_1ac7e35a094c399f42b5f98f60e4623334)`()` 
-
-#### `public std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > `[`getCurrentScene`](#class_d_core_1_1_component_system_1_1_a_component_a14e745bfaee5215041126653e8a3a726_1a14e745bfaee5215041126653e8a3a726)`()` 
-
-Returns a handle to the active scene (to access their functionalities).
-
-#### Returns
-A pointer to the active/current scene.
-
-#### `public inline std::weak_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`getCurrentGameObject`](#class_d_core_1_1_component_system_1_1_a_component_ae454fe4879331e8dceef913590fbc11b_1ae454fe4879331e8dceef913590fbc11b)`()` 
-
-Returns a pointer to the gameObject the component is running on/connected to.
-
-#### Returns
-A pointer to the gameObject.
-
-#### `public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_component_aba70c25a5e7d0ba865bf6f15e4186bbd_1aba70c25a5e7d0ba865bf6f15e4186bbd)`()` 
-
-Creates a new gameObject with name "". This [GameObject](#class_d_core_1_1_component_system_1_1_game_object) is introduced to the current scene.
-
-#### Returns
-A pointer to the empty gameObject.
-
-#### `public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_component_adcdcb50556a8d45ac913005223bf56b2_1adcdcb50556a8d45ac913005223bf56b2)`(std::string name)` 
-
-Creates a new gameObject with a specified name. This [GameObject](#class_d_core_1_1_component_system_1_1_game_object) is introduced to the current scene.
-
-#### Parameters
-* `name` The name for the new [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-
-#### Returns
-A pointer to the empty gameObject with the name.
-
-#### `protected std::weak_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`gameObject`](#class_d_core_1_1_component_system_1_1_a_component_1a462a1e3afdcea8155464cc267ca0ed8b) 
+`class `[`DCore::ComponentSystem::SystemBase`](#class_d_core_1_1_component_system_1_1_system_base) | System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
+`class `[`DCore::ComponentSystem::UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base) | 
+`struct `[`DCore::ComponentSystem::TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component) | This component stores the name and the tags of the entity.
+`struct `[`DCore::ComponentSystem::TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component) | This class is a part of each GameObject which stores rotation position and a three dimensional scale value for the object. It also provides a methods for creating (for the rendering of the object) the model matrix.
 
 # class `DCore::ComponentSystem::AScene` 
 
-This class is abstract and has to be inherited. It provides the standard functions as [start()](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e) or [update()](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec). Use your instance of this class in combination with the [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) to define your world.
+This class is abstract and has to be inherited. It provides the standard functions as [start()](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e) or [update()](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec). Use your instance of this class in combination with the [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) to define your world. Note: You can create new entities using [CreateEntity()](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88).
 
 ## Summary
 
@@ -138,8 +40,9 @@ This class is abstract and has to be inherited. It provides the standard functio
 `public inline virtual void `[`start`](#class_d_core_1_1_component_system_1_1_a_scene_af9a267ab6c5fc9a80045f60516d3664e_1af9a267ab6c5fc9a80045f60516d3664e)`()` | This is called right after the sceneHandler switches to the new scene. Use this to register your gameObjects, textures and components.
 `public inline virtual void `[`update`](#class_d_core_1_1_component_system_1_1_a_scene_a46a98a1674671c4f42271a6f21b7dfec_1a46a98a1674671c4f42271a6f21b7dfec)`(double dt)` | This is called for each frame while the scene is loaded. Can be used to call all entity systems. Note: This function should not be used to run the games logic. However, at the current time this is all you got.
 `public inline virtual void `[`destroy`](#class_d_core_1_1_component_system_1_1_a_scene_a420362ec1665e379fd3136b98c92c295_1a420362ec1665e379fd3136b98c92c295)`()` | This is called right before this scene is destroyed. Use this to deconstruct any game objects and handlers.
-`public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_scene_a3d7a50f9a2fe40a282c7a26f0a9df5f0_1a3d7a50f9a2fe40a282c7a26f0a9df5f0)`()` | Creates and registers a new game object. The name of this game object will be the empty string. Please note that you need to keep your own pointer to this object when you want to update it later.
-`public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_scene_a220e42f764bd4fc37a73d76e4a48a0b9_1a220e42f764bd4fc37a73d76e4a48a0b9)`(const std::string name)` | Creates and registers a new game object. Please note that you need to keep your own pointer to this object when you want to update it later.
+`public `[`Entity`](#class_d_core_1_1_component_system_1_1_entity)` `[`CreateEntity`](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88)`(const std::string & name)` | Creates and registers a new entity for your scene. Please note that you need to keep the returned entity when you want to update it in the scene. The preferred version for updating entities however should be the system feature.
+`public const lava::SharedDescriptorSetLayout `[`GetCurrentSceneTextureStoreTextureLayout`](#class_d_core_1_1_component_system_1_1_a_scene_a8466933c7f155a1d5c778c0432680d6f_1a8466933c7f155a1d5c778c0432680d6f)`()` | Returns the texture layout of the scenes current texture store.
+`public inline void `[`RegisterEntitySystem`](#class_d_core_1_1_component_system_1_1_a_scene_aeb6adb5503e9e41014cc84847cb3ccc8_1aeb6adb5503e9e41014cc84847cb3ccc8)`(std::shared_ptr< `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` > systemPtr)` | When you want to act on entities and their oponents, write a custom system (using the [SystemBase](#class_d_core_1_1_component_system_1_1_system_base) templated class) and register it using this method.
 `protected lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_a_scene_aea101e43d1950af16e725b7a53ec136b_1aea101e43d1950af16e725b7a53ec136b) | The device which is used to render the scene. This will be used for a number of initialization procedures.
 `protected std::shared_ptr< `[`GeometryStore`](#class_d_core_1_1_meshes_1_1_geometry_store)` > `[`mGeometryStore`](#class_d_core_1_1_component_system_1_1_a_scene_a4082224d4bc85a7536a5f830a44bd446_1a4082224d4bc85a7536a5f830a44bd446) | This GeometryStore is used to load meshes and push them to the GPU.
 `protected std::shared_ptr< `[`TextureStore`](#class_d_core_1_1_textures_1_1_texture_store)` > `[`mTextureStore`](#class_d_core_1_1_component_system_1_1_a_scene_a9f5432333052579e1af732c2ba94fd74_1a9f5432333052579e1af732c2ba94fd74) | This TextureStore is used to load textures and push them to the GPU.
@@ -167,22 +70,29 @@ This is called for each frame while the scene is loaded. Can be used to call all
 
 This is called right before this scene is destroyed. Use this to deconstruct any game objects and handlers.
 
-#### `public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_scene_a3d7a50f9a2fe40a282c7a26f0a9df5f0_1a3d7a50f9a2fe40a282c7a26f0a9df5f0)`()` 
+#### `public `[`Entity`](#class_d_core_1_1_component_system_1_1_entity)` `[`CreateEntity`](#class_d_core_1_1_component_system_1_1_a_scene_a67909f14c3eda839350c96416d934b88_1a67909f14c3eda839350c96416d934b88)`(const std::string & name)` 
 
-Creates and registers a new game object. The name of this game object will be the empty string. Please note that you need to keep your own pointer to this object when you want to update it later.
-
-#### Returns
-A new gameObject instance.
-
-#### `public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`instantiate`](#class_d_core_1_1_component_system_1_1_a_scene_a220e42f764bd4fc37a73d76e4a48a0b9_1a220e42f764bd4fc37a73d76e4a48a0b9)`(const std::string name)` 
-
-Creates and registers a new game object. Please note that you need to keep your own pointer to this object when you want to update it later.
+Creates and registers a new entity for your scene. Please note that you need to keep the returned entity when you want to update it in the scene. The preferred version for updating entities however should be the system feature.
 
 #### Parameters
-* `name` The name of the gameObject in the scene.
+* `name` The name of the enity in the scene. This will be stored in the [TagComponent](#struct_d_core_1_1_component_system_1_1_tag_component) on the entity.
 
 #### Returns
-A new gameObject instance.
+A new entity instance.
+
+#### `public const lava::SharedDescriptorSetLayout `[`GetCurrentSceneTextureStoreTextureLayout`](#class_d_core_1_1_component_system_1_1_a_scene_a8466933c7f155a1d5c778c0432680d6f_1a8466933c7f155a1d5c778c0432680d6f)`()` 
+
+Returns the texture layout of the scenes current texture store.
+
+#### Returns
+The texture layout of the texture store
+
+#### `public inline void `[`RegisterEntitySystem`](#class_d_core_1_1_component_system_1_1_a_scene_aeb6adb5503e9e41014cc84847cb3ccc8_1aeb6adb5503e9e41014cc84847cb3ccc8)`(std::shared_ptr< `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` > systemPtr)` 
+
+When you want to act on entities and their oponents, write a custom system (using the [SystemBase](#class_d_core_1_1_component_system_1_1_system_base) templated class) and register it using this method.
+
+#### Parameters
+* `systemPtr` A pointer to a system you want to register.
 
 #### `protected lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_a_scene_aea101e43d1950af16e725b7a53ec136b_1aea101e43d1950af16e725b7a53ec136b) 
 
@@ -196,95 +106,38 @@ This GeometryStore is used to load meshes and push them to the GPU.
 
 This TextureStore is used to load textures and push them to the GPU.
 
-# class `DCore::ComponentSystem::GameObject` 
-
-```
-class DCore::ComponentSystem::GameObject
-  : public std::enable_shared_from_this< GameObject >
-```  
-
-A gameobject is a object in the scene. It is used as a collection of components with some additional funcionallity: Each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) has a transform component which is used to store the position, the rotation and the scale of that object. GameObjects are also used to handle a parent-child relation of objects (for example useful to make a player object with different attatchments).
-
-Note that not every [GameObject](#class_d_core_1_1_component_system_1_1_game_object) has to be visible and support some kind of render. It can also be used to create handlers or some other singletons.
+# class `DCore::ComponentSystem::Entity` 
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`Transform`](#class_d_core_1_1_component_system_1_1_transform)` `[`transform`](#class_d_core_1_1_component_system_1_1_game_object_ae3a617195a8f8b70a72ad29745469a0c_1ae3a617195a8f8b70a72ad29745469a0c) | The [Transform](#class_d_core_1_1_component_system_1_1_transform) component is assigned to each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) to store position scale and rotation.
-`public  `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4_1a0348e3ee2e83d56eafca7a3547f432c4)`()` | This creates a new [GameObject](#class_d_core_1_1_component_system_1_1_game_object) with the empty string as name.
-`public  `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object_a0737657696b478c7962c2a6c2f5b1bd8_1a0737657696b478c7962c2a6c2f5b1bd8)`(std::string name)` | This creates a new [GameObject](#class_d_core_1_1_component_system_1_1_game_object) with a specified name.
-`public void `[`addComponent`](#class_d_core_1_1_component_system_1_1_game_object_aa4f0f1a42d622fd6c96223083e6a573b_1aa4f0f1a42d622fd6c96223083e6a573b)`(std::shared_ptr< `[`AComponent`](#class_d_core_1_1_component_system_1_1_a_component)` > comp)` | This method is used to assign a component to the [GameObject](#class_d_core_1_1_component_system_1_1_game_object). Note that you have to create a lasting component (using the 'new' macro).
-`public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`getParent`](#class_d_core_1_1_component_system_1_1_game_object_ad36e10b2d28b2f4e34326244048f786c_1ad36e10b2d28b2f4e34326244048f786c)`()` | This function returns the parent if existing. If not existing, this returns nullptr.
-`public std::vector< std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > > `[`getChilds`](#class_d_core_1_1_component_system_1_1_game_object_a7053cf0979ec793600f5c128219f0ed8_1a7053cf0979ec793600f5c128219f0ed8)`()` | This returns a list of all child gameobjects that are assigned to this gameObject.
-`public void `[`setParent`](#class_d_core_1_1_component_system_1_1_game_object_af3d7a870032a51dea2afeaf57814a452_1af3d7a870032a51dea2afeaf57814a452)`(std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > obj)` | Sets the parent for this gameObject
-`public void `[`addChild`](#class_d_core_1_1_component_system_1_1_game_object_a616a561447caebf99e373ef69656748f_1a616a561447caebf99e373ef69656748f)`(std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > obj)` | Adds a child to this gameObject
-`public template<>`  <br/>`T * `[`getComponent`](#class_d_core_1_1_component_system_1_1_game_object_1a3cd69f0f375e662c0d04e21d6593d6f0)`()` | 
+`public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1acb936f29e029c3b30c4ccc7650c947f1)`() = default` | 
+`public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1a98cfd91b991b7d3bb8b2fc7f24e4dd2e)`(entt::entity handle,`[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` * scene)` | 
+`public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1afab6414e0547bfe960b89ca1c23d41ec)`(const `[`Entity`](#class_d_core_1_1_component_system_1_1_entity)` & other) = default` | 
+`public template<>`  <br/>`inline T & `[`AddComponent`](#class_d_core_1_1_component_system_1_1_entity_1ad8789a86827f7345e2797c486c8dca45)`(Args &&... args)` | 
+`public template<>`  <br/>`inline T & `[`GetComponent`](#class_d_core_1_1_component_system_1_1_entity_1a05808563c4d05800d7c0457242c52ee5)`()` | 
+`public template<>`  <br/>`inline bool `[`HasComponent`](#class_d_core_1_1_component_system_1_1_entity_1a1ede6081b5206eda708b1415bb84e443)`()` | 
+`public template<>`  <br/>`inline void `[`RemoveComponent`](#class_d_core_1_1_component_system_1_1_entity_1ac1658cd4ec4255578fb62db5b221be9a)`()` | 
+`public inline  `[`operator bool`](#class_d_core_1_1_component_system_1_1_entity_1ac773c550e4e756439c1b83f515217c7f)`() const` | 
 
 ## Members
 
-#### `public `[`Transform`](#class_d_core_1_1_component_system_1_1_transform)` `[`transform`](#class_d_core_1_1_component_system_1_1_game_object_ae3a617195a8f8b70a72ad29745469a0c_1ae3a617195a8f8b70a72ad29745469a0c) 
+#### `public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1acb936f29e029c3b30c4ccc7650c947f1)`() = default` 
 
-The [Transform](#class_d_core_1_1_component_system_1_1_transform) component is assigned to each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) to store position scale and rotation.
+#### `public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1a98cfd91b991b7d3bb8b2fc7f24e4dd2e)`(entt::entity handle,`[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` * scene)` 
 
-Note that the Parent-Child-relation has impact on the calculations taking place in the transform instance.
+#### `public  `[`Entity`](#class_d_core_1_1_component_system_1_1_entity_1afab6414e0547bfe960b89ca1c23d41ec)`(const `[`Entity`](#class_d_core_1_1_component_system_1_1_entity)` & other) = default` 
 
-#### `public  `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object_a0348e3ee2e83d56eafca7a3547f432c4_1a0348e3ee2e83d56eafca7a3547f432c4)`()` 
+#### `public template<>`  <br/>`inline T & `[`AddComponent`](#class_d_core_1_1_component_system_1_1_entity_1ad8789a86827f7345e2797c486c8dca45)`(Args &&... args)` 
 
-This creates a new [GameObject](#class_d_core_1_1_component_system_1_1_game_object) with the empty string as name.
+#### `public template<>`  <br/>`inline T & `[`GetComponent`](#class_d_core_1_1_component_system_1_1_entity_1a05808563c4d05800d7c0457242c52ee5)`()` 
 
-Note that it is strongly advised to create a [GameObject](#class_d_core_1_1_component_system_1_1_game_object) using the instantiate() method offered by the Scene or the component class.
+#### `public template<>`  <br/>`inline bool `[`HasComponent`](#class_d_core_1_1_component_system_1_1_entity_1a1ede6081b5206eda708b1415bb84e443)`()` 
 
-#### `public  `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object_a0737657696b478c7962c2a6c2f5b1bd8_1a0737657696b478c7962c2a6c2f5b1bd8)`(std::string name)` 
+#### `public template<>`  <br/>`inline void `[`RemoveComponent`](#class_d_core_1_1_component_system_1_1_entity_1ac1658cd4ec4255578fb62db5b221be9a)`()` 
 
-This creates a new [GameObject](#class_d_core_1_1_component_system_1_1_game_object) with a specified name.
-
-#### Parameters
-* `name` The name of the new [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-
-Note that it is strongly advised to create a [GameObject](#class_d_core_1_1_component_system_1_1_game_object) using the instantiate() method offered by the Scene or the component class.
-
-#### `public void `[`addComponent`](#class_d_core_1_1_component_system_1_1_game_object_aa4f0f1a42d622fd6c96223083e6a573b_1aa4f0f1a42d622fd6c96223083e6a573b)`(std::shared_ptr< `[`AComponent`](#class_d_core_1_1_component_system_1_1_a_component)` > comp)` 
-
-This method is used to assign a component to the [GameObject](#class_d_core_1_1_component_system_1_1_game_object). Note that you have to create a lasting component (using the 'new' macro).
-
-```cpp
-auto comp = std::make_shared<RotateObjectComponent>();
-  gameObject->addComponent(comp);
-```
-
-#### Parameters
-* `comp` The component you want to add.
-
-#### `public std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > `[`getParent`](#class_d_core_1_1_component_system_1_1_game_object_ad36e10b2d28b2f4e34326244048f786c_1ad36e10b2d28b2f4e34326244048f786c)`()` 
-
-This function returns the parent if existing. If not existing, this returns nullptr.
-
-#### Returns
-The parent gameObject if existing, else nullptr
-
-#### `public std::vector< std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > > `[`getChilds`](#class_d_core_1_1_component_system_1_1_game_object_a7053cf0979ec793600f5c128219f0ed8_1a7053cf0979ec793600f5c128219f0ed8)`()` 
-
-This returns a list of all child gameobjects that are assigned to this gameObject.
-
-#### Returns
-A list of all childs, or an empty list
-
-#### `public void `[`setParent`](#class_d_core_1_1_component_system_1_1_game_object_af3d7a870032a51dea2afeaf57814a452_1af3d7a870032a51dea2afeaf57814a452)`(std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > obj)` 
-
-Sets the parent for this gameObject
-
-#### Parameters
-* `obj` the parent for this object
-
-#### `public void `[`addChild`](#class_d_core_1_1_component_system_1_1_game_object_a616a561447caebf99e373ef69656748f_1a616a561447caebf99e373ef69656748f)`(std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` > obj)` 
-
-Adds a child to this gameObject
-
-#### Parameters
-* `obj` The new child
-
-#### `public template<>`  <br/>`T * `[`getComponent`](#class_d_core_1_1_component_system_1_1_game_object_1a3cd69f0f375e662c0d04e21d6593d6f0)`()` 
+#### `public inline  `[`operator bool`](#class_d_core_1_1_component_system_1_1_entity_1ac773c550e4e756439c1b83f515217c7f)`() const` 
 
 # class `DCore::ComponentSystem::SceneHandler` 
 
@@ -310,34 +163,11 @@ A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the ma
 `public int `[`mClickButton`](#class_d_core_1_1_component_system_1_1_scene_handler_1a508252728d7b4b1694b0bfc49571e8a4) | 
 `public glm::vec2 `[`mClickPos`](#class_d_core_1_1_component_system_1_1_scene_handler_1a3886340a8f142702a3e281fd81cbd1d2) | 
 `public lava::Stopwatch `[`mClickTimer`](#class_d_core_1_1_component_system_1_1_scene_handler_1a6acc7a9aa834b0402cb4c6eadc99dfaf) | 
-`public lava::SharedBuffer `[`mViewProjBufferPrePass`](#class_d_core_1_1_component_system_1_1_scene_handler_1afd3d3ed2b406aef321d27a4db7bd9c4c) | 
-`public lava::SharedBuffer `[`mViewProjBufferForwardPass`](#class_d_core_1_1_component_system_1_1_scene_handler_1a094f3b8e2b5bfc6194368db088975e28) | 
-`public lava::SharedDescriptorSetLayout `[`mViewProjDescriptorSetLayout`](#class_d_core_1_1_component_system_1_1_scene_handler_1af525113019761acf447d9dab7d447ab2) | 
-`public lava::SharedDescriptorSet `[`mViewProjDescriptorForward`](#class_d_core_1_1_component_system_1_1_scene_handler_1aca84aa35b701c428519950c771d74a16) | 
-`public lava::SharedDescriptorSet `[`mViewProjDescriptorPre`](#class_d_core_1_1_component_system_1_1_scene_handler_1a342739d3084aba151aa7194516dbd1d3) | 
-`public std::vector< std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > > `[`scenes`](#class_d_core_1_1_component_system_1_1_scene_handler_1a963129a7fdfeb03f44ecfcb807d3fae2) | 
-`public std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > `[`curScene`](#class_d_core_1_1_component_system_1_1_scene_handler_1a1da1b2dbd24ded4068cd57cd5bf4269b) | 
-`public std::shared_ptr< lava::features::GlfwOutput > `[`mGlfwOutput`](#class_d_core_1_1_component_system_1_1_scene_handler_1a8842e9c77258cd504313e47025d4df59) | 
-`public std::shared_ptr< lava::features::Validation > `[`mValidation`](#class_d_core_1_1_component_system_1_1_scene_handler_1a3f79a79d27cddb2b4c6ff70bda217395) | 
-`public std::shared_ptr< lava::features::GlfwWindow > `[`mWindow`](#class_d_core_1_1_component_system_1_1_scene_handler_1ab6ffd0bc5b010ac5caeb4d411cf67db5) | 
-`public lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_scene_handler_1ad50227bd534e8ff0023162822398fbd9) | 
-`public lava::SharedPipelineLayout `[`mPlLayout`](#class_d_core_1_1_component_system_1_1_scene_handler_1ae3ade7eed67982f398c1b7a67735334c) | 
-`public std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mPipeline`](#class_d_core_1_1_component_system_1_1_scene_handler_1ae533376b34de4725eefaa5ed93e21275) | 
-`public std::vector< lava::SharedFramebuffer > `[`companionWindowFBO`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4acf4782b3fa11d3a347322c6271ad7c) | 
-`public std::shared_ptr< lava::features::GlfwOutput > `[`getGlfwOutput`](#class_d_core_1_1_component_system_1_1_scene_handler_1a06af644644384175f49eeb3a328801ba)`() const` | 
-`public void `[`run`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa9ec234700b37ef3c8ba2c3530708305)`()` | 
-`public void `[`updateCamera`](#class_d_core_1_1_component_system_1_1_scene_handler_1a64a8d0f828f9637a98ac0a888e9314d6)`(double elapsedSeconds)` | 
-`public void `[`setupPipeline`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa840550cfbac55ffbf68775f8b194192)`(const lava::SharedDescriptorSetLayout textureLayout)` | 
-`public void `[`getFrustumCorners`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa1bb88527ddca127ac396d1e3d703e65)`(std::vector< glm::vec4 > & corners,glm::mat4 projection)` | 
-`public std::tuple< glm::mat4, glm::vec3, glm::vec3 > `[`rotateCameraFrustrumCornersToLightSpace`](#class_d_core_1_1_component_system_1_1_scene_handler_1a0a21e13bbaa0593aa3d6583da619ac95)`(glm::vec3 forward,glm::vec3 camPosition,std::vector< glm::vec4 > corners,glm::vec3 upDirection)` | 
-`public void `[`setupGlfwCallbacks`](#class_d_core_1_1_component_system_1_1_scene_handler_1a8a72d73b454dd9de9b96adebe938c7d9)`()` | 
+`public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base)` * renderer)` | If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc
 `public  `[`SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5_1a99fe4ea2e3e102ec3beeb448b6878cc5)`()` | Creates a new instance of the scene handler. Should only be called ONCE by the main function.
 `public  `[`~SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_1a2c9ece9bef2822697e77167ec3c5107e)`()` | 
-`protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mOpaqueUntextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a302ba452f9e507d30d2a427179b5f596) | 
-`protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mOpaqueTextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a7073a6b24c46558474ef828d6c031f8c) | 
-`protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mTransparendUntextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4515d227d8fe4d38c0bf72ec84b55a7f) | 
-`protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mTransparendTextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1ab910e78c6e8401f27e479b6de9e16bbc) | 
-`protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mShadowMap`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4449a85008106fe0c09b5b01df771615) | 
+`public void `[`run`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa9ec234700b37ef3c8ba2c3530708305)`()` | 
+`public void `[`updateCamera`](#class_d_core_1_1_component_system_1_1_scene_handler_1a64a8d0f828f9637a98ac0a888e9314d6)`(double elapsedSeconds)` | 
 
 ## Members
 
@@ -373,47 +203,12 @@ A [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler) is the ma
 
 #### `public lava::Stopwatch `[`mClickTimer`](#class_d_core_1_1_component_system_1_1_scene_handler_1a6acc7a9aa834b0402cb4c6eadc99dfaf) 
 
-#### `public lava::SharedBuffer `[`mViewProjBufferPrePass`](#class_d_core_1_1_component_system_1_1_scene_handler_1afd3d3ed2b406aef321d27a4db7bd9c4c) 
+#### `public inline void `[`setupRenderer`](#class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b_1a69831e2a027b2f7327db5e35bd326a0b)`(`[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base)` * renderer)` 
 
-#### `public lava::SharedBuffer `[`mViewProjBufferForwardPass`](#class_d_core_1_1_component_system_1_1_scene_handler_1a094f3b8e2b5bfc6194368db088975e28) 
+If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc
 
-#### `public lava::SharedDescriptorSetLayout `[`mViewProjDescriptorSetLayout`](#class_d_core_1_1_component_system_1_1_scene_handler_1af525113019761acf447d9dab7d447ab2) 
-
-#### `public lava::SharedDescriptorSet `[`mViewProjDescriptorForward`](#class_d_core_1_1_component_system_1_1_scene_handler_1aca84aa35b701c428519950c771d74a16) 
-
-#### `public lava::SharedDescriptorSet `[`mViewProjDescriptorPre`](#class_d_core_1_1_component_system_1_1_scene_handler_1a342739d3084aba151aa7194516dbd1d3) 
-
-#### `public std::vector< std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > > `[`scenes`](#class_d_core_1_1_component_system_1_1_scene_handler_1a963129a7fdfeb03f44ecfcb807d3fae2) 
-
-#### `public std::shared_ptr< `[`AScene`](#class_d_core_1_1_component_system_1_1_a_scene)` > `[`curScene`](#class_d_core_1_1_component_system_1_1_scene_handler_1a1da1b2dbd24ded4068cd57cd5bf4269b) 
-
-#### `public std::shared_ptr< lava::features::GlfwOutput > `[`mGlfwOutput`](#class_d_core_1_1_component_system_1_1_scene_handler_1a8842e9c77258cd504313e47025d4df59) 
-
-#### `public std::shared_ptr< lava::features::Validation > `[`mValidation`](#class_d_core_1_1_component_system_1_1_scene_handler_1a3f79a79d27cddb2b4c6ff70bda217395) 
-
-#### `public std::shared_ptr< lava::features::GlfwWindow > `[`mWindow`](#class_d_core_1_1_component_system_1_1_scene_handler_1ab6ffd0bc5b010ac5caeb4d411cf67db5) 
-
-#### `public lava::SharedDevice `[`mDevice`](#class_d_core_1_1_component_system_1_1_scene_handler_1ad50227bd534e8ff0023162822398fbd9) 
-
-#### `public lava::SharedPipelineLayout `[`mPlLayout`](#class_d_core_1_1_component_system_1_1_scene_handler_1ae3ade7eed67982f398c1b7a67735334c) 
-
-#### `public std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mPipeline`](#class_d_core_1_1_component_system_1_1_scene_handler_1ae533376b34de4725eefaa5ed93e21275) 
-
-#### `public std::vector< lava::SharedFramebuffer > `[`companionWindowFBO`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4acf4782b3fa11d3a347322c6271ad7c) 
-
-#### `public std::shared_ptr< lava::features::GlfwOutput > `[`getGlfwOutput`](#class_d_core_1_1_component_system_1_1_scene_handler_1a06af644644384175f49eeb3a328801ba)`() const` 
-
-#### `public void `[`run`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa9ec234700b37ef3c8ba2c3530708305)`()` 
-
-#### `public void `[`updateCamera`](#class_d_core_1_1_component_system_1_1_scene_handler_1a64a8d0f828f9637a98ac0a888e9314d6)`(double elapsedSeconds)` 
-
-#### `public void `[`setupPipeline`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa840550cfbac55ffbf68775f8b194192)`(const lava::SharedDescriptorSetLayout textureLayout)` 
-
-#### `public void `[`getFrustumCorners`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa1bb88527ddca127ac396d1e3d703e65)`(std::vector< glm::vec4 > & corners,glm::mat4 projection)` 
-
-#### `public std::tuple< glm::mat4, glm::vec3, glm::vec3 > `[`rotateCameraFrustrumCornersToLightSpace`](#class_d_core_1_1_component_system_1_1_scene_handler_1a0a21e13bbaa0593aa3d6583da619ac95)`(glm::vec3 forward,glm::vec3 camPosition,std::vector< glm::vec4 > corners,glm::vec3 upDirection)` 
-
-#### `public void `[`setupGlfwCallbacks`](#class_d_core_1_1_component_system_1_1_scene_handler_1a8a72d73b454dd9de9b96adebe938c7d9)`()` 
+#### Parameters
+* `renderer` The new renderer to use for the scene.
 
 #### `public  `[`SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5_1a99fe4ea2e3e102ec3beeb448b6878cc5)`()` 
 
@@ -428,90 +223,219 @@ A new [SceneHandler](#class_d_core_1_1_component_system_1_1_scene_handler)
 
 #### `public  `[`~SceneHandler`](#class_d_core_1_1_component_system_1_1_scene_handler_1a2c9ece9bef2822697e77167ec3c5107e)`()` 
 
-#### `protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mOpaqueUntextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a302ba452f9e507d30d2a427179b5f596) 
+#### `public void `[`run`](#class_d_core_1_1_component_system_1_1_scene_handler_1aa9ec234700b37ef3c8ba2c3530708305)`()` 
 
-#### `protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mOpaqueTextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a7073a6b24c46558474ef828d6c031f8c) 
+#### `public void `[`updateCamera`](#class_d_core_1_1_component_system_1_1_scene_handler_1a64a8d0f828f9637a98ac0a888e9314d6)`(double elapsedSeconds)` 
 
-#### `protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mTransparendUntextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4515d227d8fe4d38c0bf72ec84b55a7f) 
+# class `DCore::ComponentSystem::SystemBase` 
 
-#### `protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mTransparendTextured`](#class_d_core_1_1_component_system_1_1_scene_handler_1ab910e78c6e8401f27e479b6de9e16bbc) 
+```
+class DCore::ComponentSystem::SystemBase
+  : public DCore::ComponentSystem::UntypedSystemBase
+```  
 
-#### `protected std::shared_ptr< `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer)` > `[`mShadowMap`](#class_d_core_1_1_component_system_1_1_scene_handler_1a4449a85008106fe0c09b5b01df771615) 
+System base is the recommended method for accessing your entities and their components. The system originates from the core concept of ECS (entity component systems): You write custom components which can be assigned to entities. When you want to update those components (or want to read them), you have to create a system.
 
-# class `DCore::ComponentSystem::Transform` 
+For this system you have to specify before hand, which components you try to access. For example, a RenderingSystem has to access the RenderComponent and the transform component of all entities. (If an entity doesn't provide both, we don't want to access it in our RenderingSystem). Thus, the actual rendering system in this engine implements: class RenderingSystemBase : public [SystemBase<RenderComponent, TransformComponent>](#class_d_core_1_1_component_system_1_1_system_base)
 
-This class is a part of each [GameObject](#class_d_core_1_1_component_system_1_1_game_object) which stores rotation position and a three dimensional scale value for the object. It also provides a methods for creating (for the rendering of the object) the model matrix.
+Now, in order to act on those selected entities we can implement one of the five methods: Awake, Start, Update, LateUpdate, Destroy. A registered system (see the Samples/Systems folder for an example) can now access the entities like this:
+
+for each (auto entity in entities) auto& [renderer, transform] = entities.get<RenderComponent, TransformComponent>(entity);
+
+Use this pattern to update your entities (i.e. their components) as you wish.
+
+This pattern was chosen as it allows multithreading at a later point.
+
+#### Parameters
+* `firstType` The component you want to access
+
+* `...Types` A list of components you need access to
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public glm::vec3 `[`position`](#class_d_core_1_1_component_system_1_1_transform_a51c54982dc0577f07cde3c7d289deed8_1a51c54982dc0577f07cde3c7d289deed8) | The position of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-`public glm::vec3 `[`rotation`](#class_d_core_1_1_component_system_1_1_transform_a5ad9bc3b642bec246394ee96964910a2_1a5ad9bc3b642bec246394ee96964910a2) | The rotation of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-`public glm::vec3 `[`scale`](#class_d_core_1_1_component_system_1_1_transform_ac3a0302859efda7d3ac858294ac2f8bf_1ac3a0302859efda7d3ac858294ac2f8bf) | The scale value of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-`public inline  `[`Transform`](#class_d_core_1_1_component_system_1_1_transform_afa4756474d8e50d98b0bbbf5b6658bc8_1afa4756474d8e50d98b0bbbf5b6658bc8)`(glm::vec3 pos,glm::vec3 rot,glm::vec3 scale)` | This creates a new [Transform](#class_d_core_1_1_component_system_1_1_transform) object where position and rotation can be specified (by default they are 0). This constructor can also be used with a specified scale value (which by default is 1).
-`public glm::mat4 `[`getModelMatrix`](#class_d_core_1_1_component_system_1_1_transform_af0671190bf3f3b4e5cdd8ccb23c05a7a_1af0671190bf3f3b4e5cdd8ccb23c05a7a)`()` | This method returns a model matrix for this transform object. Therefore the position matrix the rotation matrix and the scale matrix is multiplied. The parent transform is used to calculate this matrix (if and only if existing).
-`public glm::mat4 `[`getScaleMatrix`](#class_d_core_1_1_component_system_1_1_transform_adbeb9e27f8f0616336c7101c2d925ee3_1adbeb9e27f8f0616336c7101c2d925ee3)`()` | This method returns a matrix that scales the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
-`public glm::mat4 `[`getRotationMatrix`](#class_d_core_1_1_component_system_1_1_transform_a716f060a18db568786ae023e8c02597c_1a716f060a18db568786ae023e8c02597c)`()` | This method returns a matrix that rotates the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
-`public glm::mat4 `[`getPosMatrix`](#class_d_core_1_1_component_system_1_1_transform_a39100fc47750475ca69529a346885a28_1a39100fc47750475ca69529a346885a28)`()` | This method returns a matrix that positions the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
-`protected `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` * `[`gameObject`](#class_d_core_1_1_component_system_1_1_transform_1a1aa4d93351c974a8408f3234d884028e) | 
+`public  `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base_1a55e6c1c193abe2434cb778e3f1862e73)`() = default` | 
+`public  `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base_1a801dc9c90b3542530e0d49e180609dfe)`(const `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base)` & other) = default` | 
+`public inline virtual void `[`Awake`](#class_d_core_1_1_component_system_1_1_system_base_a26630b06b616740f618530f5e513dbdf_1a26630b06b616740f618530f5e513dbdf)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called before the systems start method is called for all components already present in the scene.
+`public inline virtual void `[`Start`](#class_d_core_1_1_component_system_1_1_system_base_a6154ab285d5099fa7ffaec1579142d95_1a6154ab285d5099fa7ffaec1579142d95)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called on the systems start right before we enter the game loop for all components already present in the scene.
+`public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a13842f60de651d2e6abfb23112202524_1a13842f60de651d2e6abfb23112202524)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` | This method is called in every game logic update for all components already present in the scene.
+`public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a19cbe3186ad3a6e81271845fdc04da89_1a19cbe3186ad3a6e81271845fdc04da89)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` | This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
+`public inline virtual void `[`Destroy`](#class_d_core_1_1_component_system_1_1_system_base_ad5243d0dd5378e3bb987b00780189c57_1ad5243d0dd5378e3bb987b00780189c57)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` | This method is called right before application shutdown. Use this to clean up your systems when they need component access.
+`protected inline auto `[`GetEntitiesFromRegistry`](#class_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395_1a6d6c8a31b3d0c65674a46a94b2995395)`(entt::registry & reg)` | Returns a view for a given registry for this system.
 
 ## Members
 
-#### `public glm::vec3 `[`position`](#class_d_core_1_1_component_system_1_1_transform_a51c54982dc0577f07cde3c7d289deed8_1a51c54982dc0577f07cde3c7d289deed8) 
+#### `public  `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base_1a55e6c1c193abe2434cb778e3f1862e73)`() = default` 
 
-The position of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
+#### `public  `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base_1a801dc9c90b3542530e0d49e180609dfe)`(const `[`SystemBase`](#class_d_core_1_1_component_system_1_1_system_base)` & other) = default` 
 
-#### `public glm::vec3 `[`rotation`](#class_d_core_1_1_component_system_1_1_transform_a5ad9bc3b642bec246394ee96964910a2_1a5ad9bc3b642bec246394ee96964910a2) 
+#### `public inline virtual void `[`Awake`](#class_d_core_1_1_component_system_1_1_system_base_a26630b06b616740f618530f5e513dbdf_1a26630b06b616740f618530f5e513dbdf)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` 
 
-The rotation of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-
-#### `public glm::vec3 `[`scale`](#class_d_core_1_1_component_system_1_1_transform_ac3a0302859efda7d3ac858294ac2f8bf_1ac3a0302859efda7d3ac858294ac2f8bf) 
-
-The scale value of the [Transform](#class_d_core_1_1_component_system_1_1_transform) and the corresponding [GameObject](#class_d_core_1_1_component_system_1_1_game_object)
-
-#### `public inline  `[`Transform`](#class_d_core_1_1_component_system_1_1_transform_afa4756474d8e50d98b0bbbf5b6658bc8_1afa4756474d8e50d98b0bbbf5b6658bc8)`(glm::vec3 pos,glm::vec3 rot,glm::vec3 scale)` 
-
-This creates a new [Transform](#class_d_core_1_1_component_system_1_1_transform) object where position and rotation can be specified (by default they are 0). This constructor can also be used with a specified scale value (which by default is 1).
+This method is called before the systems start method is called for all components already present in the scene.
 
 #### Parameters
-* `pos` The three dimensional position of the object
+* `entities` A view on the entities that match the systems component selection.
 
-* `rot` The three dimensional rotation of the object
+#### `public inline virtual void `[`Start`](#class_d_core_1_1_component_system_1_1_system_base_a6154ab285d5099fa7ffaec1579142d95_1a6154ab285d5099fa7ffaec1579142d95)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` 
 
-* `scale` The three dimensional scale of the object
+This method is called on the systems start right before we enter the game loop for all components already present in the scene.
 
-Note that this class can be used without a [GameObject](#class_d_core_1_1_component_system_1_1_game_object) but will in this case not be used in the scene.
+#### Parameters
+* `entities` A view on the entities that match the systems component selection.
 
-#### `public glm::mat4 `[`getModelMatrix`](#class_d_core_1_1_component_system_1_1_transform_af0671190bf3f3b4e5cdd8ccb23c05a7a_1af0671190bf3f3b4e5cdd8ccb23c05a7a)`()` 
+#### `public inline virtual void `[`Update`](#class_d_core_1_1_component_system_1_1_system_base_a13842f60de651d2e6abfb23112202524_1a13842f60de651d2e6abfb23112202524)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` 
+
+This method is called in every game logic update for all components already present in the scene.
+
+#### Parameters
+* `entities` A view on the entities that match the systems component selection.
+
+#### `public inline virtual void `[`LateUpdate`](#class_d_core_1_1_component_system_1_1_system_base_a19cbe3186ad3a6e81271845fdc04da89_1a19cbe3186ad3a6e81271845fdc04da89)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities,double dt)` 
+
+This method is called in every game logic update right after the physics has been updated for all components already present in the scene.
+
+#### Parameters
+* `entities` A view on the entities that match the systems component selection.
+
+#### `public inline virtual void `[`Destroy`](#class_d_core_1_1_component_system_1_1_system_base_ad5243d0dd5378e3bb987b00780189c57_1ad5243d0dd5378e3bb987b00780189c57)`(entt::basic_view< entt::entity, entt::exclude_t<>, firstType, Types... > entities)` 
+
+This method is called right before application shutdown. Use this to clean up your systems when they need component access.
+
+#### Parameters
+* `entities` A view on the entities that match the systems component selection.
+
+#### `protected inline auto `[`GetEntitiesFromRegistry`](#class_d_core_1_1_component_system_1_1_system_base_a6d6c8a31b3d0c65674a46a94b2995395_1a6d6c8a31b3d0c65674a46a94b2995395)`(entt::registry & reg)` 
+
+Returns a view for a given registry for this system.
+
+#### Parameters
+* `reg` The registry to pull entities from
+
+#### Returns
+A view of the entities present in the registry
+
+# class `DCore::ComponentSystem::UntypedSystemBase` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a2843f8c175038607f98f58e2aa15d5aa)`() = default` | 
+`public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1ab622c0c0ee35fb7e74d4ae569bf134f9)`(const `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` & other) = default` | 
+`protected inline virtual void `[`InternalAwake`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a8dab3ba7756ea400777cb3e85bd50447)`(entt::registry & reg)` | 
+`protected inline virtual void `[`InternalStart`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a65c6a9af549fa2fd1b4bb9d925ad5c38)`(entt::registry & reg)` | 
+`protected inline virtual void `[`InternalUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1abddacc4449bcaa0c3774de4f9cbf32ff)`(entt::registry & reg,double dt)` | 
+`protected inline virtual void `[`InternalLateUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a9cca10b6463984083a6cdc22f5b4ee7f)`(entt::registry & reg,double dt)` | 
+`protected inline virtual void `[`InternalDestroy`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1aa944d3a744fec1c44b0f94907261c5ed)`(entt::registry & reg)` | 
+
+## Members
+
+#### `public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a2843f8c175038607f98f58e2aa15d5aa)`() = default` 
+
+#### `public  `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1ab622c0c0ee35fb7e74d4ae569bf134f9)`(const `[`UntypedSystemBase`](#class_d_core_1_1_component_system_1_1_untyped_system_base)` & other) = default` 
+
+#### `protected inline virtual void `[`InternalAwake`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a8dab3ba7756ea400777cb3e85bd50447)`(entt::registry & reg)` 
+
+#### `protected inline virtual void `[`InternalStart`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a65c6a9af549fa2fd1b4bb9d925ad5c38)`(entt::registry & reg)` 
+
+#### `protected inline virtual void `[`InternalUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1abddacc4449bcaa0c3774de4f9cbf32ff)`(entt::registry & reg,double dt)` 
+
+#### `protected inline virtual void `[`InternalLateUpdate`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1a9cca10b6463984083a6cdc22f5b4ee7f)`(entt::registry & reg,double dt)` 
+
+#### `protected inline virtual void `[`InternalDestroy`](#class_d_core_1_1_component_system_1_1_untyped_system_base_1aa944d3a744fec1c44b0f94907261c5ed)`(entt::registry & reg)` 
+
+# struct `DCore::ComponentSystem::TagComponent` 
+
+This component stores the name and the tags of the entity.
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public std::string `[`Tag`](#struct_d_core_1_1_component_system_1_1_tag_component_aa2d577fb388ecc8de6bb8838ab165eb3_1aa2d577fb388ecc8de6bb8838ab165eb3) | The name of the entity this component is attatched to.
+`public  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a2917aceebe478962f7d33eaef20ab3c5)`() = default` | 
+`public  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a042301972f8f3436968ea3f9382e25f4)`(const `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` &) = default` | 
+`public inline  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a6d2dd7e072bd152fca6744af3f72c500)`(const std::string & tag)` | 
+
+## Members
+
+#### `public std::string `[`Tag`](#struct_d_core_1_1_component_system_1_1_tag_component_aa2d577fb388ecc8de6bb8838ab165eb3_1aa2d577fb388ecc8de6bb8838ab165eb3) 
+
+The name of the entity this component is attatched to.
+
+#### `public  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a2917aceebe478962f7d33eaef20ab3c5)`() = default` 
+
+#### `public  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a042301972f8f3436968ea3f9382e25f4)`(const `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` &) = default` 
+
+#### `public inline  `[`TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component_1a6d2dd7e072bd152fca6744af3f72c500)`(const std::string & tag)` 
+
+# struct `DCore::ComponentSystem::TransformComponent` 
+
+This class is a part of each GameObject which stores rotation position and a three dimensional scale value for the object. It also provides a methods for creating (for the rendering of the object) the model matrix.
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public glm::vec3 `[`position`](#struct_d_core_1_1_component_system_1_1_transform_component_ad2c6b7ac29840c51a5af3ddac6056c9d_1ad2c6b7ac29840c51a5af3ddac6056c9d) | The position of the Transform and the corresponding GameObject
+`public glm::vec3 `[`rotation`](#struct_d_core_1_1_component_system_1_1_transform_component_a989597d2302d2a70e1100a8a8c89fda5_1a989597d2302d2a70e1100a8a8c89fda5) | The rotation of the Transform and the corresponding GameObject
+`public glm::vec3 `[`scale`](#struct_d_core_1_1_component_system_1_1_transform_component_a237ba1c0072b88eca97676fab599908c_1a237ba1c0072b88eca97676fab599908c) | The scale value of the Transform and the corresponding GameObject
+`public  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1a0e4d8f7e3f897da744934193ae961c18)`() = default` | 
+`public  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1a7d0052b25cafb3ed7860b64d4c028e6f)`(const `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` &) = default` | 
+`public inline  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1ae2f5a4e10abd69c2686193bed8954022)`(const glm::vec3 & pos,const glm::vec3 & rot,const glm::vec3 &)` | 
+`public glm::mat4 `[`getModelMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_a5fc531fdaba497dfb2013edce34cb094_1a5fc531fdaba497dfb2013edce34cb094)`()` | This method returns a model matrix for this transform object. Therefore the position matrix the rotation matrix and the scale matrix is multiplied. The parent transform is used to calculate this matrix (if and only if existing).
+`public glm::mat4 `[`getScaleMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_a44f46dc4d93527e5d971dadf1f4d75b2_1a44f46dc4d93527e5d971dadf1f4d75b2)`()` | This method returns a matrix that scales the object using this Transform
+`public glm::mat4 `[`getRotationMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_abf71ce5f341d605fb72c120733728320_1abf71ce5f341d605fb72c120733728320)`()` | This method returns a matrix that rotates the object using this Transform
+`public glm::mat4 `[`getPosMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_ad27ecc8cd01fdf0bae5364c13132cf5b_1ad27ecc8cd01fdf0bae5364c13132cf5b)`()` | This method returns a matrix that positions the object using this Transform
+
+## Members
+
+#### `public glm::vec3 `[`position`](#struct_d_core_1_1_component_system_1_1_transform_component_ad2c6b7ac29840c51a5af3ddac6056c9d_1ad2c6b7ac29840c51a5af3ddac6056c9d) 
+
+The position of the Transform and the corresponding GameObject
+
+#### `public glm::vec3 `[`rotation`](#struct_d_core_1_1_component_system_1_1_transform_component_a989597d2302d2a70e1100a8a8c89fda5_1a989597d2302d2a70e1100a8a8c89fda5) 
+
+The rotation of the Transform and the corresponding GameObject
+
+#### `public glm::vec3 `[`scale`](#struct_d_core_1_1_component_system_1_1_transform_component_a237ba1c0072b88eca97676fab599908c_1a237ba1c0072b88eca97676fab599908c) 
+
+The scale value of the Transform and the corresponding GameObject
+
+#### `public  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1a0e4d8f7e3f897da744934193ae961c18)`() = default` 
+
+#### `public  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1a7d0052b25cafb3ed7860b64d4c028e6f)`(const `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` &) = default` 
+
+#### `public inline  `[`TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component_1ae2f5a4e10abd69c2686193bed8954022)`(const glm::vec3 & pos,const glm::vec3 & rot,const glm::vec3 &)` 
+
+#### `public glm::mat4 `[`getModelMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_a5fc531fdaba497dfb2013edce34cb094_1a5fc531fdaba497dfb2013edce34cb094)`()` 
 
 This method returns a model matrix for this transform object. Therefore the position matrix the rotation matrix and the scale matrix is multiplied. The parent transform is used to calculate this matrix (if and only if existing).
 
 #### Returns
 Model matrix (with parent transform)
 
-#### `public glm::mat4 `[`getScaleMatrix`](#class_d_core_1_1_component_system_1_1_transform_adbeb9e27f8f0616336c7101c2d925ee3_1adbeb9e27f8f0616336c7101c2d925ee3)`()` 
+#### `public glm::mat4 `[`getScaleMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_a44f46dc4d93527e5d971dadf1f4d75b2_1a44f46dc4d93527e5d971dadf1f4d75b2)`()` 
 
-This method returns a matrix that scales the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
+This method returns a matrix that scales the object using this Transform
 
 #### Returns
 The scale matrix
 
-#### `public glm::mat4 `[`getRotationMatrix`](#class_d_core_1_1_component_system_1_1_transform_a716f060a18db568786ae023e8c02597c_1a716f060a18db568786ae023e8c02597c)`()` 
+#### `public glm::mat4 `[`getRotationMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_abf71ce5f341d605fb72c120733728320_1abf71ce5f341d605fb72c120733728320)`()` 
 
-This method returns a matrix that rotates the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
+This method returns a matrix that rotates the object using this Transform
 
 #### Returns
 The rotation matrix
 
-#### `public glm::mat4 `[`getPosMatrix`](#class_d_core_1_1_component_system_1_1_transform_a39100fc47750475ca69529a346885a28_1a39100fc47750475ca69529a346885a28)`()` 
+#### `public glm::mat4 `[`getPosMatrix`](#struct_d_core_1_1_component_system_1_1_transform_component_ad27ecc8cd01fdf0bae5364c13132cf5b_1ad27ecc8cd01fdf0bae5364c13132cf5b)`()` 
 
-This method returns a matrix that positions the object using this [Transform](#class_d_core_1_1_component_system_1_1_transform)
+This method returns a matrix that positions the object using this Transform
 
 #### Returns
 The position matrix
-
-#### `protected `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` * `[`gameObject`](#class_d_core_1_1_component_system_1_1_transform_1a1aa4d93351c974a8408f3234d884028e) 
 
 # namespace `DCore::Example` 
 
@@ -557,11 +481,13 @@ This is called for each frame while the scene is loaded. Can be used to call all
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`class `[`DCore::Meshes::Geometry`](#class_d_core_1_1_meshes_1_1_geometry) | 
+`class `[`DCore::Meshes::Geometry`](#class_d_core_1_1_meshes_1_1_geometry) | TODO replace this by a mesh component we can attatch to an entity...
 `class `[`DCore::Meshes::GeometryLoader`](#class_d_core_1_1_meshes_1_1_geometry_loader) | 
 `class `[`DCore::Meshes::GeometryStore`](#class_d_core_1_1_meshes_1_1_geometry_store) | 
 
 # class `DCore::Meshes::Geometry` 
+
+TODO replace this by a mesh component we can attatch to an entity...
 
 ## Summary
 
@@ -653,21 +579,26 @@ Loads all meshes inside the given file separated and stores the vertex data and 
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`class `[`DCore::Rendering::DefaultRenderer`](#class_d_core_1_1_rendering_1_1_default_renderer) | 
-`class `[`DCore::Rendering::DefaultTexturedRenderer`](#class_d_core_1_1_rendering_1_1_default_textured_renderer) | 
-`class `[`DCore::Rendering::GraphicsPipelineFactory`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_factory) | 
-`class `[`DCore::Rendering::GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer) | 
-`struct `[`DCore::Rendering::CameraData`](#struct_d_core_1_1_rendering_1_1_camera_data) | 
+`class `[`DCore::Rendering::DefaultRenderer`](#class_d_core_1_1_rendering_1_1_default_renderer) | Renderer for non-textured meshes.
+`class `[`DCore::Rendering::DefaultTexturedRenderer`](#class_d_core_1_1_rendering_1_1_default_textured_renderer) | Renderer for textured objects.
+`class `[`DCore::Rendering::GraphicsPipelineFactory`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_factory) | Factory for all different renderers.
+`class `[`DCore::Rendering::RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base) | 
+`class `[`DCore::Rendering::RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system) | 
+`class `[`DCore::Rendering::RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base) | 
+`struct `[`DCore::Rendering::CameraDataForwardPass`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass) | 
+`struct `[`DCore::Rendering::CameraDataPrePass`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass) | 
 `struct `[`DCore::Rendering::PushConstants`](#struct_d_core_1_1_rendering_1_1_push_constants) | 
-`struct `[`DCore::Rendering::ShadowMVP`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p) | 
+`struct `[`DCore::Rendering::RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component) | 
 `struct `[`DCore::Rendering::VertexAttributes`](#struct_d_core_1_1_rendering_1_1_vertex_attributes) | 
 
 # class `DCore::Rendering::DefaultRenderer` 
 
 ```
 class DCore::Rendering::DefaultRenderer
-  : public DCore::Rendering::GraphicsPipelineRenderer
+  : public DCore::Rendering::RendererBase
 ```  
+
+Renderer for non-textured meshes.
 
 ## Summary
 
@@ -680,8 +611,10 @@ class DCore::Rendering::DefaultRenderer
 
 ```
 class DCore::Rendering::DefaultTexturedRenderer
-  : public DCore::Rendering::GraphicsPipelineRenderer
+  : public DCore::Rendering::RendererBase
 ```  
+
+Renderer for textured objects.
 
 ## Summary
 
@@ -692,6 +625,8 @@ class DCore::Rendering::DefaultTexturedRenderer
 
 # class `DCore::Rendering::GraphicsPipelineFactory` 
 
+Factory for all different renderers.
+
 ## Summary
 
  Members                        | Descriptions                                
@@ -699,56 +634,132 @@ class DCore::Rendering::DefaultTexturedRenderer
 
 ## Members
 
-# class `DCore::Rendering::GraphicsPipelineRenderer` 
+# class `DCore::Rendering::RendererBase` 
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public  explicit `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a62793a25bff6253222047558fcdc3680)`(std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` >,lava::SharedGraphicsPipeline pipeline,lava::SharedPipelineLayout layout)` | 
-`public inline virtual  `[`~GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1ae502a4f31168364595bb3eef4e33f741)`()` | 
-`public void `[`prepareRendering`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1ab00f69af656d6889d15613f627fc5267)`(lava::InlineSubpass * sub,lava::SharedDescriptorSet cameraDescriptor)` | 
-`public void `[`renderGameObjects`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a42bda88dfd216fc11da6a4f027d1facc)`(const std::vector< std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` >> gos)` | 
-`protected lava::SharedGraphicsPipeline `[`mPipeline`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a347a9e8363e6e3a29cdf50668824ae29) | 
-`protected lava::SharedPipelineLayout `[`mLayout`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a68bd3fe4cc4bd953d5f8ae72b8bb3734) | 
-`protected lava::SharedDescriptorSet `[`mCameraDescriptor`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a75817b6a63f889bb31f75fd50e40dc9e) | 
-`protected lava::InlineSubpass * `[`mCurrentSubpass`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a308e3a00807bd2cf410db4e1d047ab42) | 
-`protected std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mAdvancedPipeline`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a9f4f9ab652862ff98f13b446be87d706) | 
+`public  explicit `[`RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base_1a9f699892f39e527cb890b08e2a63350a)`(std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` >,lava::SharedGraphicsPipeline pipeline,lava::SharedPipelineLayout layout)` | 
+`public inline virtual  `[`~RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base_1a2b519c9f7fe9a5a4e91f8672673c3392)`()` | 
+`public void `[`prepareRendering`](#class_d_core_1_1_rendering_1_1_renderer_base_1a4655eafa1e009cc3c7013cadf53c3b6a)`(lava::InlineSubpass * sub,lava::SharedDescriptorSet cameraDescriptor)` | 
+`public void `[`renderGameObjects`](#class_d_core_1_1_rendering_1_1_renderer_base_1a9c04a907face2fc84897c52ce5defacc)`(const std::vector< std::tuple< `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component) &, [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` & >> & gos)` | 
+`protected lava::SharedGraphicsPipeline `[`mPipeline`](#class_d_core_1_1_rendering_1_1_renderer_base_1a5a3d4dae1f8db27b1eb02febce7ceac6) | 
+`protected lava::SharedPipelineLayout `[`mLayout`](#class_d_core_1_1_rendering_1_1_renderer_base_1adec103350b3301f829b8e2e3d4b5b570) | 
+`protected lava::SharedDescriptorSet `[`mCameraDescriptor`](#class_d_core_1_1_rendering_1_1_renderer_base_1a4a2c90c6a5f206bf6ed375b8af438682) | 
+`protected lava::InlineSubpass * `[`mCurrentSubpass`](#class_d_core_1_1_rendering_1_1_renderer_base_1af787cca69c878dff46caf4de8fe0a7e9) | 
+`protected std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mAdvancedPipeline`](#class_d_core_1_1_rendering_1_1_renderer_base_1ac6a53352d37a9226d9d92193f20d081d) | 
 
 ## Members
 
-#### `public  explicit `[`GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a62793a25bff6253222047558fcdc3680)`(std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` >,lava::SharedGraphicsPipeline pipeline,lava::SharedPipelineLayout layout)` 
+#### `public  explicit `[`RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base_1a9f699892f39e527cb890b08e2a63350a)`(std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` >,lava::SharedGraphicsPipeline pipeline,lava::SharedPipelineLayout layout)` 
 
-#### `public inline virtual  `[`~GraphicsPipelineRenderer`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1ae502a4f31168364595bb3eef4e33f741)`()` 
+#### `public inline virtual  `[`~RendererBase`](#class_d_core_1_1_rendering_1_1_renderer_base_1a2b519c9f7fe9a5a4e91f8672673c3392)`()` 
 
-#### `public void `[`prepareRendering`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1ab00f69af656d6889d15613f627fc5267)`(lava::InlineSubpass * sub,lava::SharedDescriptorSet cameraDescriptor)` 
+#### `public void `[`prepareRendering`](#class_d_core_1_1_rendering_1_1_renderer_base_1a4655eafa1e009cc3c7013cadf53c3b6a)`(lava::InlineSubpass * sub,lava::SharedDescriptorSet cameraDescriptor)` 
 
-#### `public void `[`renderGameObjects`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a42bda88dfd216fc11da6a4f027d1facc)`(const std::vector< std::shared_ptr< `[`GameObject`](#class_d_core_1_1_component_system_1_1_game_object)` >> gos)` 
+#### `public void `[`renderGameObjects`](#class_d_core_1_1_rendering_1_1_renderer_base_1a9c04a907face2fc84897c52ce5defacc)`(const std::vector< std::tuple< `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component) &, [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` & >> & gos)` 
 
-#### `protected lava::SharedGraphicsPipeline `[`mPipeline`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a347a9e8363e6e3a29cdf50668824ae29) 
+#### `protected lava::SharedGraphicsPipeline `[`mPipeline`](#class_d_core_1_1_rendering_1_1_renderer_base_1a5a3d4dae1f8db27b1eb02febce7ceac6) 
 
-#### `protected lava::SharedPipelineLayout `[`mLayout`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a68bd3fe4cc4bd953d5f8ae72b8bb3734) 
+#### `protected lava::SharedPipelineLayout `[`mLayout`](#class_d_core_1_1_rendering_1_1_renderer_base_1adec103350b3301f829b8e2e3d4b5b570) 
 
-#### `protected lava::SharedDescriptorSet `[`mCameraDescriptor`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a75817b6a63f889bb31f75fd50e40dc9e) 
+#### `protected lava::SharedDescriptorSet `[`mCameraDescriptor`](#class_d_core_1_1_rendering_1_1_renderer_base_1a4a2c90c6a5f206bf6ed375b8af438682) 
 
-#### `protected lava::InlineSubpass * `[`mCurrentSubpass`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a308e3a00807bd2cf410db4e1d047ab42) 
+#### `protected lava::InlineSubpass * `[`mCurrentSubpass`](#class_d_core_1_1_rendering_1_1_renderer_base_1af787cca69c878dff46caf4de8fe0a7e9) 
 
-#### `protected std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mAdvancedPipeline`](#class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer_1a9f4f9ab652862ff98f13b446be87d706) 
+#### `protected std::shared_ptr< `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline)` > `[`mAdvancedPipeline`](#class_d_core_1_1_rendering_1_1_renderer_base_1ac6a53352d37a9226d9d92193f20d081d) 
 
-# struct `DCore::Rendering::CameraData` 
+# class `DCore::Rendering::RenderingSystem` 
+
+```
+class DCore::Rendering::RenderingSystem
+  : public DCore::Rendering::RenderingSystemBase
+```  
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_1a65b2129199c448031ec24a6cf68f2850) | 
-`public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_1a329f075a588e0bc4fc6b0cda6193161c) | 
+`public  `[`RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system_1ab0b874c6310b97f7b51cff12ed76d963)`(lava::SharedDevice device,lava::SharedDescriptorSetLayout textureLayout,std::shared_ptr< lava::features::GlfwOutput > glfwOutput,std::shared_ptr< lava::features::GlfwWindow > glfwWindow)` | 
+`public  `[`~RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system_1adfc9c721f1646e7167176c54081c626b)`() = default` | 
+`public virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_1a9f58f44334c6da2163f7ab4d48c93d2f)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` | 
+`public virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_1a695964cbc4dd8a98ca904246e126285d)`(int width,int height)` | 
+`public inline virtual lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_1a5933b8a6f5def4c8accc7a9526f0a891)`()` | 
 
 ## Members
 
-#### `public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_1a65b2129199c448031ec24a6cf68f2850) 
+#### `public  `[`RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system_1ab0b874c6310b97f7b51cff12ed76d963)`(lava::SharedDevice device,lava::SharedDescriptorSetLayout textureLayout,std::shared_ptr< lava::features::GlfwOutput > glfwOutput,std::shared_ptr< lava::features::GlfwWindow > glfwWindow)` 
 
-#### `public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_1a329f075a588e0bc4fc6b0cda6193161c) 
+#### `public  `[`~RenderingSystem`](#class_d_core_1_1_rendering_1_1_rendering_system_1adfc9c721f1646e7167176c54081c626b)`() = default` 
+
+#### `public virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_1a9f58f44334c6da2163f7ab4d48c93d2f)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` 
+
+#### `public virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_1a695964cbc4dd8a98ca904246e126285d)`(int width,int height)` 
+
+#### `public inline virtual lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_1a5933b8a6f5def4c8accc7a9526f0a891)`()` 
+
+# class `DCore::Rendering::RenderingSystemBase` 
+
+```
+class DCore::Rendering::RenderingSystemBase
+  : public DCore::ComponentSystem::SystemBase< RenderComponent, TransformComponent >
+```  
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1aa52b303b528e5a6cd0b3b6ee372703af)`() = default` | 
+`public  `[`~RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a7c1565deddfb104ecbead1d74bd702d3)`() = default` | 
+`public inline virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a9cc52a8e2c5c8081e81ce966d8f0a392)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` | 
+`public inline virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a1e8b533abea3279d1123c0590945e103)`(int width,int height)` | 
+`public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1ab3dbd250ceeb66e06691a9568f35347a)`()` | 
+
+## Members
+
+#### `public  `[`RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1aa52b303b528e5a6cd0b3b6ee372703af)`() = default` 
+
+#### `public  `[`~RenderingSystemBase`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a7c1565deddfb104ecbead1d74bd702d3)`() = default` 
+
+#### `public inline virtual void `[`Render`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a9cc52a8e2c5c8081e81ce966d8f0a392)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`RenderComponent](#struct_d_core_1_1_rendering_1_1_render_component), [TransformComponent`](#struct_d_core_1_1_component_system_1_1_transform_component)` > entities)` 
+
+#### `public inline virtual void `[`Resize`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1a1e8b533abea3279d1123c0590945e103)`(int width,int height)` 
+
+#### `public lava::camera::SharedGenericCamera `[`getCamera`](#class_d_core_1_1_rendering_1_1_rendering_system_base_1ab3dbd250ceeb66e06691a9568f35347a)`()` 
+
+# struct `DCore::Rendering::CameraDataForwardPass` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1a81b73f7789379525bc60d8541219a3e8) | 
+`public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1af9d78361a47f9bf883f710290755217d) | 
+`public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1a6b65115124d2e27707d42c2b40adc395) | 
+
+## Members
+
+#### `public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1a81b73f7789379525bc60d8541219a3e8) 
+
+#### `public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1af9d78361a47f9bf883f710290755217d) 
+
+#### `public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_camera_data_forward_pass_1a6b65115124d2e27707d42c2b40adc395) 
+
+# struct `DCore::Rendering::CameraDataPrePass` 
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass_1a08a2bcd62327385eb8fa81b8123fb48c) | 
+`public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass_1ab0f4f21f2f8e6fb0488717c256c2771d) | 
+
+## Members
+
+#### `public glm::mat4 `[`view`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass_1a08a2bcd62327385eb8fa81b8123fb48c) 
+
+#### `public glm::mat4 `[`proj`](#struct_d_core_1_1_rendering_1_1_camera_data_pre_pass_1ab0f4f21f2f8e6fb0488717c256c2771d) 
 
 # struct `DCore::Rendering::PushConstants` 
 
@@ -768,17 +779,41 @@ class DCore::Rendering::DefaultTexturedRenderer
 
 #### `public float `[`alpha`](#struct_d_core_1_1_rendering_1_1_push_constants_1af4067f3e621905807715999c13c6e23c) 
 
-# struct `DCore::Rendering::ShadowMVP` 
+# struct `DCore::Rendering::RenderComponent` 
 
 ## Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) | 
+`public std::shared_ptr< `[`Geometry`](#class_d_core_1_1_meshes_1_1_geometry)` > `[`geometryObj`](#struct_d_core_1_1_rendering_1_1_render_component_1ab190779cef11ac91643794aa45c0eb7c) | 
+`public bool `[`isTransparent`](#struct_d_core_1_1_rendering_1_1_render_component_1a87502c4beef243b5001230e3b6d104c4) | 
+`public float `[`alpha`](#struct_d_core_1_1_rendering_1_1_render_component_1ae87276ea190b0a0c2b60db8660e8756a) | 
+`public bool `[`hasTexture`](#struct_d_core_1_1_rendering_1_1_render_component_1a9dd4f0c107796c782907854be93da99d) | 
+`public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`textureObj`](#struct_d_core_1_1_rendering_1_1_render_component_1ae93e32ef17a8995c67da847b4f55cd3d) | 
+`public bool `[`active`](#struct_d_core_1_1_rendering_1_1_render_component_1a26108e27e96ac2fcca425d78523755c6) | 
+`public bool `[`isThrowingShadow`](#struct_d_core_1_1_rendering_1_1_render_component_1a47667f32b2a4fd01b6930601a93af516) | 
+`public  `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component_1a27a1adb9bcc2e56182341ae3b0b24b8b)`() = default` | 
+`public  `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component_1af0de77deb283e9512a7c66ea85b6d594)`(const `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component)` &) = default` | 
 
 ## Members
 
-#### `public glm::mat4 `[`depthViewProj`](#struct_d_core_1_1_rendering_1_1_shadow_m_v_p_1a417f171610e89bb19ddcf42b2f3cdb19) 
+#### `public std::shared_ptr< `[`Geometry`](#class_d_core_1_1_meshes_1_1_geometry)` > `[`geometryObj`](#struct_d_core_1_1_rendering_1_1_render_component_1ab190779cef11ac91643794aa45c0eb7c) 
+
+#### `public bool `[`isTransparent`](#struct_d_core_1_1_rendering_1_1_render_component_1a87502c4beef243b5001230e3b6d104c4) 
+
+#### `public float `[`alpha`](#struct_d_core_1_1_rendering_1_1_render_component_1ae87276ea190b0a0c2b60db8660e8756a) 
+
+#### `public bool `[`hasTexture`](#struct_d_core_1_1_rendering_1_1_render_component_1a9dd4f0c107796c782907854be93da99d) 
+
+#### `public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`textureObj`](#struct_d_core_1_1_rendering_1_1_render_component_1ae93e32ef17a8995c67da847b4f55cd3d) 
+
+#### `public bool `[`active`](#struct_d_core_1_1_rendering_1_1_render_component_1a26108e27e96ac2fcca425d78523755c6) 
+
+#### `public bool `[`isThrowingShadow`](#struct_d_core_1_1_rendering_1_1_render_component_1a47667f32b2a4fd01b6930601a93af516) 
+
+#### `public  `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component_1a27a1adb9bcc2e56182341ae3b0b24b8b)`() = default` 
+
+#### `public  `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component_1af0de77deb283e9512a7c66ea85b6d594)`(const `[`RenderComponent`](#struct_d_core_1_1_rendering_1_1_render_component)` &) = default` 
 
 # struct `DCore::Rendering::VertexAttributes` 
 
@@ -837,8 +872,8 @@ class DCore::Rendering::DefaultTexturedRenderer
 `public  `[`TextureStore`](#class_d_core_1_1_textures_1_1_texture_store_1a5faa7af45ca80f42d80c38ee6f45531a)`(lava::SharedDevice device)` | 
 `public  `[`TextureStore`](#class_d_core_1_1_textures_1_1_texture_store_1a896214fbe95e96b69382764136d1dbd5)`(lava::SharedDevice device,std::vector< std::pair< std::string, std::string >> imageTexturePathsAndNames)` | 
 `public  `[`~TextureStore`](#class_d_core_1_1_textures_1_1_texture_store_1a15a3cccbdaf62d8ae70d403b851704a2)`()` | 
-`public inline std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`getTextureWithName`](#class_d_core_1_1_textures_1_1_texture_store_1a8ab8700801b1cb3808ab4e4d0bd576a7)`(std::string name) const` | 
-`public inline lava::SharedDescriptorSetLayout `[`getTextureLayout`](#class_d_core_1_1_textures_1_1_texture_store_1aae2530d3fee2723caa8426f3b731a6fd)`() const` | 
+`public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`getTextureWithName`](#class_d_core_1_1_textures_1_1_texture_store_1a8ab8700801b1cb3808ab4e4d0bd576a7)`(std::string name) const` | 
+`public lava::SharedDescriptorSetLayout `[`getTextureLayout`](#class_d_core_1_1_textures_1_1_texture_store_1aae2530d3fee2723caa8426f3b731a6fd)`() const` | 
 
 ## Members
 
@@ -848,9 +883,9 @@ class DCore::Rendering::DefaultTexturedRenderer
 
 #### `public  `[`~TextureStore`](#class_d_core_1_1_textures_1_1_texture_store_1a15a3cccbdaf62d8ae70d403b851704a2)`()` 
 
-#### `public inline std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`getTextureWithName`](#class_d_core_1_1_textures_1_1_texture_store_1a8ab8700801b1cb3808ab4e4d0bd576a7)`(std::string name) const` 
+#### `public std::shared_ptr< `[`Texture`](#class_d_core_1_1_textures_1_1_texture)` > `[`getTextureWithName`](#class_d_core_1_1_textures_1_1_texture_store_1a8ab8700801b1cb3808ab4e4d0bd576a7)`(std::string name) const` 
 
-#### `public inline lava::SharedDescriptorSetLayout `[`getTextureLayout`](#class_d_core_1_1_textures_1_1_texture_store_1aae2530d3fee2723caa8426f3b731a6fd)`() const` 
+#### `public lava::SharedDescriptorSetLayout `[`getTextureLayout`](#class_d_core_1_1_textures_1_1_texture_store_1aae2530d3fee2723caa8426f3b731a6fd)`() const` 
 
 # namespace `lava::pipeline` 
 
@@ -858,15 +893,11 @@ class DCore::Rendering::DefaultTexturedRenderer
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`class `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline) | A Forward+ Rendering Pipeline with post-processing support (at some point in the future)
+`class `[`lava::pipeline::AdvancedRenderingPipeline`](#classlava_1_1pipeline_1_1_advanced_rendering_pipeline) | A Forward+ Rendering Pipeline with post-processing support It provides features such as shadow mapping
 
 # class `lava::pipeline::AdvancedRenderingPipeline` 
 
-A Forward+ Rendering Pipeline with post-processing support (at some point in the future)
-
-Features (at some point in the future):
-
-* Shadow Mapping
+A Forward+ Rendering Pipeline with post-processing support It provides features such as shadow mapping
 
 ## Summary
 
@@ -982,15 +1013,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public lava::SharedImage `[`loadCreateAndUploadImg`](#namespace_utils_lava_1a77b2a72a9102e81b2778663d413182e9)`(std::string filePath,lava::SharedDevice device,bool generateMipmaps)`            | 
-`public lava::SharedImage `[`loadCreateAndUploadImgForTexture_default`](#namespace_utils_lava_1af9db2920fce02d413dcda079988ea6e7)`(std::string filePath,lava::SharedDevice device)`            | 
+`public lava::SharedImage `[`loadCreateAndUploadImg`](#namespace_utils_lava_1a213313b1a78c1ee476d9bc856cffaa75)`(const std::string & filePath,lava::SharedDevice device,bool generateMipmaps)`            | 
+`public lava::SharedImage `[`loadCreateAndUploadImgForTexture_default`](#namespace_utils_lava_1a32dc14a8d7d4f2e83e2eb7d2c47c4567)`(const std::string & filePath,lava::SharedDevice device)`            | 
 `public bool `[`createBuffer`](#namespace_utils_lava_1a36e9f1e89e4e6b57c88cf6a12c834b40)`(VkDevice logical_device,VkDeviceSize size,VkBufferUsageFlags usage,VkBuffer & buffer)`            | 
 
 ## Members
 
-#### `public lava::SharedImage `[`loadCreateAndUploadImg`](#namespace_utils_lava_1a77b2a72a9102e81b2778663d413182e9)`(std::string filePath,lava::SharedDevice device,bool generateMipmaps)` 
+#### `public lava::SharedImage `[`loadCreateAndUploadImg`](#namespace_utils_lava_1a213313b1a78c1ee476d9bc856cffaa75)`(const std::string & filePath,lava::SharedDevice device,bool generateMipmaps)` 
 
-#### `public lava::SharedImage `[`loadCreateAndUploadImgForTexture_default`](#namespace_utils_lava_1af9db2920fce02d413dcda079988ea6e7)`(std::string filePath,lava::SharedDevice device)` 
+#### `public lava::SharedImage `[`loadCreateAndUploadImgForTexture_default`](#namespace_utils_lava_1a32dc14a8d7d4f2e83e2eb7d2c47c4567)`(const std::string & filePath,lava::SharedDevice device)` 
 
 #### `public bool `[`createBuffer`](#namespace_utils_lava_1a36e9f1e89e4e6b57c88cf6a12c834b40)`(VkDevice logical_device,VkDeviceSize size,VkBufferUsageFlags usage,VkBuffer & buffer)` 
 
@@ -1002,6 +1033,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 --------------------------------|---------------------------------------------
 
 ## Members
+
+# class `RotateCubesSystem` 
+
+```
+class RotateCubesSystem
+  : public DCore::ComponentSystem::SystemBase< TransformComponent, TagComponent >
+```  
+
+## Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  `[`RotateCubesSystem`](#class_rotate_cubes_system_1a84af0f45f9ecbc42f0ff9cb030ea9a92)`() = default` | 
+`public  `[`~RotateCubesSystem`](#class_rotate_cubes_system_1a6c42d71171fdab6c1d7e0d47050985db)`() = default` | 
+`public inline void `[`Update`](#class_rotate_cubes_system_1a03842096f2a3373d318f76f33ba157d4)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component), [TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` > entities,double dt)` | 
+
+## Members
+
+#### `public  `[`RotateCubesSystem`](#class_rotate_cubes_system_1a84af0f45f9ecbc42f0ff9cb030ea9a92)`() = default` 
+
+#### `public  `[`~RotateCubesSystem`](#class_rotate_cubes_system_1a6c42d71171fdab6c1d7e0d47050985db)`() = default` 
+
+#### `public inline void `[`Update`](#class_rotate_cubes_system_1a03842096f2a3373d318f76f33ba157d4)`(entt::basic_view< entt::entity, entt::exclude_t<>, `[`TransformComponent](#struct_d_core_1_1_component_system_1_1_transform_component), [TagComponent`](#struct_d_core_1_1_component_system_1_1_tag_component)` > entities,double dt)` 
 
 # struct `stbi_io_callbacks` 
 

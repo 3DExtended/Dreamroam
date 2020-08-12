@@ -1,0 +1,9 @@
+# Format Style Options - Created with Clang Power Tools
+---
+Language: Cpp
+BasedOnStyle: Google
+AccessModifierOffset: -4
+IndentWidth : 4
+ObjCBlockIndentWidth: 4
+TabWidth: 4
+...

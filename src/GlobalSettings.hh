@@ -2,12 +2,13 @@
 
 #include <string>
 
-class GlobalSettings
-{
+class GlobalSettings {
 public:
-  static std::string shaderFolder;
-  static bool useValidation;
+    static std::string shaderFolder;
+    static bool useValidation;
 
-  static uint16_t windowWidth;
-  static uint16_t windowHeight;
+    static uint16_t windowWidth;
+    static uint16_t windowHeight;
+
+    static uint16_t shadowMapSize;
 };

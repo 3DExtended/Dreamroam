@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Dreamroam: K:/Projekte/dreamroam/src/Components/RenderComponent.hh Source File</title>
+<title>Dreamroam: K:/Projekte/dreamroam/src/RenderingSystem/RenderComponent.hh Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,43 +88,40 @@ $(document).ready(function(){initNavTree('_render_component_8hh_source.html','')
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;ComponentBased/AComponent.hh&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;Geometry/Geometry.hh&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;RenderObjects/Texture.hh&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespace_d_core_1_1_component_system.html">DCore::ComponentSystem</a>;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span>DCore::Meshes;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using namespace </span>DCore::Textures;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">namespace </span>Components {</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_d_core_1_1_components_1_1_render_component.html">   11</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_d_core_1_1_components_1_1_render_component.html">RenderComponent</a> : <span class="keyword">public</span> <a class="code" href="class_d_core_1_1_component_system_1_1_a_component.html">AComponent</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <a class="code" href="class_d_core_1_1_components_1_1_render_component.html">RenderComponent</a>() {};</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            std::shared_ptr&lt;Geometry&gt; geometryObj = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keywordtype">bool</span> isTransparent = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keywordtype">float</span> alpha = 1.0f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keywordtype">bool</span> hasTexture = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            std::shared_ptr&lt;Texture&gt; textureObj = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordtype">bool</span> active = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordtype">bool</span> isThrowingShadow = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;MeshHandlers/Geometry.hh&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;TextureHandlers/Texture.hh&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">using namespace </span>DCore::Meshes;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>DCore::Textures;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_d_core.html">DCore</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">namespace </span>Rendering {</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="struct_d_core_1_1_rendering_1_1_render_component.html">    9</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            <a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a>(<span class="keyword">const</span> <a class="code" href="struct_d_core_1_1_rendering_1_1_render_component.html">RenderComponent</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            std::shared_ptr&lt;Geometry&gt; geometryObj = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            <span class="keywordtype">bool</span> isTransparent = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            <span class="keywordtype">float</span> alpha = 1.0f;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordtype">bool</span> hasTexture = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            std::shared_ptr&lt;Texture&gt; textureObj = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordtype">bool</span> active = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <span class="keywordtype">bool</span> isThrowingShadow = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        };</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_d_core_1_1_component_system_1_1_a_component_html"><div class="ttname"><a href="class_d_core_1_1_component_system_1_1_a_component.html">DCore::ComponentSystem::AComponent</a></div><div class="ttdoc">This class is abstract and has to be inherited. It provides the standard functions as start() or upda...</div><div class="ttdef"><b>Definition:</b> AComponent.hh:36</div></div>
-<div class="ttc" id="anamespace_d_core_1_1_component_system_html"><div class="ttname"><a href="namespace_d_core_1_1_component_system.html">DCore::ComponentSystem</a></div><div class="ttdef"><b>Definition:</b> AComponent.cc:11</div></div>
-<div class="ttc" id="aclass_d_core_1_1_components_1_1_render_component_html"><div class="ttname"><a href="class_d_core_1_1_components_1_1_render_component.html">DCore::Components::RenderComponent</a></div><div class="ttdef"><b>Definition:</b> RenderComponent.hh:12</div></div>
-<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AComponent.cc:9</div></div>
+<div class="ttc" id="anamespace_d_core_html"><div class="ttname"><a href="namespace_d_core.html">DCore</a></div><div class="ttdef"><b>Definition:</b> AScene.hh:12</div></div>
+<div class="ttc" id="astruct_d_core_1_1_rendering_1_1_render_component_html"><div class="ttname"><a href="struct_d_core_1_1_rendering_1_1_render_component.html">DCore::Rendering::RenderComponent</a></div><div class="ttdef"><b>Definition:</b> RenderComponent.hh:10</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li><li class="navelem"><b>RenderComponent.hh</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d3724ca37bfdd188d1c89fc98abad067.html">RenderingSystem</a></li><li class="navelem"><b>RenderComponent.hh</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

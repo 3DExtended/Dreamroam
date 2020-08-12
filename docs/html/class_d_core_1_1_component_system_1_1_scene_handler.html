@@ -87,8 +87,6 @@ $(document).ready(function(){initNavTree('class_d_core_1_1_component_system_1_1_
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_d_core_1_1_component_system_1_1_scene_handler-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">DCore::ComponentSystem::SceneHandler Class Reference</div>  </div>
@@ -102,30 +100,18 @@ $(document).ready(function(){initNavTree('class_d_core_1_1_component_system_1_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a06af644644384175f49eeb3a328801ba"><td class="memItemLeft" align="right" valign="top"><a id="a06af644644384175f49eeb3a328801ba"></a>
-std::shared_ptr&lt; lava::features::GlfwOutput &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getGlfwOutput</b> () const</td></tr>
-<tr class="separator:a06af644644384175f49eeb3a328801ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69831e2a027b2f7327db5e35bd326a0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b.html#a69831e2a027b2f7327db5e35bd326a0b">setupRenderer</a> (<a class="el" href="class_d_core_1_1_rendering_1_1_rendering_system_base.html">RenderingSystemBase</a> *renderer)</td></tr>
+<tr class="memdesc:a69831e2a027b2f7327db5e35bd326a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If you want to supply a custom rendering system for rendering your scene, call this method after you have registered all scenes in your main.cc. You can take a look of the implementation of the default rendering system at RenderingSystem.cc  <a href="class_d_core_1_1_component_system_1_1_scene_handler_a69831e2a027b2f7327db5e35bd326a0b.html#a69831e2a027b2f7327db5e35bd326a0b">More...</a><br /></td></tr>
+<tr class="separator:a69831e2a027b2f7327db5e35bd326a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5.html#a99fe4ea2e3e102ec3beeb448b6878cc5">SceneHandler</a> ()</td></tr>
+<tr class="memdesc:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of the scene handler. Should only be called ONCE by the main function.  <a href="class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5.html#a99fe4ea2e3e102ec3beeb448b6878cc5">More...</a><br /></td></tr>
+<tr class="separator:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9ec234700b37ef3c8ba2c3530708305"><td class="memItemLeft" align="right" valign="top"><a id="aa9ec234700b37ef3c8ba2c3530708305"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
 <tr class="separator:aa9ec234700b37ef3c8ba2c3530708305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64a8d0f828f9637a98ac0a888e9314d6"><td class="memItemLeft" align="right" valign="top"><a id="a64a8d0f828f9637a98ac0a888e9314d6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>updateCamera</b> (double elapsedSeconds)</td></tr>
 <tr class="separator:a64a8d0f828f9637a98ac0a888e9314d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa840550cfbac55ffbf68775f8b194192"><td class="memItemLeft" align="right" valign="top"><a id="aa840550cfbac55ffbf68775f8b194192"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setupPipeline</b> (const lava::SharedDescriptorSetLayout textureLayout)</td></tr>
-<tr class="separator:aa840550cfbac55ffbf68775f8b194192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1bb88527ddca127ac396d1e3d703e65"><td class="memItemLeft" align="right" valign="top"><a id="aa1bb88527ddca127ac396d1e3d703e65"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getFrustumCorners</b> (std::vector&lt; glm::vec4 &gt; &amp;corners, glm::mat4 projection)</td></tr>
-<tr class="separator:aa1bb88527ddca127ac396d1e3d703e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a21e13bbaa0593aa3d6583da619ac95"><td class="memItemLeft" align="right" valign="top"><a id="a0a21e13bbaa0593aa3d6583da619ac95"></a>
-std::tuple&lt; glm::mat4, glm::vec3, glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>rotateCameraFrustrumCornersToLightSpace</b> (glm::vec3 forward, glm::vec3 camPosition, std::vector&lt; glm::vec4 &gt; corners, glm::vec3 upDirection)</td></tr>
-<tr class="separator:a0a21e13bbaa0593aa3d6583da619ac95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a72d73b454dd9de9b96adebe938c7d9"><td class="memItemLeft" align="right" valign="top"><a id="a8a72d73b454dd9de9b96adebe938c7d9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setupGlfwCallbacks</b> ()</td></tr>
-<tr class="separator:a8a72d73b454dd9de9b96adebe938c7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5.html#a99fe4ea2e3e102ec3beeb448b6878cc5">SceneHandler</a> ()</td></tr>
-<tr class="memdesc:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of the scene handler. Should only be called ONCE by the main function.  <a href="class_d_core_1_1_component_system_1_1_scene_handler_a99fe4ea2e3e102ec3beeb448b6878cc5.html#a99fe4ea2e3e102ec3beeb448b6878cc5">More...</a><br /></td></tr>
-<tr class="separator:a99fe4ea2e3e102ec3beeb448b6878cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -195,72 +181,6 @@ glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><b>mClickPos</b></t
 <tr class="memitem:a6acc7a9aa834b0402cb4c6eadc99dfaf"><td class="memItemLeft" align="right" valign="top"><a id="a6acc7a9aa834b0402cb4c6eadc99dfaf"></a>
 lava::Stopwatch&#160;</td><td class="memItemRight" valign="bottom"><b>mClickTimer</b></td></tr>
 <tr class="separator:a6acc7a9aa834b0402cb4c6eadc99dfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd3d3ed2b406aef321d27a4db7bd9c4c"><td class="memItemLeft" align="right" valign="top"><a id="afd3d3ed2b406aef321d27a4db7bd9c4c"></a>
-lava::SharedBuffer&#160;</td><td class="memItemRight" valign="bottom"><b>mViewProjBufferPrePass</b></td></tr>
-<tr class="separator:afd3d3ed2b406aef321d27a4db7bd9c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094f3b8e2b5bfc6194368db088975e28"><td class="memItemLeft" align="right" valign="top"><a id="a094f3b8e2b5bfc6194368db088975e28"></a>
-lava::SharedBuffer&#160;</td><td class="memItemRight" valign="bottom"><b>mViewProjBufferForwardPass</b></td></tr>
-<tr class="separator:a094f3b8e2b5bfc6194368db088975e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af525113019761acf447d9dab7d447ab2"><td class="memItemLeft" align="right" valign="top"><a id="af525113019761acf447d9dab7d447ab2"></a>
-lava::SharedDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><b>mViewProjDescriptorSetLayout</b></td></tr>
-<tr class="separator:af525113019761acf447d9dab7d447ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca84aa35b701c428519950c771d74a16"><td class="memItemLeft" align="right" valign="top"><a id="aca84aa35b701c428519950c771d74a16"></a>
-lava::SharedDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><b>mViewProjDescriptorForward</b></td></tr>
-<tr class="separator:aca84aa35b701c428519950c771d74a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a342739d3084aba151aa7194516dbd1d3"><td class="memItemLeft" align="right" valign="top"><a id="a342739d3084aba151aa7194516dbd1d3"></a>
-lava::SharedDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><b>mViewProjDescriptorPre</b></td></tr>
-<tr class="separator:a342739d3084aba151aa7194516dbd1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a963129a7fdfeb03f44ecfcb807d3fae2"><td class="memItemLeft" align="right" valign="top"><a id="a963129a7fdfeb03f44ecfcb807d3fae2"></a>
-std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_component_system_1_1_a_scene.html">AScene</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>scenes</b></td></tr>
-<tr class="separator:a963129a7fdfeb03f44ecfcb807d3fae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1da1b2dbd24ded4068cd57cd5bf4269b"><td class="memItemLeft" align="right" valign="top"><a id="a1da1b2dbd24ded4068cd57cd5bf4269b"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_component_system_1_1_a_scene.html">AScene</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>curScene</b> = nullptr</td></tr>
-<tr class="separator:a1da1b2dbd24ded4068cd57cd5bf4269b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8842e9c77258cd504313e47025d4df59"><td class="memItemLeft" align="right" valign="top"><a id="a8842e9c77258cd504313e47025d4df59"></a>
-std::shared_ptr&lt; lava::features::GlfwOutput &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mGlfwOutput</b></td></tr>
-<tr class="separator:a8842e9c77258cd504313e47025d4df59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f79a79d27cddb2b4c6ff70bda217395"><td class="memItemLeft" align="right" valign="top"><a id="a3f79a79d27cddb2b4c6ff70bda217395"></a>
-std::shared_ptr&lt; lava::features::Validation &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mValidation</b></td></tr>
-<tr class="separator:a3f79a79d27cddb2b4c6ff70bda217395"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ffd0bc5b010ac5caeb4d411cf67db5"><td class="memItemLeft" align="right" valign="top"><a id="ab6ffd0bc5b010ac5caeb4d411cf67db5"></a>
-std::shared_ptr&lt; lava::features::GlfwWindow &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mWindow</b></td></tr>
-<tr class="separator:ab6ffd0bc5b010ac5caeb4d411cf67db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad50227bd534e8ff0023162822398fbd9"><td class="memItemLeft" align="right" valign="top"><a id="ad50227bd534e8ff0023162822398fbd9"></a>
-lava::SharedDevice&#160;</td><td class="memItemRight" valign="bottom"><b>mDevice</b></td></tr>
-<tr class="separator:ad50227bd534e8ff0023162822398fbd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3ade7eed67982f398c1b7a67735334c"><td class="memItemLeft" align="right" valign="top"><a id="ae3ade7eed67982f398c1b7a67735334c"></a>
-lava::SharedPipelineLayout&#160;</td><td class="memItemRight" valign="bottom"><b>mPlLayout</b></td></tr>
-<tr class="separator:ae3ade7eed67982f398c1b7a67735334c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae533376b34de4725eefaa5ed93e21275"><td class="memItemLeft" align="right" valign="top"><a id="ae533376b34de4725eefaa5ed93e21275"></a>
-std::shared_ptr&lt; <a class="el" href="classlava_1_1pipeline_1_1_advanced_rendering_pipeline.html">lava::pipeline::AdvancedRenderingPipeline</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPipeline</b></td></tr>
-<tr class="separator:ae533376b34de4725eefaa5ed93e21275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4acf4782b3fa11d3a347322c6271ad7c"><td class="memItemLeft" align="right" valign="top"><a id="a4acf4782b3fa11d3a347322c6271ad7c"></a>
-std::vector&lt; lava::SharedFramebuffer &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>companionWindowFBO</b></td></tr>
-<tr class="separator:a4acf4782b3fa11d3a347322c6271ad7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa6a211e922be728938c854e5dafa135c"><td class="memItemLeft" align="right" valign="top"><a id="aa6a211e922be728938c854e5dafa135c"></a>
-static std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> = nullptr</td></tr>
-<tr class="separator:aa6a211e922be728938c854e5dafa135c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a302ba452f9e507d30d2a427179b5f596"><td class="memItemLeft" align="right" valign="top"><a id="a302ba452f9e507d30d2a427179b5f596"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mOpaqueUntextured</b></td></tr>
-<tr class="separator:a302ba452f9e507d30d2a427179b5f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7073a6b24c46558474ef828d6c031f8c"><td class="memItemLeft" align="right" valign="top"><a id="a7073a6b24c46558474ef828d6c031f8c"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mOpaqueTextured</b></td></tr>
-<tr class="separator:a7073a6b24c46558474ef828d6c031f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4515d227d8fe4d38c0bf72ec84b55a7f"><td class="memItemLeft" align="right" valign="top"><a id="a4515d227d8fe4d38c0bf72ec84b55a7f"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mTransparendUntextured</b></td></tr>
-<tr class="separator:a4515d227d8fe4d38c0bf72ec84b55a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab910e78c6e8401f27e479b6de9e16bbc"><td class="memItemLeft" align="right" valign="top"><a id="ab910e78c6e8401f27e479b6de9e16bbc"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mTransparendTextured</b></td></tr>
-<tr class="separator:ab910e78c6e8401f27e479b6de9e16bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4449a85008106fe0c09b5b01df771615"><td class="memItemLeft" align="right" valign="top"><a id="a4449a85008106fe0c09b5b01df771615"></a>
-std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_pipeline_renderer.html">GraphicsPipelineRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mShadowMap</b></td></tr>
-<tr class="separator:a4449a85008106fe0c09b5b01df771615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler.html" title="A SceneHandler is the manager of the game engine. It implements the singleton pattern and provides ge...">SceneHandler</a> is the manager of the game engine. It implements the singleton pattern and provides getters for the current scene, the switch scene method and more. </p>
@@ -273,7 +193,7 @@ std::shared_ptr&lt; <a class="el" href="class_d_core_1_1_rendering_1_1_graphics_
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespace_d_core.html">DCore</a></li><li class="navelem"><a class="el" href="namespace_d_core_1_1_component_system.html">ComponentSystem</a></li><li class="navelem"><a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a></li>
+    <li class="navelem"><a class="el" href="namespace_d_core.html">DCore</a></li><li class="navelem"><b>ComponentSystem</b></li><li class="navelem"><a class="el" href="class_d_core_1_1_component_system_1_1_scene_handler.html">SceneHandler</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
