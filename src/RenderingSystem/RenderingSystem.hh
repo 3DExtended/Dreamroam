@@ -4,6 +4,7 @@
 #include <ComponentBased/Systems/SystemBase.hh>
 #include <RenderingSystem/RenderingSystemBase.hh>
 #include <RenderingSystem/Renders/RendererBase.hh>
+#include <lava-extras/imgui/ImGui.hh>
 #include <lava/objects/Device.hh>
 #include <map>
 #include <memory>
@@ -59,6 +60,8 @@ private:
     std::shared_ptr<RendererBase> mShadowMap;
 
     std::vector<lava::SharedFramebuffer> companionWindowFBO;
+
+    lava::imgui::ImGui mGui;
 
 private:
     void getFrustumCorners(std::vector<glm::vec4>& corners,

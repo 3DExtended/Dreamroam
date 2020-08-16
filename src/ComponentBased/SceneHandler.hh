@@ -48,6 +48,24 @@ public:
     }
 
     /// <summary>
+    /// Getter for the current glfw output.
+    /// </summary>
+    /// <returns>A pointer to the currently loaded scene</returns>
+    static std::shared_ptr<lava::features::GlfwOutput> getGlfwOutput() {
+        DR_PROFILE_FUNCTION();
+        return getInstance()->mGlfwOutput;
+    }
+
+    /// <summary>
+    /// Getter for the current glfw window.
+    /// </summary>
+    /// <returns>A pointer to the currently loaded scene</returns>
+    static std::shared_ptr<lava::features::GlfwWindow> getGlfwWindow() {
+        DR_PROFILE_FUNCTION();
+        return getInstance()->mWindow;
+    }
+
+    /// <summary>
     /// Getter for the currently loaded scene.
     /// </summary>
     /// <returns>A pointer to the currently loaded scene</returns>
@@ -137,17 +155,17 @@ private:
     void start();
     void update(double dt);
     void render();
-    bool onKey(int key, int scancode, int action, int mods);
-    bool onMousePosition(double x, double y);
-    bool onMouseButton(double x, double y, int button, int action, int mods,
+    void onKey(int key, int scancode, int action, int mods);
+    void onMousePosition(double x, double y);
+    void onMouseButton(double x, double y, int button, int action, int mods,
                        int clickCount);
-    bool onMouseScroll(double sx, double sy);
-    bool onMouseEnter();
-    bool onMouseExit();
-    bool onFocusGain();
-    bool onFocusLost();
-    bool onFileDrop(const std::vector<std::string>& files);
-    bool onChar(unsigned int codepoint, int mods);
+    void onMouseScroll(double sx, double sy);
+    void onMouseEnter();
+    void onMouseExit();
+    void onFocusGain();
+    void onFocusLost();
+    void onFileDrop(const std::vector<std::string>& files);
+    void onChar(unsigned int codepoint, int mods);
     void internalOnMouseButton(double x, double y, int button, int action,
                                int mods);
     void onResize(int w, int h);

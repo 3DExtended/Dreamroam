@@ -21,9 +21,63 @@ target_include_directories(glm_static PUBLIC "extern/glm")
 # add glfw
 add_subdirectory("extern/glfw")
 
+# create imgui targets
+add_library(imgui STATIC
+	"extern/imgui/imconfig.h"
+	"extern/imgui/imgui.cpp"
+	"extern/imgui/imgui.h"
+	"extern/imgui/imgui_demo.cpp"
+	"extern/imgui/imgui_draw.cpp"
+	"extern/imgui/imgui_internal.h"
+	"extern/imgui/imgui_widgets.cpp"
+	"extern/imgui/imstb_rectpack.h"
+	"extern/imgui/imstb_textedit.h"
+	"extern/imgui/imstb_truetype.h"
+	"extern/lava-extras/imgui/lava-extras/imgui/impl/imgui_impl_lava.cc"
+	"extern/lava-extras/imgui/lava-extras/imgui/impl/imgui_impl_lava.hh"
+	"extern/lava-extras/imgui/lava-extras/imgui/impl/imgui_impl_glfw.cc"
+	"extern/lava-extras/imgui/lava-extras/imgui/impl/imgui_impl_glfw.hh"
+)
+target_include_directories(imgui PUBLIC
+	"extern"
+	"extern/imgui"
+	"extern/glm"
+	)
+
+# create imgui targets
+add_library(imguinodeeditor STATIC
+	"extern/imgui-node-editor/crude_json.cpp"
+	"extern/imgui-node-editor/crude_json.h"
+	"extern/imgui-node-editor/imgui_bezier_math.h"
+	"extern/imgui-node-editor/imgui_bezier_math.inl"
+	"extern/imgui-node-editor/imgui_canvas.cpp"
+	"extern/imgui-node-editor/imgui_canvas.h"
+	"extern/imgui-node-editor/imgui_extra_math.h"
+	"extern/imgui-node-editor/imgui_extra_math.inl"
+	"extern/imgui-node-editor/imgui_node_editor.cpp"
+	"extern/imgui-node-editor/imgui_node_editor.h"
+	"extern/imgui-node-editor/imgui_node_editor_api.cpp"
+	"extern/imgui-node-editor/imgui_node_editor_internal.h"
+)
+target_include_directories(imguinodeeditor PUBLIC
+	"extern"
+	"extern/imgui"
+	"extern/glm"
+	)
+
+
 # add lava
 add_subdirectory("extern/lava")
+
+target_link_libraries(imgui PUBLIC lava glfw)
+
 add_subdirectory("extern/lava-extras")
+
+target_include_directories(lava-extras-imgui PUBLIC
+	"extern"
+	"extern/imgui"
+	"extern/glm"
+)
 
 # Dreamroam definition
 file(GLOB_RECURSE DREAMROAMSOURCE "src/*.cc" "src/*.hh")
@@ -77,6 +131,9 @@ target_link_libraries(
 	lava
 	lava-extras-pipeline
 	lava-extras-renderer  
+	imgui
 	lava-extras-glfw
+	lava-extras-imgui
+	imguinodeeditor
 	lava-extras-pack-resources
 	lava-extras-geometry)
