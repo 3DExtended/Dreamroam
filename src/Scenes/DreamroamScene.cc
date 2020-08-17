@@ -118,6 +118,10 @@ void DreamroamScene::ImGuiDebugWindow() {
 void DreamroamScene::imGuiRender() {
     ImGuiDebugWindow();
 
+    NodeEditorTest();
+}
+
+void NodeEditorTest() {
     auto& io = ImGui::GetIO();
 
     ImGui::Text("FPS: %.2f (%.2gms)", io.Framerate,
