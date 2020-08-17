@@ -4,9 +4,9 @@ using namespace DCore::ComponentSystem;
 
 namespace DCore {
 namespace Example {
-class DreamroamScene : public AScene {
+class RotateCubeScene : public AScene {
 public:
-    DreamroamScene();
+    RotateCubeScene();
     void start() override;
     void update(double dt) override;
     void imGuiRender() override;

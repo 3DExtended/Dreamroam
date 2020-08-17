@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
-project(Dreamroam)
+project(dreamroam)
+
+set(LAVA_LINK_TYPE STATIC CACHE STRING "Defines the build type of libraries (static is default)")
+if(MSVC)
+    set(LAVA_LINK_TYPE STATIC CACHE STRING "" FORCE) # unfortunately, we need to link statically here
+endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,7 +17,6 @@ add_compile_definitions(GLM_FORCE_DEPTH_ZERO_TO_ONE)
 IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
 	add_compile_definitions(DR_DEBUG)
 ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG)
-
 
 # add glm 
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/glm/glm")
@@ -79,7 +83,7 @@ target_include_directories(lava-extras-imgui PUBLIC
 	"extern/glm"
 )
 
-# Dreamroam definition
+# dreamroam definition
 file(GLOB_RECURSE DREAMROAMSOURCE "src/*.cc" "src/*.hh")
 file(GLOB_RECURSE SHADERS "src/shaders/*")
 
@@ -121,12 +125,12 @@ list(APPEND lava_pack_shaders
 set(lava_pack_shaders "${lava_pack_shaders}" CACHE INTERNAL "lava_pack_shaders")
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-add_executable(Dreamroam ${DREAMROAMSOURCE} ${SHADERS})
+add_library(dreamroam ${LAVA_LINK_TYPE} ${DREAMROAMSOURCE} ${SHADERS})
 
-target_include_directories(Dreamroam PRIVATE ".")
-target_compile_options(Dreamroam PRIVATE -Wall)
+target_include_directories(dreamroam PRIVATE ".")
+target_compile_options(dreamroam PRIVATE -Wall)
 target_link_libraries(
-	Dreamroam PUBLIC
+	dreamroam PUBLIC
 	glm_static
 	lava
 	lava-extras-pipeline
@@ -137,3 +141,5 @@ target_link_libraries(
 	imguinodeeditor
 	lava-extras-pack-resources
 	lava-extras-geometry)
+
+add_subdirectory("examples")
