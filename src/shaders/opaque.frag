@@ -13,11 +13,11 @@ layout (set = 1, binding = 1) uniform sampler2D shadowTexture;
 layout (location = 0) out vec4 fColor;
 
 void main() {
-    fColor = vec4(abs(vColor[0]),abs(vColor[1]),abs(vColor[2]),1.0);
-
+    fColor = vec4(vColor,1.0);
+    fColor = vec4(1,0,0,1);
     // Move light vector to PushConstants
-    vec3 L = normalize(vec3(50,100,25) - vPosition);
+    /*vec3 L = normalize(vec3(50,100,25) - vPosition);
     vec3 Idiff = fColor.rgb * max(dot(vNormal,L), 0.0);
     Idiff = clamp(Idiff, 0.0, 1.0);
-	fColor.rgb = Idiff.rgb + 0.05 * fColor.rgb;
+	fColor.rgb = Idiff.rgb + 0.05 * fColor.rgb;*/
 }

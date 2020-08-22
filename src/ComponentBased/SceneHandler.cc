@@ -1,6 +1,7 @@
 #include "SceneHandler.hh"
 
 #include <GLFW/glfw3.h>
+#include <imgui/imgui.h>
 
 #include <RenderingSystem/PushConstants.hh>
 #include <RenderingSystem/RenderComponent.hh>
@@ -182,12 +183,34 @@ void SceneHandler::setupGlfwCallbacks() {
     glfwSetKeyCallback(window, [](GLFWwindow* win, int key, int scancode,
                                   int action, int mods) {
         sWindowApps.at(win)->onKey(key, scancode, action, mods);
+
+        ImGuiIO& io = ImGui::GetIO();
+        if (action == GLFW_PRESS) io.KeysDown[key] = true;
+        if (action == GLFW_RELEASE) io.KeysDown[key] = false;
+
+        // Modifiers are not reliable across systems
+        io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] ||
+                     io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+        io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] ||
+                      io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+        io.KeyAlt =
+            io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+#ifdef _WIN32
+        io.KeySuper = false;
+#else
+    io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+#endif
     });
 
     glfwSetCharModsCallback(
         window, [](GLFWwindow* win, unsigned int codepoint, int mods) {
             sWindowApps.at(win)->onChar(codepoint, mods);
         });
+
+    glfwSetCharCallback(window, [](GLFWwindow* win, unsigned int c) {
+        ImGuiIO& io = ImGui::GetIO();
+        io.AddInputCharacter(c);
+    });
 
     glfwSetMouseButtonCallback(
         window, [](GLFWwindow* win, int button, int action, int mods) {
@@ -216,6 +239,9 @@ void SceneHandler::setupGlfwCallbacks() {
 
     glfwSetScrollCallback(window, [](GLFWwindow* win, double sx, double sy) {
         sWindowApps.at(win)->onMouseScroll(sx, sy);
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseWheelH += (float)sx;
+        io.MouseWheel += (float)sy;
     });
 
     glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) {
@@ -289,7 +315,7 @@ void SceneHandler::render() {
     this->rendererSystem->InternalRender(this->curScene->m_Registry);
 }
 
-bool SceneHandler::onKey(int key, int scancode, int action, int mods) {
+void SceneHandler::onKey(int key, int scancode, int action, int mods) {
     DR_PROFILE_FUNCTION();
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         mCatchCursor = !mCatchCursor;
@@ -298,11 +324,9 @@ bool SceneHandler::onKey(int key, int scancode, int action, int mods) {
                              GLFW_CURSOR_NORMAL);
         }
     }
-
-    return false;
 }
 
-bool SceneHandler::onMousePosition(double x, double y) {
+void SceneHandler::onMousePosition(double x, double y) {
     DR_PROFILE_FUNCTION();
     // if (TwEventMousePosGLFW(mWindow, x, y))
     //    return true;
@@ -327,29 +351,24 @@ bool SceneHandler::onMousePosition(double x, double y) {
 
     mMouseLastX = x;
     mMouseLastY = y;
-    return false;
 }
 
-bool SceneHandler::onMouseButton(double x, double y, int button, int action,
-                                 int mods, int clickCount) {
-    return false;
-}
+void SceneHandler::onMouseButton(double x, double y, int button, int action,
+                                 int mods, int clickCount) {}
 
-bool SceneHandler::onMouseScroll(double sx, double sy) { return false; }
+void SceneHandler::onMouseScroll(double sx, double sy) {}
 
-bool SceneHandler::onMouseEnter() { return false; }
+void SceneHandler::onMouseEnter() {}
 
-bool SceneHandler::onMouseExit() { return false; }
+void SceneHandler::onMouseExit() {}
 
-bool SceneHandler::onFocusGain() { return false; }
+void SceneHandler::onFocusGain() {}
 
-bool SceneHandler::onFocusLost() { return false; }
+void SceneHandler::onFocusLost() {}
 
-bool SceneHandler::onFileDrop(const std::vector<std::string>& files) {
-    return false;
-}
+void SceneHandler::onFileDrop(const std::vector<std::string>& files) {}
 
-bool SceneHandler::onChar(unsigned int codepoint, int mods) { return false; }
+void SceneHandler::onChar(unsigned int codepoint, int mods) {}
 
 void SceneHandler::internalOnMouseButton(double x, double y, int button,
                                          int action, int mods) {

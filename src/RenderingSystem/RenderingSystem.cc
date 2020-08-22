@@ -2,12 +2,14 @@
 
 #include <GLFW/glfw3.h>
 
+#include <ComponentBased/SceneHandler.hh>
 #include <GlobalSettings.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.cc>
 #include <Utils/Debug/Profiling.hh>
 #include <glm/common.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <lava-extras/camera/GenericCamera.hh>
+#include <lava-extras/imgui/ImGui.hh>
 #include <lava/common/log.hh>
 #include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
@@ -29,7 +31,10 @@ RenderingSystem::RenderingSystem(
     lava::SharedDevice device, lava::SharedDescriptorSetLayout textureLayout,
     std::shared_ptr<lava::features::GlfwOutput> glfwOutput,
     std::shared_ptr<lava::features::GlfwWindow> glfwWindow)
-    : mDevice(device), mGlfwOutput(glfwOutput), mWindow(glfwWindow) {
+    : mDevice(device),
+      mGlfwOutput(glfwOutput),
+      mWindow(glfwWindow),
+      mGui(lava::imgui::ImGui(mDevice, vk::ImageLayout::ePresentSrcKHR)) {
     DR_PROFILE_FUNCTION();
 
     setupPipeline(textureLayout);
@@ -88,6 +93,12 @@ void RenderingSystem::Render(
 
     {
         DR_PROFILE_SCOPE("After graphics queue idle");
+
+        {
+            auto guiframe = mGui.frame();
+            SceneHandler::getCurrentScene()->imGuiRender();
+            guiframe.~ImGuiFrame();
+        }
 
         auto frame = mWindow->startFrame();
         auto cmd = mDevice->graphicsQueue().beginCommandBuffer();
@@ -174,6 +185,12 @@ void RenderingSystem::Render(
                     }
                 }
             });
+
+        frame.image()->changeLayout(vk::ImageLayout::ePresentSrcKHR,
+                                    vk::ImageLayout::eColorAttachmentOptimal,
+                                    cmd);
+        mGui.render(frame.imageIndex(), cmd);
+
         cmd.signal(frame.renderingComplete());
     }
 }
@@ -329,6 +346,8 @@ void RenderingSystem::setupPipeline(
     mPipeline->getCamera()->setPosition({5, 2, 5});
 }
 
+mGui.connectWindow(mWindow);
+
 mWindow->buildSwapchainWith(
     [&](std::vector<lava::SharedImageView> const& views) {
         mPipeline->resize(mWindow->width(), mWindow->height());
@@ -336,6 +355,7 @@ mWindow->buildSwapchainWith(
         for (auto& view : views)
             companionWindowFBO.push_back(
                 mPipeline->outputPass()->createFramebuffer({view}));
+        mGui.prepare(views);
     });
 
 // enable FXAA

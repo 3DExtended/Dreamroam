@@ -53,6 +53,12 @@ public:
     virtual void destroy(){};
 
     /// <summary>
+    /// This is called in the rendering loop and should be used to construct
+    /// the imgui frame.
+    /// </summary>
+    virtual void imGuiRender(){};
+
+    /// <summary>
     /// Creates and registers a new entity for your scene.
     /// Please note that you need to keep the returned entity when you want to
     /// update it in the scene. The preferred version for updating entities
