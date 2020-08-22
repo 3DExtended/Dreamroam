@@ -97,6 +97,7 @@ void RenderingSystem::Render(
         {
             auto guiframe = mGui.frame();
             SceneHandler::getCurrentScene()->imGuiRender();
+            guiframe.~ImGuiFrame();
         }
 
         auto frame = mWindow->startFrame();
