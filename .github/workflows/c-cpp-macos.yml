@@ -20,4 +20,4 @@ jobs:
     - name: cmake
       run: cmake . &&  cmake . 
     - name: make -j8
-      run: make
+      run: make dreamroam
