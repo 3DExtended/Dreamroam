@@ -120,8 +120,7 @@ git clone --recursive https://github.com/3DExtended/Dreamroam.git
 - Only if you already have cloned the repository:
 
 ```sh
-git submodule init
-git submodule update
+git submodule update --recursive --init
 ```
 
 #### 2. Configure and generate using CMake
