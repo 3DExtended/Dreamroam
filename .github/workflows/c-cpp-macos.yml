@@ -12,13 +12,8 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - name: setup script parameters
-      run: SCRIPT=$(readlink -f "$0") && SCRIPTPATH=$(dirname "$SCRIPT") && echo $SCRIPTPATH
-
-    - name: install vulkan tools
-      run: sudo apt install mesa-common-dev libvulkan1 mesa-vulkan-drivers vulkan-utils
     - name: vulkan sdk
-      run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o VulkanSDK.tar.gz https://sdk.lunarg.com/sdk/download/1.2.148.0/linux/vulkansdk-linux-x86_64-1.2.148.0.tar.gz && cd VulkanSDK && sudo tar xf ../VulkanSDK.tar.gz && cd $SCRIPTPATH 
+      run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o VulkanSDK.dmg https://sdk.lunarg.com/sdk/download/1.2.141.2/mac/vulkansdk-macos-1.2.141.2.dmg && cd VulkanSDK && sudo hdiutil attach ../VulkanSDK.dmg && cd $SCRIPTPATH 
     - name: source vulkan sdk
       run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" && echo $PATH
     
