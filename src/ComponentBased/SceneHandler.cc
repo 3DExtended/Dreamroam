@@ -166,10 +166,13 @@ SceneHandler::SceneHandler() {
 
     // === Create instance and device: ===
     // TODO make this parameterized
+    std::cout << "Lava instance creating..." << std::endl;
     lava::SharedInstance lavaInstance = lava::Instance::create(lavaFeatures);
+    std::cout << "Lava instance created" << std::endl;
     mDevice = lavaInstance->createDevice(
         {lava::QueueRequest::graphics("graphics")},
         lava::NthOfTypeStrategy(vk::PhysicalDeviceType::eDiscreteGpu));
+    std::cout << "Lava device created" << std::endl;
 }
 
 void SceneHandler::setupGlfwCallbacks() {
