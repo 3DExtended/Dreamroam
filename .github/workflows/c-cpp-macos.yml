@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: vulkan sdk
-      run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o VulkanSDK.dmg https://sdk.lunarg.com/sdk/download/1.2.141.2/mac/vulkansdk-macos-1.2.141.2.dmg && cd VulkanSDK && sudo hdiutil attach ../VulkanSDK.dmg && cd /Volumes/VulkanSDK/ && ./install_vulkan.py --force-install && cd && vkvia 
+      run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && sudo curl -o vulkansdk-macos-1.2.141.2.dmg https://sdk.lunarg.com/sdk/download/1.2.141.2/mac/vulkansdk-macos-1.2.141.2.dmg && cd VulkanSDK && sudo hdiutil attach ../vulkansdk-macos-1.2.141.2.dmg && cd /Volumes/vulkansdk-macos-1.2.141.2/ && ./install_vulkan.py --force-install && cd && vkvia 
     - uses: actions/checkout@v2
     - name: clone submodules
       run: git submodule update --recursive --init
