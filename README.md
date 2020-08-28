@@ -12,7 +12,8 @@ This README originates from the repository https://github.com/othneildrew/Best-R
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-![C/C++ CI](https://github.com/3DExtended/Dreamroam/workflows/C/C++%20CI/badge.svg?branch=master)
+![MacOS Build](https://github.com/3DExtended/Dreamroam/workflows/MacOS%20Build/badge.svg)
+![Linux Build](https://github.com/3DExtended/Dreamroam/workflows/Linux%20Build/badge.svg)
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
