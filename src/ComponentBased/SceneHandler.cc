@@ -28,6 +28,7 @@
 
 #include "ComponentBased/BaseComponents.hh"
 #include "GlobalSettings.hh"
+#include "VulkanHelpers/GPUSelectorStrategy.hh"
 
 std::shared_ptr<SceneHandler> SceneHandler::instance = nullptr;
 
@@ -169,7 +170,7 @@ SceneHandler::SceneHandler() {
     lava::SharedInstance lavaInstance = lava::Instance::create(lavaFeatures);
     mDevice = lavaInstance->createDevice(
         {lava::QueueRequest::graphics("graphics")},
-        lava::NthOfTypeStrategy(vk::PhysicalDeviceType::eDiscreteGpu));
+        DCore::ComponentSystem::GPUSelectorStrategy());
 }
 
 void SceneHandler::setupGlfwCallbacks() {
