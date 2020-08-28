@@ -36,11 +36,11 @@ public:
 RotateCubeScene::RotateCubeScene() : AScene() {
     DR_PROFILE_FUNCTION();
 
-    // mGeometryStore = std::make_shared<GeometryStore>(mDevice);
+    mGeometryStore = std::make_shared<GeometryStore>(mDevice);
 
     std::vector<std::pair<std::string, std::string>> imageTexturePathsAndNames;
-    // imageTexturePathsAndNames.push_back(
-    //     std::pair<std::string, std::string>("assets/atlas.png", "atlas"));
+    imageTexturePathsAndNames.push_back(
+        std::pair<std::string, std::string>("assets/atlas.png", "atlas"));
     mTextureStore =
         std::make_shared<TextureStore>(mDevice, imageTexturePathsAndNames);
 
@@ -90,7 +90,7 @@ void RotateCubeScene::imGuiRender() { ImGuiDebugWindow(); }
 inline void RotateCubeScene::createGameObjects() {
     DR_PROFILE_FUNCTION();
 
-    /*{  // create a cube entity
+    {  // create a cube entity
         auto cube = this->CreateEntity("Cube");
         auto& renderer = cube.AddComponent<RenderComponent>();
 
@@ -102,7 +102,7 @@ inline void RotateCubeScene::createGameObjects() {
 
         cube.GetComponent<TransformComponent>().position += glm::vec3(15, 1, 0);
         cube.GetComponent<TransformComponent>().scale += glm::vec3(2, 2, 2);
-    }//*/
+    }  //*/
 }
 
 void RotateCubeScene::registerSystems() {
