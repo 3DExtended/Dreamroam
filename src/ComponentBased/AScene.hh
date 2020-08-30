@@ -89,7 +89,7 @@ public:
         systemPtr->InternalSetCurrentScene(this);
     }
 
-protected:
+public:
     /// <summary>
     /// The device which is used to render the scene.
     /// This will be used for a number of initialization procedures.

@@ -8,6 +8,15 @@ namespace DCore {
 namespace Rendering {
 struct RenderComponent {
     RenderComponent() = default;
+    RenderComponent(bool isTransparent, float alpha, bool hasTexture,
+                    std::shared_ptr<Texture> textureObj, bool active,
+                    bool isThrowingShadow)
+        : isTransparent(isTransparent),
+          alpha(alpha),
+          hasTexture(hasTexture),
+          textureObj(textureObj),
+          active(active),
+          isThrowingShadow(isThrowingShadow){};
     RenderComponent(const RenderComponent&) = default;
 
     std::shared_ptr<Geometry> geometryObj = nullptr;
