@@ -54,15 +54,16 @@ void main() {
 	shade = intensity <= 0.15 ? 0.5 : shade;
 	shade = intensity <= -0.3 ? 0.1 : shade;//*/
 	
-	const float ambientLight = 0.75;
 
 	//todo move this into the pushconstants
 	vec3 lightDirectionIn = normalize(vec3(0.5,1,-.5));
 	//vec3 R = reflect(lightDirectionIn, vNormal);
 	float intensity = max(dot(normalize(vNormal), lightDirectionIn), 0.0);
 
-	shadowFactor = shadowFactor*(1.0-ambientLight) + ambientLight; 
+	const float ambientLight = 0.0;
 	intensity = intensity*(1.0-ambientLight) + ambientLight;
+	const float ambientLightShadowMap = 0.75;
+	shadowFactor = shadowFactor*(1.0-ambientLightShadowMap) + ambientLightShadowMap; 
 	intensity = (intensity + shadowFactor)/2.0;
 	float colorMult = intensity;
 	color = vec4(texture(uTexture, vUV).rgb * colorMult, 1.0);
