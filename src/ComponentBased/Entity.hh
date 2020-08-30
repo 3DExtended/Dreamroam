@@ -7,6 +7,7 @@
   provide typesafty.
   */
 #include <Utils/Base.hh>
+#include <entt/entt.hpp>
 #include <lava-extras/camera/fwd.hh>
 #include <lava-extras/geometry/fwd.hh>
 #include <lava-extras/pipeline/RenderingPipeline.hh>
@@ -16,10 +17,9 @@
 #include <lava/objects/RenderPass.hh>
 #include <lava/raii/ActiveRenderPass.hh>
 
-#include "AScene.hh"
-
 namespace DCore {
 namespace ComponentSystem {
+class AScene;
 class Entity {
 public:
     Entity() = default;

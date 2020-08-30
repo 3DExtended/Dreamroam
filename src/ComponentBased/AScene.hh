@@ -2,6 +2,7 @@
 
 #include <RenderingSystem/MeshHandlers/GeometryStore.hh>
 #include <RenderingSystem/TextureHandlers/TextureStore.hh>
+#include <memory>
 #include <vector>
 
 #include "Systems/UntypedSystemBase.hh"
@@ -85,6 +86,7 @@ public:
     /// register.</param>
     void RegisterEntitySystem(std::shared_ptr<UntypedSystemBase> systemPtr) {
         m_Systems.push_back(systemPtr);
+        systemPtr->InternalSetCurrentScene(this);
     }
 
 protected:

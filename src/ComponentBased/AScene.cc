@@ -11,8 +11,8 @@ AScene::AScene() { this->mDevice = SceneHandler::getDevice(); }
 
 AScene::~AScene() {}
 
-Entity AScene::CreateEntity(const std::string& name) {
-    Entity entity = {m_Registry.create(), this};
+DCore::ComponentSystem::Entity AScene::CreateEntity(const std::string& name) {
+    DCore::ComponentSystem::Entity entity = {m_Registry.create(), this};
     entity.AddComponent<TransformComponent>();
     auto& tag = entity.AddComponent<TagComponent>();
     tag.Tag = name.empty() ? "Entity" : name;

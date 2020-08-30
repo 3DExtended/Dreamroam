@@ -9,6 +9,7 @@ namespace Meshes {
 class Geometry {
 public:
     Geometry(const lava::geometry::SharedGeometry geometry);
+    Geometry(const Geometry&) = default;
     void draw(lava::InlineSubpass& pass);
 
 private:
