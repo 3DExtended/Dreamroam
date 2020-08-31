@@ -29,25 +29,25 @@ public:
     template <typename T, typename... Args>
     T& AddComponent(Args&&... args) {
         DR_ASSERT(!HasComponent<T>(), "Entity already has component!");
-        return m_Scene->m_Registry.emplace<T>(m_EntityHandle,
-                                              std::forward<Args>(args)...);
+        return GetSceneRegistry().emplace<T>(m_EntityHandle,
+                                             std::forward<Args>(args)...);
     }
 
     template <typename T>
     T& GetComponent() {
         DR_ASSERT(HasComponent<T>(), "Entity does not have component!");
-        return m_Scene->m_Registry.get<T>(m_EntityHandle);
+        return GetSceneRegistry().get<T>(m_EntityHandle);
     }
 
     template <typename T>
     bool HasComponent() {
-        return m_Scene->m_Registry.has<T>(m_EntityHandle);
+        return GetSceneRegistry().has<T>(m_EntityHandle);
     }
 
     template <typename T>
     void RemoveComponent() {
         DR_ASSERT(HasComponent<T>(), "Entity does not have component!");
-        m_Scene->m_Registry.remove<T>(m_EntityHandle);
+        GetSceneRegistry().remove<T>(m_EntityHandle);
     }
 
     operator bool() const { return m_EntityHandle != entt::null; }
@@ -55,6 +55,8 @@ public:
 private:
     entt::entity m_EntityHandle{entt::null};
     AScene* m_Scene = nullptr;
+
+    entt::registry& GetSceneRegistry();
 };
 }  // namespace ComponentSystem
 }  // namespace DCore
