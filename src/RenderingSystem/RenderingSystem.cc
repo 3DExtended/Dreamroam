@@ -342,7 +342,7 @@ void RenderingSystem::setupPipeline(
          mPipeline->mForwardDescriptorLayout});
 
     mPipeline->getCamera()->setVerticalFieldOfView(60);
-    mPipeline->getCamera()->setFarClippingPlane(60);
+    mPipeline->getCamera()->setFarClippingPlane(500);
     mPipeline->getCamera()->setPosition({5, 2, 5});
 }
 
