@@ -15,7 +15,7 @@ struct TransformComponent {
     TransformComponent() = default;
     TransformComponent(const TransformComponent&) = default;
     TransformComponent(const glm::vec3& pos, const glm::vec3& rot,
-                       const glm::vec3&)
+                       const glm::vec3& scale)
         : position(pos), rotation(rot), scale(scale) {}
 
     /// <summary>
@@ -75,6 +75,158 @@ struct TagComponent {
     TagComponent() = default;
     TagComponent(const TagComponent&) = default;
     TagComponent(const std::string& tag) : Tag(tag) {}
+};
+
+/// <summary>
+/// The projection mode used on a camera component.
+/// </summary>
+enum ProjectionMode {
+    IsometricProjection = 0,
+    PerspectiveProjectionDXReverse,  // maps to  1..0
+};
+
+/// <summary>
+/// This component is used as a ingame camera. Please note, that the default
+/// rendering behaviour requires exactly one camera which has the flag
+/// "IsMainCamera" set to true. This camera is then used to retrieve view and
+/// projection matrices from.
+/// </summary>
+struct CameraComponent {
+    CameraComponent() = default;
+    CameraComponent(const CameraComponent&) = default;
+
+    /// <summary>
+    /// Sets the projection mode of this camera.
+    /// </summary>
+    /// <param name="_projection">The projection mode you want to set.</param>
+    void setProjectionMode(ProjectionMode _projection) {
+        mProjectionMode = _projection;
+    }
+
+    /// <summary>
+    /// Returns the current projection mode.
+    /// </summary>
+    /// <returns>The current projection mode of this camera.</returns>
+    ProjectionMode getProjectionMode() const { return mProjectionMode; }
+
+    /// <summary>
+    /// Defines, whether we use this camera as rendering camera for the user.
+    /// If there are multiple entities with a camera component which have this
+    /// flag set to true, the renderer will randomly decide, which camera to
+    /// use.
+    /// </summary>
+    bool IsMainCamera = true;
+
+    /// <summary>
+    /// Sets the horizontal field of view for this camera.
+    /// Note that the vertical field of view will be changed!
+    /// </summary>
+    /// <param name="_fovh">The horizontal field of view in degrees.</param>
+    void setHorizontalFieldOfView(float _fovh);
+
+    /// <summary>
+    /// Returns the current horizontal field of view.
+    /// </summary>
+    /// <returns>Current horizontal field of view</returns>
+    float getHorizontalFieldOfView() const { return mHorizontalFieldOfView; }
+
+    /// <summary>
+    /// Sets the vertical field of view for this camera.
+    /// Note that the horizontal field of view will be changed!
+    /// </summary>
+    /// <param name="_fovv">The vertical field of view in degrees.</param>
+    void setVerticalFieldOfView(float _fovv);
+
+    /// <summary>
+    /// Returns the current vertical field of view.
+    /// </summary>
+    /// <returns>Current vertical field of view</returns>
+    float getVerticalFieldOfView() const;
+
+    /// <summary>
+    /// Set the aspect ratio of the camera. The horizontal FoV stays the same,
+    /// the vertical FoV gets updated.
+    /// </summary>
+    /// <param name="_aspectRatio">New aspect ratio (width/height)</param>
+    void setAspectRatio(float _aspectRatio) { mAspectRatio = _aspectRatio; }
+
+    /// <summary>
+    /// Returns the current aspect ratio (width/height) for this camera.
+    /// </summary>
+    /// <returns>Current aspect ratio (width/height)</returns>
+    float getAspectRatio() const { return mAspectRatio; }
+
+    /// <summary>
+    /// Set the near clipping plane of the camera.
+    /// The plane is defined only by a distance from the camera.
+    /// </summary>
+    /// <param name="_plane">New near clipping plane of the camera</param>
+    void setNearClippingPlane(float _plane);
+
+    /// <summary>
+    /// Returns the current near clipping plane.
+    /// </summary>
+    /// <returns>Current near clipping plane</returns>
+    float getNearClippingPlane() const { return mNearClippingPlane; }
+
+    /// <summary>
+    /// Set the far clipping plane of the camera.
+    /// The plane is defined only by a distance from the camera.
+    /// This distance might be inf!
+    /// </summary>
+    /// <param name="_plane">New far clipping plane of the camera.</param>
+    void setFarClippingPlane(float _plane);
+
+    /// <summary>
+    /// Gets the far clip distance
+    /// </summary>
+    /// <returns>Far clip distance</returns>
+    float getFarClippingPlane() const { return mFarClippingPlane; }
+
+    /// <summary>
+    /// Gets size of the viewport
+    /// </summary>
+    /// <returns>Size of viewport</returns>
+    glm::uvec2 getViewportSize() const { return mViewportSize; }
+
+    /// <summary>
+    /// Gets width of the viewport
+    /// </summary>
+    /// <returns>Width of the viewport</returns>
+    unsigned int getViewportWidth() const { return mViewportSize.x; }
+
+    /// <summary>
+    /// Gets height of the viewport
+    /// </summary>
+    /// <returns>Height of the viewport</returns>
+    unsigned int getViewportHeight() const { return mViewportSize.y; }
+
+    /// <summary>
+    /// Sets new viewport size and calculates new aspect ratio
+    /// </summary>
+    /// <param name="_newWidth">New width of viewport</param>
+    /// <param name="_newHeight">New height of viewport</param>
+    void resize(int _newWidth, int _newHeight) {
+        mViewportSize = glm::uvec2(_newWidth, _newHeight);
+        setAspectRatio(_newWidth / (float)_newHeight);
+    }
+
+    /// <summary>
+    /// Returns the projection matrix for this camera.
+    /// </summary>
+    /// <returns>Projection Matrix</returns>
+    glm::mat4 getProjectionMatrix() const;
+
+private:
+    ProjectionMode mProjectionMode = PerspectiveProjectionDXReverse;
+    float mHorizontalFieldOfView = 75.0f;
+    float mAspectRatio = 4.f / 3.f;
+
+    float mNearClippingPlane = .1f;                                    // 10cm
+    float mFarClippingPlane = std::numeric_limits<float>::infinity();  // 5000m
+
+    float mLookAtDistance = 500.0;
+    glm::uvec2 mViewportSize;
 };
 }  // namespace ComponentSystem
 }  // namespace DCore
