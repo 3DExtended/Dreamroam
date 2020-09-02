@@ -1,6 +1,6 @@
 #pragma once
 #include <ComponentBased/AScene.hh>
-#include <ComponentBased/Systems/SystemBase.hh>
+#include <ComponentBased/Systems/Base/SystemBase.hh>
 #include <RenderingSystem/Pipeline/AdvancedRenderingPipeline.hh>
 #include <RenderingSystem/Pipeline/GraphicsPipelineFactory.hh>
 #include <RenderingSystem/RenderingSystemBase.hh>
@@ -109,15 +109,14 @@ public:
     ~SceneHandler();
 
     void run();
-    void updateCamera(double elapsedSeconds);
 
-    double mMouseX = 0;
-    double mMouseY = 0;
     int mWindowWidth = 0;
     int mWindowHeight = 0;
 
+    // TODO move me into the input system
     bool mCatchCursor = true;
-    float mCameraMoveSpeed = 10.0f;
+
+    /* float mCameraMoveSpeed = 10.0f;
     float mCameraMoveSpeedFactor = 5.0f;
     float mCameraTurnSpeed = 2.0f;
     float mCameraScrollSpeed = 5.0f;
@@ -129,7 +128,7 @@ public:
     int mClickCount = 0;
     int mClickButton = -1;
     glm::vec2 mClickPos;
-    lava::Stopwatch mClickTimer;
+    lava::Stopwatch mClickTimer;//*/
 
 private:
     static std::shared_ptr<SceneHandler> instance;
@@ -157,19 +156,17 @@ private:
     void start();
     void update(double dt);
     void render();
+
+    // TODO go through all those methods and check, if we still need them.
     void onKey(int key, int scancode, int action, int mods);
-    void onMousePosition(double x, double y);
     void onMouseButton(double x, double y, int button, int action, int mods,
                        int clickCount);
     void onMouseScroll(double sx, double sy);
-    void onMouseEnter();
-    void onMouseExit();
     void onFocusGain();
     void onFocusLost();
     void onFileDrop(const std::vector<std::string>& files);
     void onChar(unsigned int codepoint, int mods);
-    void internalOnMouseButton(double x, double y, int button, int action,
-                               int mods);
+
     void onResize(int w, int h);
     void updateInput();
 };

@@ -111,7 +111,6 @@ void SceneHandler::run() {
         // update
         updateInput();
         update(dt);
-        this->updateCamera(dt);
         lastCpuTime += dt;
 
         // render
@@ -129,29 +128,6 @@ void SceneHandler::run() {
         // TODO(esser): remove this when we have a scene that takes longer to
         // render than the default cube scene...
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    }
-}
-
-void SceneHandler::updateCamera(double elapsedSeconds) {
-    DR_PROFILE_FUNCTION();
-    auto window = mWindow->window();
-    if (rendererSystem->getCamera()) {
-        auto speed = mCameraMoveSpeed;
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-            speed *= mCameraMoveSpeedFactor;
-
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveForward(elapsedSeconds * speed);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveBack(elapsedSeconds * speed);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveLeft(elapsedSeconds * speed);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveRight(elapsedSeconds * speed);
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveDown(elapsedSeconds * speed);
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-            rendererSystem->getCamera()->moveUp(elapsedSeconds * speed);
     }
 }
 
@@ -215,31 +191,6 @@ void SceneHandler::setupGlfwCallbacks() {
     glfwSetCharCallback(window, [](GLFWwindow* win, unsigned int c) {
         ImGuiIO& io = ImGui::GetIO();
         io.AddInputCharacter(c);
-    });
-
-    glfwSetMouseButtonCallback(
-        window, [](GLFWwindow* win, int button, int action, int mods) {
-            auto app = sWindowApps.at(win);
-            app->internalOnMouseButton(app->mMouseX, app->mMouseY, button,
-                                       action, mods);
-        });
-
-    glfwSetCursorEnterCallback(window, [](GLFWwindow* win, int entered) {
-        try {
-            auto app = sWindowApps.at(win);
-            if (entered)
-                app->onMouseEnter();
-            else
-                app->onMouseExit();
-        } catch (std::out_of_range) {
-        }
-    });
-
-    glfwSetCursorPosCallback(window, [](GLFWwindow* win, double x, double y) {
-        auto app = sWindowApps.at(win);
-        app->mMouseX = x;
-        app->mMouseY = y;
-        app->onMousePosition(x, y);
     });
 
     glfwSetScrollCallback(window, [](GLFWwindow* win, double sx, double sy) {
@@ -313,7 +264,7 @@ void SceneHandler::onKey(int key, int scancode, int action, int mods) {
     }
 }
 
-void SceneHandler::onMousePosition(double x, double y) {
+/*void SceneHandler::onMousePosition(double x, double y) {
     DR_PROFILE_FUNCTION();
     // if (TwEventMousePosGLFW(mWindow, x, y))
     //    return true;
@@ -338,26 +289,29 @@ void SceneHandler::onMousePosition(double x, double y) {
 
     mMouseLastX = x;
     mMouseLastY = y;
-}
+}//*/
 
 void SceneHandler::onMouseButton(double x, double y, int button, int action,
                                  int mods, int clickCount) {}
 
-void SceneHandler::onMouseScroll(double sx, double sy) {}
+void SceneHandler::onMouseScroll(double sx, double sy) {
+    // TODO it seems that it is not possible to get scroll information based on
+    // getters
+}
 
-void SceneHandler::onMouseEnter() {}
+void SceneHandler::onFocusGain() {
+    // todo maybe reduce and fix framerate here..
+}
 
-void SceneHandler::onMouseExit() {}
-
-void SceneHandler::onFocusGain() {}
-
-void SceneHandler::onFocusLost() {}
+void SceneHandler::onFocusLost() {
+    // todo maybe reduce and fix framerate here..
+}
 
 void SceneHandler::onFileDrop(const std::vector<std::string>& files) {}
 
 void SceneHandler::onChar(unsigned int codepoint, int mods) {}
 
-void SceneHandler::internalOnMouseButton(double x, double y, int button,
+/* void SceneHandler::internalOnMouseButton(double x, double y, int button,
                                          int action, int mods) {
     DR_PROFILE_FUNCTION();
     // check double click
@@ -374,7 +328,7 @@ void SceneHandler::internalOnMouseButton(double x, double y, int button,
     mClickCount++;
 
     onMouseButton(x, y, button, action, mods, mClickCount);
-}
+}//*/
 
 void SceneHandler::onResize(int w, int h) {
     if (rendererSystem != nullptr) {

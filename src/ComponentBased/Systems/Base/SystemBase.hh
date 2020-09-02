@@ -17,7 +17,7 @@
 #include <lava/objects/RenderPass.hh>
 #include <lava/raii/ActiveRenderPass.hh>
 
-#include "../AScene.hh"
+#include "../../AScene.hh"
 #include "UntypedSystemBase.hh"
 
 namespace DCore {

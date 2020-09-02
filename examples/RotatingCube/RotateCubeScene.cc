@@ -2,7 +2,7 @@
 
 #include <ComponentBased/BaseComponents.hh>
 #include <ComponentBased/Entity.hh>
-#include <ComponentBased/Systems/SystemBase.hh>
+#include <ComponentBased/Systems/Base/SystemBase.hh>
 #include <RenderingSystem/RenderComponent.hh>
 #include <Utils/Debug/Profiling.hh>
 #include <imgui/imgui_widgets.cpp>

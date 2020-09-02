@@ -1,4 +1,5 @@
 #pragma once
+#include <entt/entt.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 #include <memory>
@@ -227,6 +228,13 @@ struct CameraComponent {
     /// </summary>
     /// <returns>Projection Matrix</returns>
     glm::mat4 getProjectionMatrix() const;
+
+    /// <summary>
+    /// The entity Id of the gameObject this camera should follow ingame.
+    ///
+    /// If not set, this camera will look and rotate around (0,0,0).
+    /// </summary>
+    entt::entity TargetEntityId{entt::null};
 
 private:
     ProjectionMode mProjectionMode = PerspectiveProjectionDXReverse;

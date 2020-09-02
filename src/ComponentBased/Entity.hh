@@ -26,6 +26,12 @@ public:
     Entity(entt::entity handle, AScene* scene);
     Entity(const Entity& other) = default;
 
+    /// <summary>
+    /// Returns the unique id for this entity.
+    /// </summary>
+    /// <returns>Internal Id for this entity</returns>
+    const entt::entity GetEntityId() const { return m_EntityHandle; };
+
     template <typename T, typename... Args>
     T& AddComponent(Args&&... args) {
         DR_ASSERT(!HasComponent<T>(), "Entity already has component!");

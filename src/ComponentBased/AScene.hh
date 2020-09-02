@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "Systems/UntypedSystemBase.hh"
+#include "Systems/Base/UntypedSystemBase.hh"
 #include "entt/entt.hpp"
 #include "glm/glm.hpp"
 

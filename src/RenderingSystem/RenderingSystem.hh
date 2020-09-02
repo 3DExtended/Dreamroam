@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ComponentBased/BaseComponents.hh>
-#include <ComponentBased/Systems/SystemBase.hh>
+#include <ComponentBased/Systems/Base/SystemBase.hh>
 #include <RenderingSystem/RenderingSystemBase.hh>
 #include <RenderingSystem/Renders/RendererBase.hh>
 #include <lava-extras/imgui/ImGui.hh>

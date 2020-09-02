@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ComponentBased/BaseComponents.hh>
-#include <ComponentBased/Systems/SystemBase.hh>
+#include <ComponentBased/Systems/Base/SystemBase.hh>
 #include <Utils/Debug/Profiling.hh>
 #include <lava/objects/Device.hh>
 #include <map>
