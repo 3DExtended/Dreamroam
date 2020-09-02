@@ -55,6 +55,8 @@ void SceneHandler::_switchScene(uint16_t index) {
             curScene->destroy();
         }
         curScene = scenes.at(index);
+        curScene->m_InputSystem = m_InputSystem;
+
         start();
     }
 }
@@ -70,7 +72,6 @@ void SceneHandler::run() {
     DR_PROFILE_FUNCTION();
     DR_ASSERT(scenes.size() > 0);
 
-    switchScene(0);
     mWindowWidth = GlobalSettings::windowWidth;
     mWindowHeight = GlobalSettings::windowHeight;
 
@@ -78,6 +79,9 @@ void SceneHandler::run() {
     mWindow = mGlfwOutput->openWindow(GlobalSettings::windowWidth,
                                       GlobalSettings::windowHeight, true,
                                       "DreamRoam");
+
+    m_InputSystem = std::make_shared<InputSystem>(mWindow);
+    switchScene(0);
 
     if (this->rendererSystem == nullptr) {
         this->rendererSystem = new RenderingSystem(

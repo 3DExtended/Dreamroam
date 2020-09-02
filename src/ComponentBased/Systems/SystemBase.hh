@@ -128,6 +128,12 @@ protected:
         return view;
     }
 
+    /// <summary>
+    /// Returns a reference to the input system used on the current scene.
+    /// </summary>
+    /// <returns></returns>
+    auto GetInput() { return this->GetCurrentScene()->GetInput(); }
+
 private:
     friend class SceneHandler;
     void InternalAwake(entt::registry& reg) override {

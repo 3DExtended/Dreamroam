@@ -78,6 +78,17 @@ struct TagComponent {
 };
 
 /// <summary>
+/// This component is used to identify the player and allows to control an
+/// assigned entity.
+/// </summary>
+struct PlayerComponent {
+    PlayerComponent() = default;
+    PlayerComponent(const PlayerComponent&) = default;
+
+    float WalkSpeed = 5.0f;
+};
+
+/// <summary>
 /// The projection mode used on a camera component.
 /// </summary>
 enum ProjectionMode {

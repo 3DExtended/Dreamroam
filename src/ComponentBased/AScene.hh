@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ComponentBased/Systems/InputSystem.hh>
 #include <RenderingSystem/MeshHandlers/GeometryStore.hh>
 #include <RenderingSystem/TextureHandlers/TextureStore.hh>
 #include <memory>
@@ -78,6 +79,14 @@ public:
     GetCurrentSceneTextureStoreTextureLayout();
 
     /// <summary>
+    /// Returns the input system which can be used to poll user inputs.
+    /// </summary>
+    /// <returns></returns>
+    const std::shared_ptr<InputSystem> GetInput() const {
+        return this->m_InputSystem;
+    };
+
+    /// <summary>
     /// When you want to act on entities and their oponents, write a custom
     /// system (using the SystemBase templated class) and register it using this
     /// method.
@@ -129,6 +138,8 @@ private:
     /// active.
     /// </summary>
     std::vector<std::shared_ptr<UntypedSystemBase>> m_Systems;
+
+    std::shared_ptr<InputSystem> m_InputSystem;
 };
 }  // namespace ComponentSystem
 }  // namespace DCore

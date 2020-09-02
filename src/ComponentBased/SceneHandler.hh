@@ -142,6 +142,8 @@ private:
     RenderingSystemBase* rendererSystem = nullptr;
 
 private:
+    std::shared_ptr<InputSystem> m_InputSystem = nullptr;
+
     void setupGlfwCallbacks();
 
     void _switchScene(uint16_t index);
