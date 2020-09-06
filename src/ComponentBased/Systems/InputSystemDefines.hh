@@ -1,5 +1,5 @@
 #pragma once
-#include <glfw/glfw3.h>
+#include <extern/glfw/include/GLFW/glfw3.h>
 /*! @name Key and button actions
  *  @{ */
 /*! @brief The key or mouse button was released.
