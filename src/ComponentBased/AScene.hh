@@ -129,6 +129,12 @@ private:
     friend class SceneHandler;
 
     /// <summary>
+    /// The UntypedSystemBase is allowed to access m_Registry, as it is needed
+    /// to find entities with a given component.
+    /// </summary>
+    friend class UntypedSystemBase;
+
+    /// <summary>
     /// The registry for entities in the scene.
     /// </summary>
     entt::registry m_Registry;

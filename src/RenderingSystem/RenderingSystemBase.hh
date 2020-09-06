@@ -23,7 +23,6 @@ public:
                                          RenderComponent, TransformComponent>
                             entities){};
     virtual void Resize(int width, int height){};
-    virtual lava::camera::SharedGenericCamera getCamera() = 0;
 
 private:
     friend class SceneHandler;

@@ -88,6 +88,7 @@ void SceneHandler::run() {
             getDevice(),
             getCurrentScene()->GetCurrentSceneTextureStoreTextureLayout(),
             mGlfwOutput, mWindow);
+        this->rendererSystem->InternalSetCurrentScene(getCurrentScene().get());
     }
 
     this->setupGlfwCallbacks();

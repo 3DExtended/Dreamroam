@@ -27,22 +27,14 @@
 using namespace lava;
 using namespace lava::pipeline;
 
-int AdvancedRenderingPipeline::getOutputWidth() const {
-    return mCamera ? mCamera->getViewportWidth() : mWidth;
-}
+int AdvancedRenderingPipeline::getOutputWidth() const { return mWidth; }
 
-int AdvancedRenderingPipeline::getOutputHeight() const {
-    return mCamera ? mCamera->getViewportHeight() : mHeight;
-}
+int AdvancedRenderingPipeline::getOutputHeight() const { return mHeight; }
 
 AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
                                                      GenericFormat outputFormat)
     : mDevice(device), mOutputFormat(outputFormat.vkhpp()) {
     DR_PROFILE_FUNCTION();
-
-    mCamera = std::make_shared<camera::GenericCamera>();
-    mCamera->setPosition({0.f, 0.f, 0.f});
-    mCamera->setTarget({0.f, 0.f, -1.f});
 
     {
         auto info = lava::RenderPassCreateInfo{};
@@ -203,16 +195,6 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
                                                  0);
 }
 
-void AdvancedRenderingPipeline::assignCamera(
-    const camera::SharedGenericCamera& cam, bool useCamViewport) {
-    DR_PROFILE_FUNCTION();
-
-    mCamera = cam;
-
-    if (cam && useCamViewport)
-        resize(cam->getViewportWidth(), cam->getViewportHeight());
-}
-
 void AdvancedRenderingPipeline::render(
     lava::RecordingCommandBuffer& cmd, lava::SharedFramebuffer const& fbo,
     std::function<void(lava::pipeline::AdvancedRenderPass const& pass)> const&
@@ -220,12 +202,9 @@ void AdvancedRenderingPipeline::render(
     DR_PROFILE_FUNCTION();
 
     DR_ASSERT(renderFunc != nullptr && "no render function provided");
-    DR_ASSERT(mCamera != nullptr && "no camera provided");
 
-    camera::FixedCamera cam(mCamera->getPosition(),          //
-                            mCamera->getViewMatrix(),        //
-                            mCamera->getProjectionMatrix(),  //
-                            mCamera->getViewportSize());
+    // can not be used..
+    camera::FixedCamera cam;
 
     // mImageDepthPre->changeLayout(vk::ImageLayout::eGeneral, cmd);
     {

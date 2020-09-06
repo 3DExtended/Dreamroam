@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ComponentBased/BaseComponents.hh>
 #include <functional>
 #include <glm/vec3.hpp>
 #include <lava-extras/camera/fwd.hh>
@@ -19,9 +20,6 @@ namespace pipeline {
 /// </summary>
 class AdvancedRenderingPipeline {
 private:
-    /// Generic Camera used for rendering
-    camera::SharedGenericCamera mCamera = nullptr;
-
     /// Render width in px
     int mWidth = 2;
     /// Render height in px
@@ -65,8 +63,6 @@ public:
     vk::Format mOutputFormat;
 
 public:  // getter, setter
-    LAVA_PROPERTY(Camera);
-
     LAVA_GETTER(Width);
     LAVA_GETTER(Height);
 
@@ -83,11 +79,6 @@ public:
 
     /// Resizes the internal pipeline size
     void resize(int w, int h);
-
-    /// Updates the camera
-    /// If useCamViewport is true, also resizes the pipeline
-    void assignCamera(camera::SharedGenericCamera const& cam,
-                      bool useCamViewport = true);
 
     /**
      * @brief executes the whole rendering pipeline

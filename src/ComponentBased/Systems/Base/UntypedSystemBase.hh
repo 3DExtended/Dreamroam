@@ -22,6 +22,12 @@ protected:
     virtual void InternalLateUpdate(entt::registry& reg, double dt){};
     virtual void InternalDestroy(entt::registry& reg){};
 
+    template <typename T>
+    auto GetEntitiesWithComponent() {
+        auto view = curScene->m_Registry.view<T>();
+        return view;
+    }
+
     AScene* GetCurrentScene() const { return this->curScene; };
 
 private:

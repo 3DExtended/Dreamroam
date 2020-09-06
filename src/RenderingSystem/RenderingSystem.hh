@@ -30,10 +30,6 @@ public:
 
     void Resize(int width, int height) override;
 
-    lava::camera::SharedGenericCamera getCamera() override {
-        return mPipeline->getCamera();
-    }
-
 private:
     lava::SharedDevice mDevice;
 
@@ -67,7 +63,8 @@ private:
     void getFrustumCorners(std::vector<glm::vec4>& corners,
                            glm::mat4 projection);
     std::tuple<glm::mat4, glm::mat4> rotateCameraFrustrumCornersToLightSpace(
-        glm::vec3 forward, glm::vec3 camPosition, glm::vec3 upDirection);
+        glm::vec3 forward, glm::vec3 camPosition,
+        glm::mat4 cameraViewProjMatrix, glm::vec3 upDirection);
     void setupPipeline(const lava::SharedDescriptorSetLayout textureLayout);
 };
 }  // namespace Rendering

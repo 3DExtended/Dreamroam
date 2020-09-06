@@ -60,6 +60,10 @@ void RenderingSystem::Render(
         entities) {
     DR_PROFILE_FUNCTION();
 
+    if (GetCurrentScene() == 0) {
+        return;
+    }
+
     std::vector<std::tuple<RenderComponent&, TransformComponent&>>
         opaqueUntexturedObjects, opaqueTexturedObjects,
         transparendUntexturedObjects, transparendTexturedObjects,
@@ -91,6 +95,46 @@ void RenderingSystem::Render(
 
     mDevice->graphicsQueue().handle().waitIdle();
 
+    /*find camera using the system mechanic and calculate view and proj matrix
+     * here.*/
+    Entity cameraEntity;
+
+    auto cameraComponentView =
+        this->GetEntitiesWithComponent<CameraComponent>();
+
+    for (auto tempCameraEntity : cameraComponentView) {
+        auto& cameraComp =
+            cameraComponentView.get<CameraComponent>(tempCameraEntity);
+        if (cameraComp.IsMainCamera) {
+            cameraEntity = this->GetEntityFromId(tempCameraEntity);
+            break;
+        }
+    }
+    if (!cameraEntity) {
+        lava::log(lava::LogLevel::Error) << "Could not find camera entity to "
+                                            "render from. Skipping this frame.";
+        return;
+    }
+
+    auto transformComp =
+        cameraEntity.GetComponent<DCore::ComponentSystem::TransformComponent>();
+
+    auto cameraComp =
+        cameraEntity.GetComponent<DCore::ComponentSystem::CameraComponent>();
+
+    // calculate view matrix from camera transform
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans[3][0] = -transformComp.position.x;
+    trans[3][1] = -transformComp.position.y;
+    trans[3][2] = -transformComp.position.z;
+
+    glm::mat4 rotX = glm::rotate(transformComp.rotation.x, glm::vec3(1, 0, 0));
+    glm::mat4 rotY = glm::rotate(transformComp.rotation.y, glm::vec3(0, 1, 0));
+    glm::mat4 rotZ = glm::rotate(transformComp.rotation.z, glm::vec3(0, 0, 1));
+
+    glm::mat4 rotMat = rotX * rotY * rotZ;
+    auto viewMatrixCam = rotMat * trans;
+
     {
         DR_PROFILE_SCOPE("After graphics queue idle");
 
@@ -111,9 +155,9 @@ void RenderingSystem::Render(
 
         std::tie(lightProjMatrix, lightViewMatrix) =
             this->rotateCameraFrustrumCornersToLightSpace(
-                glm::vec3(0.5f, 1.0f, -0.5f),
-                mPipeline->getCamera()->getPosition(),
-                mPipeline->getCamera()->getUpDirection());
+                glm::vec3(0.5f, 1.0f, -0.5f), transformComp.position,
+                cameraComp.getProjectionMatrix() * viewMatrixCam,
+                glm::vec3(0, 1, 0));
         {
             CameraDataPrePass matrixData{lightViewMatrix, lightProjMatrix};
             mViewProjBufferPrePass->setDataVRAM(&matrixData, sizeof(matrixData),
@@ -122,10 +166,9 @@ void RenderingSystem::Render(
 
         // load scene camera
         {
-            CameraDataForwardPass matrixData{
-                mPipeline->getCamera()->getViewMatrix(),
-                mPipeline->getCamera()->getProjectionMatrix(),
-                lightProjMatrix * lightViewMatrix};
+            CameraDataForwardPass matrixData{viewMatrixCam,
+                                             cameraComp.getProjectionMatrix(),
+                                             lightProjMatrix * lightViewMatrix};
             mViewProjBufferForwardPass->setDataVRAM(&matrixData,
                                                     sizeof(matrixData), cmd);
         }
@@ -196,7 +239,17 @@ void RenderingSystem::Render(
 }
 
 void RenderingSystem::Resize(int width, int height) {
-    getCamera()->resize(width, height);
+    auto cameraComponentView =
+        this->GetEntitiesWithComponent<CameraComponent>();
+
+    for (auto tempCameraEntity : cameraComponentView) {
+        auto& cameraComp =
+            cameraComponentView.get<CameraComponent>(tempCameraEntity);
+        if (cameraComp.IsMainCamera) {
+            cameraComp.resize(width, height);
+        }
+    }
+
     mPipeline->resize(width, height);
 }
 
@@ -230,19 +283,13 @@ void RenderingSystem::getFrustumCorners(std::vector<glm::vec4>& corners,
 
 std::tuple<glm::mat4, glm::mat4>
 RenderingSystem::rotateCameraFrustrumCornersToLightSpace(
-    glm::vec3 lightDir, glm::vec3 camPosition,
+    glm::vec3 lightDir, glm::vec3 camPosition, glm::mat4 cameraViewProj,
     glm::vec3 upDirection = glm::vec3(0, 1, 0)) {
     DR_PROFILE_FUNCTION();
 
     std::vector<glm::vec4> corners;
 
-    glm::vec3 cameraForward = mPipeline->getCamera()->getForwardDirection();
-    glm::vec3 cameraUp = mPipeline->getCamera()->getUpDirection();
-
-    glm::mat4 inverseCameraViewProj = glm::inverse(
-        mPipeline->getCamera()->getProjectionMatrix() *
-        glm::lookAt(glm::vec3(0), glm::vec3(0) + cameraForward, cameraUp) *
-        mPipeline->getCamera()->getTranslationMatrix4());
+    glm::mat4 inverseCameraViewProj = glm::inverse(cameraViewProj);
 
     this->getFrustumCorners(corners, inverseCameraViewProj);
 
@@ -340,10 +387,6 @@ void RenderingSystem::setupPipeline(
         {pushConstantRange},
         {mViewProjDescriptorForward->layout(), textureLayout,
          mPipeline->mForwardDescriptorLayout});
-
-    mPipeline->getCamera()->setVerticalFieldOfView(60);
-    mPipeline->getCamera()->setFarClippingPlane(500);
-    mPipeline->getCamera()->setPosition({5, 2, 5});
 }
 
 mGui.connectWindow(mWindow);

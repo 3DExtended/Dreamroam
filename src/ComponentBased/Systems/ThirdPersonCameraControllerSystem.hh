@@ -17,7 +17,7 @@ public:
             entities,
         double dt) override {
         for (auto entity : entities) {
-            auto [cameraComp, cameraTransform] =
+            auto& [cameraComp, cameraTransform] =
                 entities.get<CameraComponent, TransformComponent>(entity);
 
             // First load target transform details.
@@ -26,23 +26,38 @@ public:
             auto& targetTransform =
                 targetEntity.GetComponent<TransformComponent>();
 
+            glm::vec3 offset(0, 0.5, 2);
+
+            auto rotateTargetEntity =
+                glm::rotate(targetTransform.rotation.y, glm::vec3(0, 1, 0));
+
+            auto rotationMatrix = rotateTargetEntity;
+
+            auto rotatedForwardVector =
+                rotationMatrix * glm::vec4(offset.x, offset.y, offset.z, 0);
+
             cameraTransform.position =
-                targetTransform.position + glm::vec3(2, 2, 0);
+                targetTransform.position +
+                5.0f * glm::vec3(rotatedForwardVector.x, rotatedForwardVector.y,
+                                 rotatedForwardVector.z);
 
             auto rotMatrix =
                 glm::lookAt(cameraTransform.position, targetTransform.position,
                             glm::vec3(0, 1, 0));
+            /*auto rotMatrix =
+                glm::lookAt(cameraTransform.position, targetTransform.position,
+                            glm::vec3(0, 1, 0));*/
 
             auto eulerRotations = RotationMatrixToEulerAngles(rotMatrix);
-
-            cameraTransform.rotation = eulerRotations;
+            //  cameraTransform.rotation = eulerRotations;
+            cameraTransform.rotation.y = -targetTransform.rotation.y;
         }
     }
 
     glm::vec3 RotationMatrixToEulerAngles(glm::mat4& R) {
         float sy = sqrt(R[0][0] * R[0][0] + R[1][0] * R[1][0]);
 
-        bool singular = sy < 1e-6;  // If
+        bool singular = sy < 1e-6;
 
         float x, y, z;
         if (!singular) {
@@ -54,7 +69,7 @@ public:
             y = atan2(-R[2][0], sy);
             z = 0;
         }
-        return glm::vec3(x, y, z);
+        return glm::vec3(glm::radians(x), glm::radians(y), glm::radians(z));
     }
 
 protected:
