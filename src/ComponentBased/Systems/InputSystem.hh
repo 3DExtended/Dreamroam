@@ -1,4 +1,6 @@
 #pragma once
+#include <glfw/glfw3.h>
+
 #include <ComponentBased/Entity.hh>
 #include <entt/entt.hpp>
 #include <lava/features/GlfwWindow.hh>

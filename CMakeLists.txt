@@ -136,6 +136,7 @@ target_link_libraries(
 	lava-extras-pipeline
 	lava-extras-renderer  
 	imgui
+	glfw
 	lava-extras-glfw
 	lava-extras-imgui
 	imguinodeeditor

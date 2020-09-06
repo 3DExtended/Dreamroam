@@ -22,9 +22,9 @@ protected:
     virtual void InternalLateUpdate(entt::registry& reg, double dt){};
     virtual void InternalDestroy(entt::registry& reg){};
 
-    template <typename T>
-    auto GetEntitiesWithComponent() {
-        auto view = curScene->m_Registry.view<T>();
+    template <class firstType, class... Types>
+    auto GetEntitiesWithComponents() {
+        auto view = curScene->m_Registry.view<firstType, Types...>();
         return view;
     }
 

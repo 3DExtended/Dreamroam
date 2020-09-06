@@ -100,7 +100,7 @@ void RenderingSystem::Render(
     Entity cameraEntity;
 
     auto cameraComponentView =
-        this->GetEntitiesWithComponent<CameraComponent>();
+        this->GetEntitiesWithComponents<CameraComponent>();
 
     for (auto tempCameraEntity : cameraComponentView) {
         auto& cameraComp =
@@ -240,7 +240,7 @@ void RenderingSystem::Render(
 
 void RenderingSystem::Resize(int width, int height) {
     auto cameraComponentView =
-        this->GetEntitiesWithComponent<CameraComponent>();
+        this->GetEntitiesWithComponents<CameraComponent>();
 
     for (auto tempCameraEntity : cameraComponentView) {
         auto& cameraComp =
