@@ -104,6 +104,7 @@ GroupSources(src)
 
 INCLUDE_DIRECTORIES("src/")
 INCLUDE_DIRECTORIES("extern/")
+INCLUDE_DIRECTORIES("extern/glfw/include")
 
 # list all shaders to compile
 list(APPEND lava_pack_shaders
