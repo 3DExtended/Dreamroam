@@ -22,13 +22,6 @@ protected:
     virtual void InternalLateUpdate(entt::registry& reg, double dt){};
     virtual void InternalDestroy(entt::registry& reg){};
 
-    template <class firstType, class... Types>
-    entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...>
-    GetEntitiesWithComponents() {
-        auto view = curScene->m_Registry.view<firstType, Types...>();
-        return view;
-    }
-
     DCore::ComponentSystem::AScene* GetCurrentScene() const;
 
 private:

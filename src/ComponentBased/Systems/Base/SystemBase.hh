@@ -129,6 +129,19 @@ protected:
     }
 
     /// <summary>
+    /// Returns a view on entities with a given set of components attatched
+    /// </summary>
+    /// <typeparam name="mT">Main Type</typeparam>
+    /// <typeparam name="...Rest">Secondary types you might want</typeparam>
+    /// <returns>A iterable view of entities</returns>
+    template <class mT, class... Rest>
+    entt::basic_view<entt::entity, entt::exclude_t<>, mT, Rest...>
+    GetEntitiesWithComponents() {
+        auto view = GetCurrentScene()->GetRegistry().view<mT, Rest...>();
+        return view;
+    }
+
+    /// <summary>
     /// Returns a reference to the input system used on the current scene.
     /// </summary>
     /// <returns></returns>
