@@ -23,12 +23,13 @@ protected:
     virtual void InternalDestroy(entt::registry& reg){};
 
     template <class firstType, class... Types>
-    auto GetEntitiesWithComponents() {
+    entt::basic_view<entt::entity, entt::exclude_t<>, firstType, Types...>
+    GetEntitiesWithComponents() {
         auto view = curScene->m_Registry.view<firstType, Types...>();
         return view;
     }
 
-    AScene* GetCurrentScene() const { return this->curScene; };
+    DCore::ComponentSystem::AScene* GetCurrentScene() const;
 
 private:
     void InternalSetCurrentScene(AScene* scene) { this->curScene = scene; }
