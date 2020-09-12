@@ -115,6 +115,12 @@ public:
     /// </summary>
     std::shared_ptr<TextureStore> mTextureStore;
 
+    /// <summary>
+    /// Returns the entt::registry used for the entity system.
+    /// </summary>
+    /// <returns>The Scenes registry system</returns>
+    entt::registry& GetRegistry() { return this->m_Registry; }
+
 private:
     /// <summary>
     /// We need this in order to access the registry for registering new
@@ -127,12 +133,6 @@ private:
     /// sorting objects.
     /// </summary>
     friend class SceneHandler;
-
-    /// <summary>
-    /// The UntypedSystemBase is allowed to access m_Registry, as it is needed
-    /// to find entities with a given component.
-    /// </summary>
-    friend class UntypedSystemBase;
 
     /// <summary>
     /// The registry for entities in the scene.
