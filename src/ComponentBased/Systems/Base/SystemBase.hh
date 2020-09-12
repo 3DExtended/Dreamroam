@@ -137,7 +137,8 @@ protected:
     template <class mT, class... Rest>
     entt::basic_view<entt::entity, entt::exclude_t<>, mT, Rest...>
     GetEntitiesWithComponents() {
-        auto view = GetCurrentScene()->GetRegistry().view<mT, Rest...>();
+        auto view =
+            GetCurrentScene()->GetRegistry().template view<mT, Rest...>();
         return view;
     }
 
