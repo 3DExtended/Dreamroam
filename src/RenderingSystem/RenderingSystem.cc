@@ -76,7 +76,7 @@ void RenderingSystem::Render(
 
         // TODO this is actually bad code... it results in a lot of copying
         // components around. This needs to be fixed.
-        auto& tuple = entities.get<RenderComponent, TransformComponent>(entity);
+        auto tuple = entities.get<RenderComponent, TransformComponent>(entity);
         if (renderer.active) {
             if (renderer.isThrowingShadow) {
                 shadowThrowingObjects.push_back(tuple);
