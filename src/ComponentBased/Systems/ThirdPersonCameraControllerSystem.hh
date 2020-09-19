@@ -52,6 +52,7 @@ public:
     }
 
     glm::vec2 lastScrollValue = glm::vec2(0);
+    glm::vec2 lastMousePosValue = glm::vec2(0);
 
     void Update(
 
@@ -72,6 +73,12 @@ public:
             cameraComp.TargetOffset = (glm::length(cameraComp.TargetOffset) +
                                        deltaScrolling.y / 25.0f) *
                                       glm::normalize(cameraComp.TargetOffset);
+
+            auto mousePos = this->GetInput()->GetMousePositionRelative();
+            auto mouseDelta = mousePos - lastMousePosValue;
+            lastMousePosValue = mousePos;
+
+            cameraComp.TargetOffset.y += mouseDelta.y;
         }
     }
 
