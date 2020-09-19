@@ -271,7 +271,8 @@ void SceneHandler::onMouseButton(double x, double y, int button, int action,
 void SceneHandler::onMouseScroll(double sx, double sy) {
     // Note: it seems that it is not possible to get scroll information based on
     // getters
-    this->m_InputSystem->SetScrollWheel(glm::vec2(sx, sy));
+    auto scroll = glm::vec2(sx, sy);
+    this->m_InputSystem->SetScrollWheel(scroll);
 }
 
 void SceneHandler::onFocusGain() {
