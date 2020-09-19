@@ -26,7 +26,7 @@ public:
             auto& targetTransform =
                 targetEntity.GetComponent<TransformComponent>();
 
-            glm::vec3 offset(0, 0.5, 2);
+            glm::vec3 offset = cameraComp.TargetOffset;
 
             auto rotateTargetEntity =
                 glm::rotate(targetTransform.rotation.y, glm::vec3(0, 1, 0));
@@ -44,32 +44,35 @@ public:
             auto rotMatrix =
                 glm::lookAt(cameraTransform.position, targetTransform.position,
                             glm::vec3(0, 1, 0));
-            /*auto rotMatrix =
-                glm::lookAt(cameraTransform.position, targetTransform.position,
-                            glm::vec3(0, 1, 0));*/
 
-            auto eulerRotations = RotationMatrixToEulerAngles(rotMatrix);
-            //  cameraTransform.rotation = eulerRotations;
             cameraTransform.rotation.y = -targetTransform.rotation.y;
+            cameraTransform.rotation.x = asin(
+                offset.y / sqrt(offset.z * offset.z + offset.y * offset.y));
         }
     }
 
-    glm::vec3 RotationMatrixToEulerAngles(glm::mat4& R) {
-        float sy = sqrt(R[0][0] * R[0][0] + R[1][0] * R[1][0]);
+    glm::vec2 lastScrollValue = glm::vec2(0);
 
-        bool singular = sy < 1e-6;
+    void Update(
 
-        float x, y, z;
-        if (!singular) {
-            x = atan2(R[2][1], R[2][2]);
-            y = atan2(-R[2][0], sy);
-            z = atan2(R[1][0], R[0][0]);
-        } else {
-            x = atan2(-R[1][2], R[1][1]);
-            y = atan2(-R[2][0], sy);
-            z = 0;
+        entt::basic_view<entt::entity, entt::exclude_t<>, CameraComponent,
+                         TransformComponent>
+            entities,
+        double dt) override {
+        for (auto entity : entities) {
+            auto& [cameraComp, cameraTransform] =
+                entities.get<CameraComponent, TransformComponent>(entity);
+
+            auto scrolling = this->GetInput()->GetScrollWheel();
+
+            auto deltaScrolling = scrolling - lastScrollValue;
+
+            lastScrollValue = scrolling;
+
+            cameraComp.TargetOffset = (glm::length(cameraComp.TargetOffset) +
+                                       deltaScrolling.y / 25.0f) *
+                                      glm::normalize(cameraComp.TargetOffset);
         }
-        return glm::vec3(glm::radians(x), glm::radians(y), glm::radians(z));
     }
 
 protected:

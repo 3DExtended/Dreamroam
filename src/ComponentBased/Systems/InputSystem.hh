@@ -87,8 +87,26 @@ public:
         return pos * glm::vec2(1.0 / mWindow->width(), 1.0 / mWindow->height());
     }
 
+    /// <summary>
+    /// Returns the current state of the scroll wheel. Please note that this
+    /// value is absolute and is not reset after every frame.
+    /// </summary>
+    /// <returns>A Vec2 for vertical and horizontal scrolling.</returns>
+    glm::vec2 GetScrollWheel() { return m_scrollWheel; };
+
+    /// <summary>
+    /// Used to reset the scroll wheel to a certain position. Can be used to
+    /// reset the scrollwheel.
+    /// </summary>
+    /// <param name="scrolling"></param>
+    void SetScrollWheel(glm::vec2& scrolling) {
+        this->m_scrollWheel += scrolling;
+    }
+
 protected:
     lava::features::SharedGlfwWindow mWindow;
-};
+
+    glm::vec2 m_scrollWheel = glm::vec2(0);
+};  // namespace ComponentSystem
 }  // namespace ComponentSystem
 }  // namespace DCore

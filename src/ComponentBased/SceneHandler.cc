@@ -128,7 +128,7 @@ void SceneHandler::run() {
 
         // TODO(esser): remove this when we have a scene that takes longer to
         // render than the default cube scene...
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
@@ -265,39 +265,13 @@ void SceneHandler::onKey(int key, int scancode, int action, int mods) {
     }
 }
 
-/*void SceneHandler::onMousePosition(double x, double y) {
-    DR_PROFILE_FUNCTION();
-    // if (TwEventMousePosGLFW(mWindow, x, y))
-    //    return true;
-    auto window = mWindow->window();
-    mWindowWidth = mWindow->width();
-    mWindowHeight = mWindow->height();
-    if (mCatchCursor && mMouseLastX != 0.0 && rendererSystem->getCamera()) {
-        auto alt = glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS;
-        auto ctrl = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
-
-        auto dx = x - mMouseLastX;
-        auto dy = y - mMouseLastY;
-
-        float ax = (float)(dx / mWindowWidth * mCameraTurnSpeed);
-        float ay = (float)(dy / mWindowHeight * mCameraTurnSpeed);
-
-        if (!alt && !ctrl)  // from cam
-        {
-            rendererSystem->getCamera()->FPSstyleLookAround(ax, ay);
-        }
-    }
-
-    mMouseLastX = x;
-    mMouseLastY = y;
-}//*/
-
 void SceneHandler::onMouseButton(double x, double y, int button, int action,
                                  int mods, int clickCount) {}
 
 void SceneHandler::onMouseScroll(double sx, double sy) {
-    // TODO it seems that it is not possible to get scroll information based on
+    // Note: it seems that it is not possible to get scroll information based on
     // getters
+    this->m_InputSystem->SetScrollWheel(glm::vec2(sx, sy));
 }
 
 void SceneHandler::onFocusGain() {
@@ -311,25 +285,6 @@ void SceneHandler::onFocusLost() {
 void SceneHandler::onFileDrop(const std::vector<std::string>& files) {}
 
 void SceneHandler::onChar(unsigned int codepoint, int mods) {}
-
-/* void SceneHandler::internalOnMouseButton(double x, double y, int button,
-                                         int action, int mods) {
-    DR_PROFILE_FUNCTION();
-    // check double click
-    if (distance(mClickPos, glm::vec2(x, y)) > 5)  // too far
-        mClickCount = 0;
-    if (mClickTimer.seconds() > mDoubleClickTime)  // too slow
-        mClickCount = 0;
-    if (mClickButton != button)  // wrong button
-        mClickCount = 0;
-
-    mClickTimer.reset();
-    mClickButton = button;
-    mClickPos = {x, y};
-    mClickCount++;
-
-    onMouseButton(x, y, button, action, mods, mClickCount);
-}//*/
 
 void SceneHandler::onResize(int w, int h) {
     if (rendererSystem != nullptr) {

@@ -55,6 +55,7 @@ struct TransformComponent {
 
     /// <summary>
     /// The rotation of the Transform and the corresponding GameObject
+    /// Please note that those euler angles are in radians and not in degrees.
     /// </summary>
     glm::vec3 rotation = glm::vec3(0.0);
 
@@ -235,6 +236,12 @@ struct CameraComponent {
     /// If not set, this camera will look and rotate around (0,0,0).
     /// </summary>
     entt::entity TargetEntityId{entt::null};
+
+    /// <summary>
+    /// Used by the ThirdPersonCameraControllerSystem to offset the camera
+    /// from its target.
+    /// </summary>
+    glm::vec3 TargetOffset = glm::vec3(0.0f, .5f, 2.0f);
 
 private:
     ProjectionMode mProjectionMode = PerspectiveProjectionDXReverse;
