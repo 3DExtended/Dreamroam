@@ -46,7 +46,6 @@ private:
     // === Pipelines ===
     SharedGraphicsPipeline mPipelineOutputFXAA;
     SharedGraphicsPipeline mPipelineOutputNoFXAA;
-    // TODO make getters for the descriptors!
 public:
     // === Descriptor Sets
     SharedDescriptorSetLayout mForwardDescriptorLayout;
@@ -98,9 +97,6 @@ public:
 
     /// Use this to create the Pipelines to render the forward pass
     SharedRenderPass const& forwardPass() const { return mPassForward; }
-
-    /*Subpass zPrePass() const { return { mPassForward, 0 }; }
-    Subpass opaquePass() const { return { mPassForward, 1 }; }*/
 };
 }  // namespace pipeline
 }  // namespace lava

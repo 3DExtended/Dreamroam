@@ -43,6 +43,7 @@ void GeometryStore::registerGeometryFromFileSingle(std::string filePath,
     auto geometryData = mGeometryImporter.loadCombined<>(filePath);
     std::shared_ptr<Geometry> sharedGeometryObj =
         std::make_shared<Geometry>(geometryData->uploadTo(mDevice));
+
     mGeometrys[name] = sharedGeometryObj;
 }
 

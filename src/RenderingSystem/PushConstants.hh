@@ -22,6 +22,17 @@ struct CameraDataForwardPass {
     glm::mat4 depthViewProj;
 };
 
+struct InstanceData {
+    glm::vec3 position;
+    glm::vec3 rotation;
+    glm::vec3 scale;
+
+    static void putAttributes(lava::PipelineVertexInputStateCreateInfo& info) {
+        info.binding(1, &InstanceData::position, &InstanceData::rotation,
+                     &InstanceData::scale);
+    };
+};
+
 struct VertexAttributes {
     glm::vec3 position;
     glm::vec3 normal;
