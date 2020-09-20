@@ -116,21 +116,25 @@ void RenderingSystem::Render(
         return;
     }
 
-    auto transformComp =
+    auto cameraTransformComp =
         cameraEntity.GetComponent<DCore::ComponentSystem::TransformComponent>();
 
     auto cameraComp =
         cameraEntity.GetComponent<DCore::ComponentSystem::CameraComponent>();
 
     // calculate view matrix from camera transform
-    glm::mat4 trans = glm::mat4(1.0f);
-    trans[3][0] = -transformComp.position.x;
-    trans[3][1] = -transformComp.position.y;
-    trans[3][2] = -transformComp.position.z;
+    /*glm::mat4 trans = glm::mat4(1.0f);
+    trans[3][0] = -cameraTransformComp.position.x;
+    trans[3][1] = -cameraTransformComp.position.y;
+    trans[3][2] = -cameraTransformComp.position.z;//*/
+    glm::mat4 trans = glm::translate(glm::vec3(0));
 
-    glm::mat4 rotX = glm::rotate(transformComp.rotation.x, glm::vec3(1, 0, 0));
-    glm::mat4 rotY = glm::rotate(transformComp.rotation.y, glm::vec3(0, 1, 0));
-    glm::mat4 rotZ = glm::rotate(transformComp.rotation.z, glm::vec3(0, 0, 1));
+    glm::mat4 rotX =
+        glm::rotate(cameraTransformComp.rotation.x, glm::vec3(1, 0, 0));
+    glm::mat4 rotY =
+        glm::rotate(cameraTransformComp.rotation.y, glm::vec3(0, 1, 0));
+    glm::mat4 rotZ =
+        glm::rotate(cameraTransformComp.rotation.z, glm::vec3(0, 0, 1));
 
     glm::mat4 rotMat = rotX * rotY * rotZ;
     auto viewMatrixCam = rotMat * trans;
@@ -155,7 +159,8 @@ void RenderingSystem::Render(
 
         std::tie(lightProjMatrix, lightViewMatrix) =
             this->rotateCameraFrustrumCornersToLightSpace(
-                glm::vec3(0.5f, 1.0f, -0.5f), transformComp.position,
+                glm::vec3(0.5f, 1.0f, -0.5f),
+                glm::vec3(0),  // cameraTransformComp.position,
                 cameraComp.getProjectionMatrix() * viewMatrixCam,
                 glm::vec3(0, 1, 0));
         {
@@ -191,7 +196,8 @@ void RenderingSystem::Render(
                           float(GlobalSettings::shadowMapSize)}});
 
                     mShadowMap->prepareRendering(&sub, mViewProjDescriptorPre);
-                    mShadowMap->renderGameObjects(shadowThrowingObjects);
+                    mShadowMap->renderGameObjects(shadowThrowingObjects,
+                                                  cameraTransformComp.position);
                 } else if (pass.type ==
                            lava::pipeline::RenderPassType::Opaque) {
                     DR_PROFILE_SCOPE("Opaque render pass cmd buffer builder");
@@ -203,28 +209,32 @@ void RenderingSystem::Render(
                         mOpaqueUntextured->prepareRendering(
                             &sub, mViewProjDescriptorForward);
                         mOpaqueUntextured->renderGameObjects(
-                            opaqueUntexturedObjects);
+                            opaqueUntexturedObjects,
+                            cameraTransformComp.position);
                     }
 
                     if (opaqueTexturedObjects.size() > 0) {
                         mOpaqueTextured->prepareRendering(
                             &sub, mViewProjDescriptorForward);
                         mOpaqueTextured->renderGameObjects(
-                            opaqueTexturedObjects);
+                            opaqueTexturedObjects,
+                            cameraTransformComp.position);
                     }
 
                     if (transparendUntexturedObjects.size() > 0) {
                         mTransparendUntextured->prepareRendering(
                             &sub, mViewProjDescriptorForward);
                         mTransparendUntextured->renderGameObjects(
-                            transparendUntexturedObjects);
+                            transparendUntexturedObjects,
+                            cameraTransformComp.position);
                     }
 
                     if (transparendTexturedObjects.size() > 0) {
                         mTransparendTextured->prepareRendering(
                             &sub, mViewProjDescriptorForward);
                         mTransparendTextured->renderGameObjects(
-                            transparendTexturedObjects);
+                            transparendTexturedObjects,
+                            cameraTransformComp.position);
                     }
                 }
             });

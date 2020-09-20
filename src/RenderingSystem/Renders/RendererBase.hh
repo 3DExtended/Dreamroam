@@ -26,7 +26,8 @@ public:
 
     void renderGameObjects(
         const std::vector<std::tuple<RenderComponent&, TransformComponent&>>&
-            gos);
+            gos,
+        glm::vec3 cameraPos);
 
 protected:
     lava::SharedGraphicsPipeline mPipeline;
@@ -39,7 +40,8 @@ protected:
 
 private:
     virtual void renderSingleGameObject(
-        const std::tuple<RenderComponent&, TransformComponent&> go) = 0;
+        const std::tuple<RenderComponent&, TransformComponent&> go,
+        glm::vec3 cameraPos) = 0;
 };
 }  // namespace Rendering
 }  // namespace DCore

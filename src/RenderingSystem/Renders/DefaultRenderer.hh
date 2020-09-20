@@ -11,7 +11,8 @@ class DefaultRenderer : public RendererBase {
 
 private:
     void renderSingleGameObject(
-        const std::tuple<RenderComponent&, TransformComponent&> go) override;
+        const std::tuple<RenderComponent&, TransformComponent&> go,
+        glm::vec3 cameraPos) override;
 };
 }  // namespace Rendering
 }  // namespace DCore

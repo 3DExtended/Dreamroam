@@ -17,8 +17,9 @@ void RendererBase::prepareRendering(
 }
 
 void RendererBase::renderGameObjects(
-    const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos) {
+    const std::vector<std::tuple<RenderComponent&, TransformComponent&>>& gos,
+    glm::vec3 cameraPos) {
     for (auto go : gos) {
-        renderSingleGameObject(go);
+        renderSingleGameObject(go, cameraPos);
     }
 }

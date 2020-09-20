@@ -10,7 +10,8 @@
 using namespace DCore::ComponentSystem;
 using namespace DCore::Rendering;
 void DefaultTexturedRenderer::renderSingleGameObject(
-    const std::tuple<RenderComponent&, TransformComponent&> go) {
+    const std::tuple<RenderComponent&, TransformComponent&> go,
+    glm::vec3 cameraPos) {
     auto& [renderComp, transform] = go;
 
     assert(renderComp.textureObj != nullptr);
@@ -21,7 +22,9 @@ void DefaultTexturedRenderer::renderSingleGameObject(
                                         0, vk::PipelineBindPoint::eGraphics,
                                         mLayout);
 
-    glm::mat4 modelMatrixComplete = transform.getModelMatrix();
+    glm::mat4 modelMatrixComplete =
+        glm::translate(-cameraPos) * transform.getModelMatrix();
+    ;
 
     PushConstants pushConsts;
 

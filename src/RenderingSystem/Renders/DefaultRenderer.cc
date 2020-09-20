@@ -7,14 +7,17 @@
 using namespace DCore::Rendering;
 
 void DefaultRenderer::renderSingleGameObject(
-    const std::tuple<RenderComponent&, TransformComponent&> go) {
+    const std::tuple<RenderComponent&, TransformComponent&> go,
+    glm::vec3 cameraPos) {
     PushConstants pushConsts;
     auto& [renderComp, transform] = go;
 
     mCurrentSubpass->bindDescriptorSets(
         {mCameraDescriptor}, 0, vk::PipelineBindPoint::eGraphics, mLayout);
 
-    glm::mat4 modelMatrixComplete = transform.getModelMatrix();
+    glm::mat4 modelMatrixComplete =
+        glm::translate(-cameraPos) * transform.getModelMatrix();
+    ;
     pushConsts.modelMatrix = modelMatrixComplete;
     pushConsts.normalMatrix = glm::transpose(glm::inverse(modelMatrixComplete));
     mCurrentSubpass->pushConstantBlock(pushConsts);
