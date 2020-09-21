@@ -20,7 +20,9 @@ public:
     void registerGeometryFromData(lava::geometry::SharedGeometryData geomData,
                                   std::string name);
 
-    void registerGeometryFromFileSingle(std::string filePath, std::string name);
+    void registerGeometryFromFileSingle(
+        std::string filePath, std::string name,
+        const std::vector<InstanceData>& instanceData = {});
 
     void registerGeometryFromFileMulti(std::string filePath,
                                        std::string namePrefix);

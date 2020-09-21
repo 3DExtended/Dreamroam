@@ -36,6 +36,11 @@ public:
     static inline std::shared_ptr<RendererBase> createRenderer_shadowMap(
         lava::SharedDevice device, lava::SharedPipelineLayout plLayout,
         std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> pipeline);
+
+    static inline std::shared_ptr<RendererBase>
+    createRenderer_InstancedRendering_opaqueUntextured(
+        lava::SharedDevice device, lava::SharedPipelineLayout plLayout,
+        std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> pipeline);
 };
 }  // namespace Rendering
 }  // namespace DCore

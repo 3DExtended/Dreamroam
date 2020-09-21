@@ -224,7 +224,9 @@ GeometryLoader::meshesFromFile(const std::string& filename,
 }
 
 std::shared_ptr<lava::geometry::GeometryData>
-GeometryLoader::singleMeshFromFile(const std::string& filename) {
+GeometryLoader::singleMeshFromFile(
+    const std::string& filename,
+    const std::vector<InstanceData>& instanceData) {
     std::vector<VertexAttributes> vertices;
     std::vector<uint32_t> indices;
 
@@ -233,19 +235,18 @@ GeometryLoader::singleMeshFromFile(const std::string& filename) {
     auto currentGeomDataPtr = std::make_shared<lava::geometry::GeometryData>();
 
     VertexAttributes::putAttributes(currentGeomDataPtr->info());
-    InstanceData::putAttributes(currentGeomDataPtr->info());
-    currentGeomDataPtr->info().setRate(1, vk::VertexInputRate::eInstance);
+
+    if (instanceData.size() > 0) {
+        InstanceData::putAttributes(currentGeomDataPtr->info());
+        currentGeomDataPtr->info().setRate(1, vk::VertexInputRate::eInstance);
+    }
 
     currentGeomDataPtr->setIndices(indices);
     currentGeomDataPtr->setBindingData(0, vertices);
 
-    std::vector<InstanceData> instanceData = {
-        InstanceData{glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),
-                     glm::vec3(1.0f, 1.0f, 1.0f)},
-        InstanceData{glm::vec3(5.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f),
-                     glm::vec3(1.0f, 1.0f, 1.0f)}};
-
-    currentGeomDataPtr->setBindingData(1, instanceData);
+    if (instanceData.size() > 0) {
+        currentGeomDataPtr->setBindingData(1, instanceData);
+    }
 
     return currentGeomDataPtr;
 }

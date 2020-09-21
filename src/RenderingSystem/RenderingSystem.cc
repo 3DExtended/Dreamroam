@@ -50,6 +50,11 @@ RenderingSystem::RenderingSystem(
     mTransparendTextured =
         GraphicsPipelineFactory::createRenderer_transparentTextured(
             mDevice, mPlLayout, mPipeline);
+
+    mInstancedOpaqueTextured = GraphicsPipelineFactory::
+        createRenderer_InstancedRendering_opaqueUntextured(mDevice, mPlLayout,
+                                                           mPipeline);
+
     mShadowMap = GraphicsPipelineFactory::createRenderer_shadowMap(
         mDevice, mPlLayout, mPipeline);
 }
@@ -66,7 +71,8 @@ void RenderingSystem::Render(
 
     std::vector<std::tuple<RenderComponent&, TransformComponent&>>
         opaqueUntexturedObjects, opaqueTexturedObjects,
-        transparendUntexturedObjects, transparendTexturedObjects,
+        opaqueInstancedTexturedObjects, transparendUntexturedObjects,
+        transparendTexturedObjects,
         shadowThrowingObjects =
             std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
@@ -82,9 +88,15 @@ void RenderingSystem::Render(
                 shadowThrowingObjects.push_back(tuple);
             }
             if (renderer.hasTexture) {
-                renderer.isTransparent
-                    ? transparendTexturedObjects.push_back(tuple)
-                    : opaqueTexturedObjects.push_back(tuple);
+                if (renderer.isTransparent) {
+                    transparendTexturedObjects.push_back(tuple);
+                } else {
+                    if (renderer.isInstanced) {
+                        opaqueInstancedTexturedObjects.push_back(tuple);
+                    } else {
+                        opaqueTexturedObjects.push_back(tuple);
+                    }
+                }
             } else {
                 renderer.isTransparent
                     ? transparendUntexturedObjects.push_back(tuple)
@@ -123,10 +135,6 @@ void RenderingSystem::Render(
         cameraEntity.GetComponent<DCore::ComponentSystem::CameraComponent>();
 
     // calculate view matrix from camera transform
-    /*glm::mat4 trans = glm::mat4(1.0f);
-    trans[3][0] = -cameraTransformComp.position.x;
-    trans[3][1] = -cameraTransformComp.position.y;
-    trans[3][2] = -cameraTransformComp.position.z;//*/
     glm::mat4 trans = glm::translate(glm::vec3(0));
 
     glm::mat4 rotX =
@@ -218,6 +226,14 @@ void RenderingSystem::Render(
                             &sub, mViewProjDescriptorForward);
                         mOpaqueTextured->renderGameObjects(
                             opaqueTexturedObjects,
+                            cameraTransformComp.position);
+                    }
+
+                    if (opaqueInstancedTexturedObjects.size() > 0) {
+                        mInstancedOpaqueTextured->prepareRendering(
+                            &sub, mViewProjDescriptorForward);
+                        mInstancedOpaqueTextured->renderGameObjects(
+                            opaqueInstancedTexturedObjects,
                             cameraTransformComp.position);
                     }
 
