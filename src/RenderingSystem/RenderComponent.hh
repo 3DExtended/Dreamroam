@@ -30,6 +30,8 @@ struct RenderComponent {
     bool active = true;
 
     bool isThrowingShadow = true;
+
+    bool isInstanced = false;
 };
 }  // namespace Rendering
 }  // namespace DCore

@@ -116,10 +116,13 @@ list(APPEND lava_pack_shaders
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.vert" "shaders/opaque_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.frag" "shaders/opaqueTexturedSimple_frag.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.vert" "shaders/opaqueTexturedSimple_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.frag" "shaders/opaqueTexturedInstanced_frag.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.vert" "shaders/opaqueTexturedInstanced_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.frag" "shaders/transparent_frag.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.vert" "shaders/transparent_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.frag" "shaders/transparentTexturedSimple_frag.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.vert" "shaders/transparentTexturedSimple_vert.spv"
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMapInstanced.vert" "shaders/shadowMapInstanced_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.vert" "shaders/shadowMap_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.frag" "shaders/shadowMap_frag.spv"
         )
