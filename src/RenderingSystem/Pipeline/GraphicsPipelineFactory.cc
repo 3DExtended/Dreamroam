@@ -160,7 +160,53 @@ GraphicsPipelineFactory::createRenderer_shadowMap(
     ci.addStage(lava::pack::shader(device, "shaders/shadowMap_vert.spv"));
     ci.addStage(lava::pack::shader(device, "shaders/shadowMap_frag.spv"));
 
+    // per mesh
     ci.vertexInputState.addAttribute(&VertexAttributes::position, 0);
+
+    ci.colorBlendState.clear();
+
+    VkPipelineColorBlendAttachmentState blendAttachementState = {
+        true,
+        VK_BLEND_FACTOR_SRC_ALPHA,
+        VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+        VK_BLEND_OP_ADD,
+        VK_BLEND_FACTOR_SRC_ALPHA,
+        VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+        VK_BLEND_OP_ADD,
+        VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
+            VK_COLOR_COMPONENT_B_BIT};
+
+    ci.colorBlendState.add(blendAttachementState);
+
+    auto graphicsPipeline = pipeline->prePass()->createPipeline(0, ci);
+    auto renderer =
+        std::make_shared<DefaultRenderer>(pipeline, graphicsPipeline, plLayout);
+
+    return renderer;
+}
+
+inline std::shared_ptr<RendererBase>
+GraphicsPipelineFactory::createRenderer_instancedShadowMap(
+    lava::SharedDevice device, lava::SharedPipelineLayout plLayout,
+    std::shared_ptr<lava::pipeline::AdvancedRenderingPipeline> pipeline) {
+    auto ci = lava::GraphicsPipelineCreateInfo::defaults();
+    ci.setLayout(plLayout);
+
+    ci.depthStencilState.depthTestEnable = true;
+    ci.depthStencilState.depthWriteEnable = true;
+    ci.rasterizationState.cullMode = vk::CullModeFlagBits::eNone;
+
+    ci.addStage(
+        lava::pack::shader(device, "shaders/shadowMapInstanced_vert.spv"));
+    ci.addStage(lava::pack::shader(device, "shaders/shadowMap_frag.spv"));
+
+    // per mesh
+    ci.vertexInputState.addAttribute(&VertexAttributes::position, 0);
+    // per instance
+    ci.vertexInputState.addAttribute(&InstanceData::position, 1, 1);
+    ci.vertexInputState.addAttribute(&InstanceData::rotation, 2, 1);
+    ci.vertexInputState.addAttribute(&InstanceData::scale, 3, 1);
+    ci.vertexInputState.setRate(1, vk::VertexInputRate::eInstance);
 
     ci.colorBlendState.clear();
 

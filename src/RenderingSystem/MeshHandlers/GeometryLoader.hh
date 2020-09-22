@@ -72,8 +72,7 @@ public:
         std::vector<std::string>& meshNames);
 
     std::shared_ptr<lava::geometry::GeometryData> singleMeshFromFile(
-        const std::string& filename,
-        const std::vector<InstanceData>& instanceData = {});
+        const std::string& filename);
 
     template <class VertexT = lava::geometry::DefaultVertex>
     std::vector<std::shared_ptr<lava::geometry::GeometryData>> loadMulti(
@@ -85,9 +84,8 @@ public:
 
     template <class VertexT = lava::geometry::DefaultVertex>
     std::shared_ptr<lava::geometry::GeometryData> loadCombined(
-        std::string const& filename,
-        const std::vector<InstanceData>& instanceData = {}) {
-        return singleMeshFromFile(filename, instanceData);
+        std::string const& filename) {
+        return singleMeshFromFile(filename);
     }
 
     void printNodeInfo_recursive(const aiScene* scene,

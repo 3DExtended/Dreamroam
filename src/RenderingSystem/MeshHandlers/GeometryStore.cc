@@ -38,15 +38,36 @@ void GeometryStore::registerGeometryFromData(
     mGeometrys[name] = sharedGeometryObj;
 }
 
-void GeometryStore::registerGeometryFromFileSingle(
-    std::string filePath, std::string name,
-    const std::vector<InstanceData>& instanceData) {
-    auto geometryData =
-        mGeometryImporter.loadCombined<>(filePath, instanceData);
+std::shared_ptr<Geometry> GeometryStore::getInstancedGeometryWithName(
+    std::string name, const std::vector<InstanceData>& instanceData) {
+    auto geometryData = this->mGeometryDataForInstancing[name];
+
+    if (instanceData.size() > 0) {
+        InstanceData::putAttributes(geometryData->info());
+        geometryData->info().setRate(1, vk::VertexInputRate::eInstance);
+        geometryData->setBindingData(1, instanceData);
+    }
+
     std::shared_ptr<Geometry> sharedGeometryObj =
         std::make_shared<Geometry>(geometryData->uploadTo(mDevice));
 
-    mGeometrys[name] = sharedGeometryObj;
+    // TODO make sure this is persistant
+    return sharedGeometryObj;
+}
+
+void GeometryStore::registerGeometryFromFileSingle(std::string filePath,
+                                                   std::string name,
+                                                   bool isInstanced) {
+    auto geometryData = mGeometryImporter.loadCombined<>(filePath);
+
+    if (!isInstanced) {
+        std::shared_ptr<Geometry> sharedGeometryObj =
+            std::make_shared<Geometry>(geometryData->uploadTo(mDevice));
+
+        mGeometrys[name] = sharedGeometryObj;
+    } else {
+        mGeometryDataForInstancing[name] = geometryData;
+    }
 }
 
 void GeometryStore::registerGeometryFromFileMulti(std::string filePath,

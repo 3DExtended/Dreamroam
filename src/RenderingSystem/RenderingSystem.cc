@@ -57,6 +57,10 @@ RenderingSystem::RenderingSystem(
 
     mShadowMap = GraphicsPipelineFactory::createRenderer_shadowMap(
         mDevice, mPlLayout, mPipeline);
+
+    mShadowMapInstanced =
+        GraphicsPipelineFactory::createRenderer_instancedShadowMap(
+            mDevice, mPlLayout, mPipeline);
 }
 
 void RenderingSystem::Render(
@@ -72,8 +76,8 @@ void RenderingSystem::Render(
     std::vector<std::tuple<RenderComponent&, TransformComponent&>>
         opaqueUntexturedObjects, opaqueTexturedObjects,
         opaqueInstancedTexturedObjects, transparendUntexturedObjects,
-        transparendTexturedObjects,
-        shadowThrowingObjects =
+        transparendTexturedObjects, shadowThrowingObjects,
+        shadowThrowingObjectsInstanced =
             std::vector<std::tuple<RenderComponent&, TransformComponent&>>();
 
     for (auto entity : entities) {
@@ -85,7 +89,11 @@ void RenderingSystem::Render(
         auto tuple = entities.get<RenderComponent, TransformComponent>(entity);
         if (renderer.active) {
             if (renderer.isThrowingShadow) {
-                shadowThrowingObjects.push_back(tuple);
+                if (renderer.isInstanced) {
+                    shadowThrowingObjectsInstanced.push_back(tuple);
+                } else {
+                    shadowThrowingObjects.push_back(tuple);
+                }
             }
             if (renderer.hasTexture) {
                 if (renderer.isTransparent) {
@@ -206,6 +214,12 @@ void RenderingSystem::Render(
                     mShadowMap->prepareRendering(&sub, mViewProjDescriptorPre);
                     mShadowMap->renderGameObjects(shadowThrowingObjects,
                                                   cameraTransformComp.position);
+
+                    mShadowMapInstanced->prepareRendering(
+                        &sub, mViewProjDescriptorPre);
+                    mShadowMapInstanced->renderGameObjects(
+                        shadowThrowingObjectsInstanced,
+                        cameraTransformComp.position);
                 } else if (pass.type ==
                            lava::pipeline::RenderPassType::Opaque) {
                     DR_PROFILE_SCOPE("Opaque render pass cmd buffer builder");
