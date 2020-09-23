@@ -20,7 +20,11 @@ public:
     void registerGeometryFromData(lava::geometry::SharedGeometryData geomData,
                                   std::string name);
 
-    void registerGeometryFromFileSingle(std::string filePath, std::string name);
+    std::shared_ptr<Geometry> getInstancedGeometryWithName(
+        std::string name, const std::vector<InstanceData>& instanceData);
+
+    void registerGeometryFromFileSingle(std::string filePath, std::string name,
+                                        bool isInstanced = false);
 
     void registerGeometryFromFileMulti(std::string filePath,
                                        std::string namePrefix);
@@ -37,6 +41,10 @@ public:
 private:
     lava::SharedDevice mDevice;
     GeometryLoader mGeometryImporter;
+
+    std::map<std::string, std::shared_ptr<lava::geometry::GeometryData>>
+        mGeometryDataForInstancing;
+
     std::map<std::string, std::shared_ptr<Geometry>> mGeometrys;
     std::map<std::string, size_t> mNumberOfLayersPer;
 };

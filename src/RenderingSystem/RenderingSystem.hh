@@ -53,7 +53,9 @@ private:
     std::shared_ptr<RendererBase> mOpaqueTextured;
     std::shared_ptr<RendererBase> mTransparendUntextured;
     std::shared_ptr<RendererBase> mTransparendTextured;
+    std::shared_ptr<RendererBase> mInstancedOpaqueTextured;
     std::shared_ptr<RendererBase> mShadowMap;
+    std::shared_ptr<RendererBase> mShadowMapInstanced;
 
     std::vector<lava::SharedFramebuffer> companionWindowFBO;
 

@@ -8,6 +8,11 @@ layout(location=0) in vec3 aPosition;
 layout(location=1) in vec2 aUV;
 layout(location=2) in vec3 aNormal;
 
+// per instance
+layout(location=3) in vec3 instancePosition;
+layout(location=4) in vec3 instanceRotation;
+layout(location=5) in vec3 instanceScale;
+
 layout(set = 0, binding = 0) uniform CameraMatrices {
 	mat4 view;
 	mat4 proj;
@@ -33,7 +38,7 @@ out gl_PerVertex
 
 void main() {
 	vUV = aUV;
-	vPosition = aPosition;
+	vPosition = aPosition + instancePosition;
 	vNormal = (pu.normalMatrix * vec4(aNormal,1.0)).xyz;
 
 	vec4 worldPos = pu.modelMatrix * vec4(vPosition, 1.0);
