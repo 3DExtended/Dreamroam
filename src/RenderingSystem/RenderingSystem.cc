@@ -263,72 +263,24 @@ void RenderingSystem::Resize(int width, int height) {
     mPipeline->resize(width, height);
 }
 
-void RenderingSystem::getFrustumCorners(std::vector<glm::vec4>& corners,
-                                        glm::mat4 inverseProjection) {
-    DR_PROFILE_FUNCTION();
-
-    corners.clear();
-
-    // homogeneous corner coords
-    glm::vec4 hcorners[8];
-    // near
-    hcorners[0] = glm::vec4(-1, 1, 1, 1);
-    hcorners[1] = glm::vec4(1, 1, 1, 1);
-    hcorners[2] = glm::vec4(1, -1, 1, 1);
-    hcorners[3] = glm::vec4(-1, -1, 1, 1);
-    // far
-    hcorners[4] = glm::vec4(-1, 1, -1, 1);
-    hcorners[5] = glm::vec4(1, 1, -1, 1);
-    hcorners[6] = glm::vec4(1, -1, -1, 1);
-    hcorners[7] = glm::vec4(-1, -1, -1, 1);
-
-    glm::mat4 inverseProj = inverseProjection;
-    for (int i = 0; i < 8; i++) {
-        hcorners[i] = inverseProj * hcorners[i];
-        hcorners[i] /= hcorners[i].w;
-
-        corners.push_back(hcorners[i]);
-    }
-}
-
 std::tuple<glm::mat4, glm::mat4>
 RenderingSystem::rotateCameraFrustrumCornersToLightSpace(
     glm::vec3 lightDir, glm::vec3 camPosition, glm::mat4 cameraViewProj,
     glm::vec3 upDirection = glm::vec3(0, 1, 0)) {
     DR_PROFILE_FUNCTION();
 
-    std::vector<glm::vec4> corners;
-
-    glm::mat4 inverseCameraViewProj = glm::inverse(cameraViewProj);
-
-    this->getFrustumCorners(corners, inverseCameraViewProj);
-
-    float minX = std::numeric_limits<float>::max();
-    float maxX = std::numeric_limits<float>::min();
-    float minY = std::numeric_limits<float>::max();
-    float maxY = std::numeric_limits<float>::min();
-    float minZ = std::numeric_limits<float>::max();
-    float maxZ = std::numeric_limits<float>::min();
-
-    for (auto c : corners) {
-        if (c[0] < minX) minX = c[0];
-        if (c[0] > maxX) maxX = c[0];
-        if (c[1] < minY) minY = c[1];
-        if (c[1] > maxY) maxY = c[1];
-        if (c[2] < minZ) minZ = c[2];
-        if (c[2] > maxZ) maxZ = c[2];
-    }
+    // this works as we center the camera to position (0,0,0).
+    float minX = -50.0f;
+    float maxX = 50.0f;
+    float minY = -50.0f;
+    float maxY = 50.0f;
+    float minZ = -50.0f;
+    float maxZ = 50.0f;
 
     glm::vec3 frustumCenter = glm::vec3(
         (maxX + minX) / 2.0f, (maxY + minY) / 2.0f, (maxZ + minZ) / 2.0f);
 
-    float maxDistance = 0.0;
-    for (auto c : corners) {
-        auto tempDistance = glm::distance(glm::vec4(frustumCenter, 1.0f), c);
-        if (tempDistance > maxDistance) {
-            maxDistance = tempDistance;
-        }
-    }
+    float maxDistance = 100.0;
 
     glm::mat4 proj = glm::orthoRH_ZO(maxDistance, -maxDistance, maxDistance,
                                      -maxDistance, 0.0f, maxDistance * 2.0f);

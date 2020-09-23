@@ -60,8 +60,6 @@ private:
     lava::imgui::ImGui mGui;
 
 private:
-    void getFrustumCorners(std::vector<glm::vec4>& corners,
-                           glm::mat4 projection);
     std::tuple<glm::mat4, glm::mat4> rotateCameraFrustrumCornersToLightSpace(
         glm::vec3 forward, glm::vec3 camPosition,
         glm::mat4 cameraViewProjMatrix, glm::vec3 upDirection);
