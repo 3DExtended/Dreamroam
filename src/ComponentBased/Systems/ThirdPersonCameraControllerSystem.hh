@@ -17,14 +17,14 @@ public:
             entities,
         double dt) override {
         for (auto entity : entities) {
-            auto& [cameraComp, cameraTransform] =
+            const auto& [cameraComp, cameraTransform] =
                 entities.get<CameraComponent, TransformComponent>(entity);
 
             // First load target transform details.
             auto targetEntity =
                 this->GetEntityFromId(cameraComp.TargetEntityId);
-            auto& targetTransform =
-                targetEntity.GetComponent<TransformComponent>();
+            const auto& targetTransform =
+                targetEntity.Entity::GetComponent<TransformComponent>();
 
             glm::vec3 offset = cameraComp.TargetOffset;
 
@@ -61,7 +61,7 @@ public:
             entities,
         double dt) override {
         for (auto entity : entities) {
-            auto& [cameraComp, cameraTransform] =
+            const auto& [cameraComp, cameraTransform] =
                 entities.get<CameraComponent, TransformComponent>(entity);
 
             auto scrolling = this->GetInput()->GetScrollWheel();
