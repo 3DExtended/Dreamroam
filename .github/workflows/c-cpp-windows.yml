@@ -23,7 +23,7 @@ jobs:
         curl.exe -o VulkanSDK.exe https://sdk.lunarg.com/sdk/download/1.2.148.1/windows/VulkanSDK-1.2.148.1-Installer.exe?Human=true 
         ./VulkanSDK.exe /S 
         echo $VULKAN_SDK
-        7z x VulkanSDK.exe -o"${{GITHUB_WORKSPACE}}\vulkan_sdk\"
+        7z x VulkanSDK.exe -o"$GITHUB_WORKSPACE\vulkan_sdk\"
 
     - uses: actions/checkout@v2
       
@@ -33,7 +33,7 @@ jobs:
       shell: pwsh
       run: | 
         ~/vulkan/VulkanSDK.exe /S 
-        $env:Path += ";${{GITHUB_WORKSPACE}}\vulkan_sdk\\;${{GITHUB_WORKSPACE}}\vulkan_sdk\Bin\"
+        $env:Path += ";$GITHUB_WORKSPACE\vulkan_sdk\\;$GITHUB_WORKSPACE\vulkan_sdk\Bin\"
         cmake . 
         cmake . 
     # - name: cmake
