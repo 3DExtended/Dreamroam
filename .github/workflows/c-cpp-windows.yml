@@ -1,0 +1,47 @@
+name: Windows 10 build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    env:
+      inexor_vulkan_sdk: "$GITHUB_WORKSPACE/vulkan_sdk/"
+    steps:
+    - name: get-cmake
+      uses: lukka/get-cmake@v3.18.0
+
+    - name: vulkan sdk
+      shell: pwsh
+      run: |
+        curl -LS -o vulkansdk.exe `
+            https://vulkan.lunarg.com/sdk/download/1.2.148.1/windows/VulkanSDK-1.2.148.1-Installer.exe?Human=true
+        7z x vulkansdk.exe -o"${{ env.inexor_vulkan_sdk }}"
+        mkdir -p ~/vulkan/VulkanSDK 
+        cd ~/vulkan/ 
+        curl.exe -o VulkanSDK.exe https://sdk.lunarg.com/sdk/download/1.2.148.1/windows/VulkanSDK-1.2.148.1-Installer.exe?Human=true 
+        ./VulkanSDK.exe /S 
+        echo $VULKAN_SDK
+        7z x VulkanSDK.exe -o"$GITHUB_WORKSPACE\vulkan_sdk\"
+
+    - uses: actions/checkout@v2
+      
+    - name: clone submodules
+      run: git submodule update --recursive --init
+    - name: source vulkan and run cmake (twice)
+      shell: pwsh
+      run: | 
+        ~/vulkan/VulkanSDK.exe /S 
+        $env:Path += ";$GITHUB_WORKSPACE\vulkan_sdk\\;$GITHUB_WORKSPACE\vulkan_sdk\Bin\"
+        $env:Path += ";${{ env.inexor_vulkan_sdk }}\;${{ env.inexor_vulkan_sdk }}\Bin\"
+        cmake . -Bbuild 
+        cmake . -Bbuild 
+    - name: Build
+      shell: pwsh
+      run: |
+        cmake --build build
