@@ -16,14 +16,26 @@ jobs:
       uses: lukka/get-cmake@v3.18.0
 
     - name: vulkan sdk
-      run: mkdir -p ~/vulkan/VulkanSDK && cd ~/vulkan/ && curl.exe -o VulkanSDK.exe https://sdk.lunarg.com/sdk/download/1.2.148.1/windows/VulkanSDK-1.2.148.1-Installer.exe && ./VulkanSDK.exe /S && echo $VULKAN_SDK
+      shell: pwsh
+      run: |
+        mkdir -p ~/vulkan/VulkanSDK 
+        cd ~/vulkan/ 
+        curl.exe -o VulkanSDK.exe https://sdk.lunarg.com/sdk/download/1.2.148.1/windows/VulkanSDK-1.2.148.1-Installer.exe?Human=true 
+        ./VulkanSDK.exe /S 
+        echo $VULKAN_SDK
+        7z x VulkanSDK.exe -o"${{GITHUB_WORKSPACE}}\vulkan_sdk\"
 
     - uses: actions/checkout@v2
       
     - name: clone submodules
       run: git submodule update --recursive --init
     - name: source vulkan and run cmake (twice)
-      run: ~/vulkan/VulkanSDK.exe /S && echo $VULKAN_SDK && echo $VULKAN_SDK && cmake . &&  cmake . 
+      shell: pwsh
+      run: | 
+        ~/vulkan/VulkanSDK.exe /S 
+        $env:Path += ";${{GITHUB_WORKSPACE}}\vulkan_sdk\\;${{GITHUB_WORKSPACE}}\vulkan_sdk\Bin\"
+        cmake . 
+        cmake . 
     # - name: cmake
     #  run: export VULKAN_SDK="~/vulkan/VulkanSDK/1.2.148.0/x86_64" && export PATH="${VULKAN_SDK}/bin:${PATH}" && export LD_LIBRARY_PATH="${VULKAN_SDK}/lib:${LD_LIBRARY_PATH}" && export VK_LAYER_PATH="${VULKAN_SDK}/etc/explicit_layer.d:${VK_LAYER_PATH}" &&  cmake . &&  cmake . 
     # - name: make -j8
