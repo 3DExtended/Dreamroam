@@ -1,12 +1,12 @@
 [submodule "extern/lava"]
 	path = extern/lava
 	url = https://graphics.rwth-aachen.de:9000/lava/lava.git
-	branch = origin/origin/pesser-windows-fixes
+	branch = origin/pesser-windows-fixes
 	update = merge
 [submodule "extern/lava-extras"]
 	path = extern/lava-extras
 	url = https://graphics.rwth-aachen.de:9000/lava/lava-extras.git
-	branch = origin/pesser
+	branch = pesser
 	update = merge
 [submodule "extern/glfw"]
 	path = extern/glfw
