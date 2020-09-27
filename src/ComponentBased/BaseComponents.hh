@@ -88,6 +88,7 @@ struct PlayerComponent {
     PlayerComponent(const PlayerComponent&) = default;
 
     float WalkSpeed = 5.0f;
+    float RunSpeed = 20.0f;
 };
 
 /// <summary>
