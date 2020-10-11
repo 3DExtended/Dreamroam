@@ -37,6 +37,12 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
     DR_PROFILE_FUNCTION();
 
     {
+        // So this code creates one new render pass.
+        // A render pass is later used to create an framebuffer where we can
+        // render something to. A renderpass holds several information:
+        // - It setups the dependencies: do we have to wait on a specific
+        // renderpass?
+
         auto info = lava::RenderPassCreateInfo{};
         info.addAttachment(
             AttachmentDescription::depth16().clear().finalLayout_ShaderRead());
@@ -80,10 +86,19 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
         info.addAttachment(AttachmentDescription::color(Format::RGBA16F)
                                .clear()
                                .finalLayout_ShaderRead());
+        info.addAttachment(AttachmentDescription::color(Format::RGBA16F)
+                               .clear()
+                               .finalLayout_ShaderRead());
+        info.addAttachment(AttachmentDescription::color(Format::RGBA16F)
+                               .clear()
+                               .finalLayout_ShaderRead());
         info.addDependency(SubpassDependency::first().sampleDepthStencil());
         info.addDependency(SubpassDependency(0, 1).reuseDepthStencil());
+        // info.addDependency(SubpassDependency(1, 2).reuseDepthStencil());
+
         info.addSubpass(SubpassDescription{}.depth(0));
-        info.addSubpass(SubpassDescription{}.depth(0).colors({1}));
+        info.addSubpass(SubpassDescription{}.depth(0).colors({1, 2, 3}));
+        // info.addSubpass(SubpassDescription{}.depth(0).colors({1}));
 
         mPassForward = mDevice->createRenderPass(info);
         mPassForward->setClearDepthStencil(vk::ClearDepthStencilValue(1.0));
@@ -163,13 +178,24 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     mImageColor->realizeAttachment();
     mViewColor = mImageColor->createView();
 
+    auto mImageColor2 =
+        lava::attachment2D(mWidth, mHeight, Format::RGBA16F).create(mDevice);
+    mImageColor2->realizeAttachment();
+    auto mViewColor2 = mImageColor2->createView();
+
+    auto mImageColor3 =
+        lava::attachment2D(mWidth, mHeight, Format::RGBA16F).create(mDevice);
+    mImageColor3->realizeAttachment();
+    auto mViewColor3 = mImageColor3->createView();
+
     mImageDepth =
         lava::attachment2D(mWidth, mHeight, Format::DEPTH_COMPONENT32F)
             .create(mDevice);
     mImageDepth->realizeAttachment();
     mViewDepth = mImageDepth->createView();
 
-    mFboForward = mPassForward->createFramebuffer({mViewDepth, mViewColor});
+    mFboForward = mPassForward->createFramebuffer(
+        {mViewDepth, mViewColor, mViewColor2, mViewColor3});
 
     auto forwardSampler = mDevice->createSampler(
         SamplerCreateInfo{}

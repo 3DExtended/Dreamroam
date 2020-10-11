@@ -18,6 +18,9 @@ layout(push_constant) uniform PushConsts {
 
 //Out:
 layout (location = 0) out vec4 color;
+layout (location = 1) out vec4 normal;
+layout (location = 2) out vec4 fragPos;
+
 
 float normpdf(in float x, in float sigma)
 {
@@ -28,6 +31,9 @@ const int kernelSize = 1;
 const float bias = 0.0023;
 
 void main() {
+	normal = vec4(vNormal,0);
+	fragPos = vec4(vPosition,0);
+
 	vec3 lightFragmentPosition = mlightviewVertexPos.xyz;
 	lightFragmentPosition.xy = lightFragmentPosition.xy * 0.5 + 0.5;
 	float shadowFactor = 0.0;

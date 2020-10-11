@@ -38,15 +38,16 @@ out gl_PerVertex
 
 void main() {
 	vUV = aUV;
-	vPosition = aPosition + instancePosition;
+	vec3 tempPosition = aPosition + instancePosition;
 	vNormal = (pu.normalMatrix * vec4(aNormal,1.0)).xyz;
 
-	vec4 worldPos = pu.modelMatrix * vec4(vPosition, 1.0);
+	vec4 worldPos = pu.modelMatrix * vec4(tempPosition, 1.0);
 
 	vec4 pos = cams.proj
 				* cams.view
 				* worldPos;
 	gl_Position = pos;
+	vPosition = pos.xyz;
 
 	mlightviewVertexPos = cams.depthViewProj * worldPos;
 }
