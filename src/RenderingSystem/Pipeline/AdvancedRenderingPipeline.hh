@@ -44,8 +44,8 @@ private:
     SharedRenderPass mPassOutput;
 
     // === Pipelines ===
-    SharedGraphicsPipeline mPipelineOutputFXAA;
-    SharedGraphicsPipeline mPipelineOutputNoFXAA;
+    std::vector<SharedGraphicsPipeline> mPipelineSpecializations;
+
 public:
     // === Descriptor Sets
     SharedDescriptorSetLayout mForwardDescriptorLayout;
@@ -54,7 +54,7 @@ public:
     SharedDescriptorSet mOutputDescriptor;
 
     // === SETTINGS ===
-    bool mFXAA = true;
+    int mDebugSpecialization = 0;
     bool mTransparentPass = true;
     float mDitheringStrength = 1 / 256.f;
 
@@ -65,7 +65,7 @@ public:  // getter, setter
     LAVA_GETTER(Width);
     LAVA_GETTER(Height);
 
-    LAVA_PROPERTY(FXAA);
+    LAVA_PROPERTY(DebugSpecialization);
     LAVA_PROPERTY(DitheringStrength);
     LAVA_PROPERTY(TransparentPass);
 
@@ -74,7 +74,8 @@ public:  // getter, setter
 
 public:
     AdvancedRenderingPipeline(SharedDevice const& device,
-                              GenericFormat outputFormat);
+                              GenericFormat outputFormat,
+                              int numberOfDebugSpecializations = 0);
 
     /// Resizes the internal pipeline size
     void resize(int w, int h);

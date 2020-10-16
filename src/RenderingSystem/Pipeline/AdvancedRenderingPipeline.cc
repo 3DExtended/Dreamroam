@@ -31,18 +31,13 @@ int AdvancedRenderingPipeline::getOutputWidth() const { return mWidth; }
 
 int AdvancedRenderingPipeline::getOutputHeight() const { return mHeight; }
 
-AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
-                                                     GenericFormat outputFormat)
+AdvancedRenderingPipeline::AdvancedRenderingPipeline(
+    const SharedDevice& device, GenericFormat outputFormat,
+    int numberOfDebugSpecializations)
     : mDevice(device), mOutputFormat(outputFormat.vkhpp()) {
     DR_PROFILE_FUNCTION();
 
     {
-        // So this code creates one new render pass.
-        // A render pass is later used to create an framebuffer where we can
-        // render something to. A renderpass holds several information:
-        // - It setups the dependencies: do we have to wait on a specific
-        // renderpass?
-
         auto info = lava::RenderPassCreateInfo{};
         info.addAttachment(
             AttachmentDescription::depth16().clear().finalLayout_ShaderRead());
@@ -82,7 +77,7 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
         auto info = lava::RenderPassCreateInfo{};
         info.addAttachment(AttachmentDescription::depth32float()
                                .clear()
-                               .finalLayout_DepthStencilRead());
+                               .finalLayout_ShaderRead());
         info.addAttachment(AttachmentDescription::color(Format::RGBA16F)
                                .clear()
                                .finalLayout_ShaderRead());
@@ -94,11 +89,9 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
                                .finalLayout_ShaderRead());
         info.addDependency(SubpassDependency::first().sampleDepthStencil());
         info.addDependency(SubpassDependency(0, 1).reuseDepthStencil());
-        // info.addDependency(SubpassDependency(1, 2).reuseDepthStencil());
 
         info.addSubpass(SubpassDescription{}.depth(0));
         info.addSubpass(SubpassDescription{}.depth(0).colors({1, 2, 3}));
-        // info.addSubpass(SubpassDescription{}.depth(0).colors({1}));
 
         mPassForward = mDevice->createRenderPass(info);
         mPassForward->setClearDepthStencil(vk::ClearDepthStencilValue(1.0));
@@ -110,7 +103,7 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
         info.addAttachment(AttachmentDescription::color(mOutputFormat)
                                .clear()
                                .finalLayout_PresentSrc());
-        info.addDependency(SubpassDependency::first().sampleColor());
+        info.addDependency(SubpassDependency::first().readInFragmentShader());
         info.addSubpass(SubpassDescription{}.colors({0}));
 
         mPassOutput = mDevice->createRenderPass(info);
@@ -126,24 +119,33 @@ AdvancedRenderingPipeline::AdvancedRenderingPipeline(const SharedDevice& device,
         auto dsinfoOutput = DescriptorSetLayoutCreateInfo{};
         dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
                                 vk::ShaderStageFlagBits::eFragment, 1);
+        dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
+                                vk::ShaderStageFlagBits::eFragment, 1);
+        dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
+                                vk::ShaderStageFlagBits::eFragment, 1);
+        dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
+                                vk::ShaderStageFlagBits::eFragment, 1);
+        dsinfoOutput.addBinding(vk::DescriptorType::eCombinedImageSampler,
+                                vk::ShaderStageFlagBits::eFragment, 1);
+
         mOutputDescriptorLayout =
             mDevice->createDescriptorSetLayout(dsinfoOutput);
 
         auto layout =
             mDevice->createPipelineLayout({}, {mOutputDescriptorLayout});
 
-        auto infoFXAA = lava::GraphicsPipelineCreateInfo::defaults();
-        infoFXAA.setLayout(layout);
-        infoFXAA.addStage(
-            lava::pack::shader(device, "lava-extras/pipeline/output.vert"));
-        infoFXAA.addStage(
-            lava::pack::shader(device, "lava-extras/pipeline/output.frag"));
+        auto infoOutput = lava::GraphicsPipelineCreateInfo::defaults();
+        infoOutput.setLayout(layout);
+        infoOutput.addStage(
+            lava::pack::shader(device, "shaders/output_vert.spv"));
+        infoOutput.addStage(
+            lava::pack::shader(device, "shaders/output_frag.spv"));
 
-        infoFXAA.stage(1).specialize(0, false);  // Disable FXAA
-        mPipelineOutputNoFXAA = mPassOutput->createPipeline(0, infoFXAA);
-
-        infoFXAA.stage(1).specialize(0, true);  // Enable FXAA
-        mPipelineOutputFXAA = mPassOutput->createPipeline(0, infoFXAA);
+        for (int i = 0; i < numberOfDebugSpecializations + 1; i++) {
+            infoOutput.stage(1).specialize(0, i);
+            mPipelineSpecializations.push_back(
+                mPassOutput->createPipeline(0, infoOutput));
+        }
     }
 }
 
@@ -219,6 +221,13 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     mOutputDescriptor = mOutputDescriptorLayout->createDescriptorSet();
     mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor},
                                                  0);
+
+    mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor2},
+                                                 1);
+    mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor3},
+                                                 2);
+    mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewDepth},
+                                                 3);
 }
 
 void AdvancedRenderingPipeline::render(
@@ -232,7 +241,6 @@ void AdvancedRenderingPipeline::render(
     // can not be used..
     camera::FixedCamera cam;
 
-    // mImageDepthPre->changeLayout(vk::ImageLayout::eGeneral, cmd);
     {
         auto pass = cmd.beginRenderpass(mFboPre);
         {
@@ -241,7 +249,6 @@ void AdvancedRenderingPipeline::render(
             renderFunc(rp);
         }
     }
-    // mImageDepthPre->changeLayout(vk::ImageLayout::eGeneral, cmd);
     {
         auto pass = cmd.beginRenderpass(mFboForward);
         // z-Pre
@@ -262,7 +269,7 @@ void AdvancedRenderingPipeline::render(
         auto pass = cmd.beginRenderpass(fbo);
         auto sub = pass.startInlineSubpass();
 
-        sub.bindPipeline(mFXAA ? mPipelineOutputFXAA : mPipelineOutputNoFXAA);
+        sub.bindPipeline(mPipelineSpecializations[mDebugSpecialization]);
         sub.bindDescriptorSets({mOutputDescriptor});
 
         sub.draw(3);
