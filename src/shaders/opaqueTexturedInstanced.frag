@@ -5,7 +5,7 @@
 //In:
 layout (location = 0) in vec2 vUV;
 layout (location = 1) in vec3 vNormal;
-layout (location = 2) in vec3 vPosition;
+layout (location = 2) in vec4 vPosition;
 layout (location = 3) in vec4 mlightviewVertexPos;
 
 layout (set = 1, binding = 0) uniform sampler2D uTexture;
@@ -32,7 +32,7 @@ const float bias = 0.0023;
 
 void main() {
 	normal = vec4(vNormal,0);
-	fragPos = vec4(vPosition,0);
+	fragPos = vPosition;
 
 	vec3 lightFragmentPosition = mlightviewVertexPos.xyz;
 	lightFragmentPosition.xy = lightFragmentPosition.xy * 0.5 + 0.5;
@@ -73,4 +73,7 @@ void main() {
 	intensity = (intensity + shadowFactor)/2.0;
 	float colorMult = intensity;
 	color = vec4(texture(uTexture, vUV).rgb * colorMult, 1.0);
+
+	// override all shadow mapping
+	color = vec4(texture(uTexture, vUV).rgb, 1);
 }

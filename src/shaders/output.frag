@@ -27,40 +27,54 @@ layout (location = 0) out vec3 fColor;
 // default value for this is 0.
 layout (constant_id = 0) const int specialization = 0;
 
+const float bias = 0.0023;
+
 void main() {
-    vec3 color = vec3(0);
-    vec3 normal = vec3(0);
-    vec3 position = vec3(0);
+    vec4 color = vec4(0);
+    vec4 normal = vec4(0);
+    vec4 position = vec4(0);
     float depth = 0;
 
-    if (specialization == 0) {
-        fColor = fxaa(uColor, gl_FragCoord.xy).rgb;
-    } 
-    else if (specialization == 1) {
-        fColor = texture(uColor, gl_FragCoord.xy).rgb;
+    // default case is to use fxaa. however, for debugging shaders it is more feasible to view at the raw inputs.
+    if (specialization == 0){
+        color = fxaa(uColor, gl_FragCoord.xy).rgba;
+        normal = fxaa(uNormal, gl_FragCoord.xy).rgba;
+        position = fxaa(uPosition, gl_FragCoord.xy).rgba;
+        depth = fxaa(uDepth, gl_FragCoord.xy).r;
+    }else{
+        color = texture(uColor, gl_FragCoord.xy).rgba;
+        normal = texture(uNormal, gl_FragCoord.xy).rgba;
+        position = texture(uPosition, gl_FragCoord.xy).rgba;
+        depth = texture(uDepth, gl_FragCoord.xy).r;
     }
-    else if (specialization == 2) {
-        fColor = fxaa(uNormal, gl_FragCoord.xy).rgb;
+
+    // calculate fragments/pixel (since we are in deferred rendering we know, every fragment will be displayed as pixel on the screen) position on the shadow map
+    vec3 fragmentPositionOnShadowmap = (pu.depthViewProj * vec4(position.xyz,1)).xyz;
+	fragmentPositionOnShadowmap.xy = fragmentPositionOnShadowmap.xy * 0.5 + 0.5;
+    float textDepthOfFragmentOnShadowmap = texture(shadowTexture, fragmentPositionOnShadowmap.xy).r;
+
+    // shadow factor is based on comparison of textDepthOfFragmentOnShadowmap and fragmentPositionOnShadowmap.z
+    float shadowFactor = fragmentPositionOnShadowmap.z - bias > textDepthOfFragmentOnShadowmap ? 1.0 : 0.0;        
+
+    if (specialization == 0){
+        fColor = vec3(shadowFactor,shadowFactor,shadowFactor);
     }
-    else if (specialization == 3) {
-        fColor = texture(uNormal, gl_FragCoord.xy).rgb;
+    else if (specialization == 1){
+        fColor = fragmentPositionOnShadowmap.xyz;
     }
-    else if (specialization == 4) {
-        fColor = fxaa(uPosition, gl_FragCoord.xy).rgb;
+    else if (specialization == 2){
+        fColor = vec3(1-fragmentPositionOnShadowmap.z - bias,0,0); // broken
     }
-    else if (specialization == 5) {
-        fColor = texture(uPosition, gl_FragCoord.xy).rgb;
+    else if (specialization == 3){
+        fColor = vec3(textDepthOfFragmentOnShadowmap,0,0); // seems to be correct
     }
-    else if (specialization == 6) {
-        fColor = fxaa(uDepth, gl_FragCoord.xy).rgb;
+    else if (specialization == 4){
+        fColor = vec3(fragmentPositionOnShadowmap.xy, 0); // seems to be correct
     }
-    else if (specialization == 7) {
-        fColor = texture(uDepth, gl_FragCoord.xy).rgb;
+    else if (specialization == 5){
+        fColor = texture(shadowTexture, fragmentPositionOnShadowmap.xy).rgb; // seems to be correct
     }
-    else if (specialization == 8) {
-        fColor = fxaa(shadowTexture, gl_FragCoord.xy).rgb;
-    }
-    else if (specialization == 9) {
-        fColor = texture(shadowTexture, gl_FragCoord.xy).rgb;
+    else if (specialization == 6){
+        fColor = texture(shadowTexture, gl_FragCoord.xy * 4.0).rgb;
     }
 }
