@@ -1,6 +1,7 @@
 #include "AdvancedRenderingPipeline.hh"
 
 #include <GlobalSettings.hh>
+#include <RenderingSystem/PushConstants.hh>
 #include <Utils/Base.hh>
 #include <Utils/Debug/Profiling.hh>
 #include <array>
@@ -9,11 +10,13 @@
 #include <lava-extras/camera/FixedCamera.hh>
 #include <lava-extras/camera/GenericCamera.hh>
 #include <lava-extras/pack/pack.hh>
+#include <lava/createinfos/Buffers.hh>
 #include <lava/createinfos/DescriptorSetLayoutCreateInfo.hh>
 #include <lava/createinfos/Images.hh>
 #include <lava/createinfos/PipelineShaderStageCreateInfo.hh>
 #include <lava/createinfos/RenderPassCreateInfo.hh>
 #include <lava/createinfos/Sampler.hh>
+#include <lava/objects/Buffer.hh>
 #include <lava/objects/DescriptorSet.hh>
 #include <lava/objects/DescriptorSetLayout.hh>
 #include <lava/objects/Device.hh>
@@ -221,17 +224,19 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     mOutputDescriptor = mOutputDescriptorLayout->createDescriptorSet();
     mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor},
                                                  0);
-
     mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor2},
                                                  1);
     mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewColor3},
                                                  2);
     mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewDepth},
                                                  3);
+    mOutputDescriptor->writeCombinedImageSampler({outputSampler, mViewDepthPre},
+                                                 4);
 }
 
 void AdvancedRenderingPipeline::render(
     lava::RecordingCommandBuffer& cmd, lava::SharedFramebuffer const& fbo,
+    glm::mat4 directionalLightViewProjMat,
     std::function<void(lava::pipeline::AdvancedRenderPass const& pass)> const&
         renderFunc) {
     DR_PROFILE_FUNCTION();
@@ -268,6 +273,16 @@ void AdvancedRenderingPipeline::render(
     {
         auto pass = cmd.beginRenderpass(fbo);
         auto sub = pass.startInlineSubpass();
+
+        struct CameraDataDirectionalLight {
+            glm::mat4 viewProjMat;
+            glm::mat4 futureUseMat4;
+            float futureUseFloat;
+        };
+
+        CameraDataDirectionalLight directionalLightMatrix;
+        directionalLightMatrix.viewProjMat = directionalLightViewProjMat;
+        sub.pushConstantBlock(directionalLightMatrix);
 
         sub.bindPipeline(mPipelineSpecializations[mDebugSpecialization]);
         sub.bindDescriptorSets({mOutputDescriptor});

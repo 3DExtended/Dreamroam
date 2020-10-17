@@ -87,6 +87,7 @@ public:
      */
     void render(
         lava::RecordingCommandBuffer& cmd, lava::SharedFramebuffer const& fbo,
+        glm::mat4 directionalLightViewProjMat,
         const std::function<
             void(lava::pipeline::AdvancedRenderPass const& pass)>& renderFunc);
 

@@ -42,7 +42,7 @@ void main() {
 				* cams.view
 				* worldPos;
 	gl_Position = pos;
-	vPosition = pos.xyz;
+	vPosition = worldPos.xyz;
 
 	mlightviewVertexPos = cams.depthViewProj * worldPos;
 }
