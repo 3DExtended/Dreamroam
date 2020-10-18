@@ -2,8 +2,9 @@
 #extension GL_ARB_separate_shader_objects : enable
 #extension GL_ARB_shading_language_420pack : enable
 #extension GL_GOOGLE_include_directive : enable
-
 #include "fxaa.glsl"
+#include "shadow.glsl"
+#include "fog.glsl"
 
 // deferred rendering
 layout (binding = 0) uniform sampler2D uColor;
@@ -27,64 +28,44 @@ layout (location = 0) out vec3 fColor;
 // default value for this is 0.
 layout (constant_id = 0) const int specialization = 0;
 
-const float bias = 0.0023;
+// TODO make this part of push constants..
+const vec3 lightDirectionIn = normalize(vec3(0.5,1,-.5));
+
+// TODO make this part of push constants...
+const vec3 cameraPos = vec3(0);
 
 void main() {
-    vec4 color = vec4(0);
-    vec4 normal = vec4(0);
-    vec4 position = vec4(0);
-    float depth = 0;
-
-    // default case is to use fxaa. however, for debugging shaders it is more feasible to view at the raw inputs.
-    if (specialization == 0){
-        color = fxaa(uColor, gl_FragCoord.xy).rgba;
-        normal = fxaa(uNormal, gl_FragCoord.xy).rgba;
-        position = fxaa(uPosition, gl_FragCoord.xy).rgba;
-        depth = fxaa(uDepth, gl_FragCoord.xy).r;
-    }else{
-        color = texture(uColor, gl_FragCoord.xy).rgba;
-        normal = texture(uNormal, gl_FragCoord.xy).rgba;
-        position = texture(uPosition, gl_FragCoord.xy).rgba;
-        depth = texture(uDepth, gl_FragCoord.xy).r;
-    }
-
-    // calculate fragments/pixel (since we are in deferred rendering we know, every fragment will be displayed as pixel on the screen) position on the shadow map
-    vec3 fragmentPositionOnShadowmap = (pu.depthViewProj * vec4(position.xyz,1)).xyz;
-	fragmentPositionOnShadowmap.xy = fragmentPositionOnShadowmap.xy * 0.5 + 0.5;
-    float textDepthOfFragmentOnShadowmap = texture(shadowTexture, fragmentPositionOnShadowmap.xy).r;
-
-    // shadow factor is based on comparison of textDepthOfFragmentOnShadowmap and fragmentPositionOnShadowmap.z
-    float shadowFactor = fragmentPositionOnShadowmap.z + bias < textDepthOfFragmentOnShadowmap ? 1.0 : 0.0;        
+    vec4 color = texture(uColor, gl_FragCoord.xy).rgba;
+    vec4 normal = texture(uNormal, gl_FragCoord.xy).rgba;
+    vec4 position = texture(uPosition, gl_FragCoord.xy).rgba;
+    float depth = texture(uDepth, gl_FragCoord.xy).r;
 
     if (specialization == 0){
-        fColor = vec3(shadowFactor,shadowFactor,shadowFactor);
+        float diffuseFactor = max(dot(normalize(normal.xyz), normalize(lightDirectionIn)), 0.0) * calcShadowFactor(shadowTexture, position.xyz, pu.depthViewProj);
+        fColor = vec3(color.xyz * (diffuseFactor * 0.7 + 0.3));
+        fColor = applyFog(fColor, length(position.xyz-cameraPos), cameraPos-position.xyz, -lightDirectionIn, 0.00032);
     }
     else if (specialization == 1){
+        float diffuseFactor = max(dot(normalize(normal.xyz), normalize(lightDirectionIn)), 0.0) * calcShadowFactor(shadowTexture, position.xyz, pu.depthViewProj);
+        fColor = vec3(color.xyz * (diffuseFactor * 0.7 + 0.3));
+    }
+    // render color g buffer
+    else if (specialization == 2){
         fColor = color.xyz;
     }
-    else if (specialization == 2){
-        fColor = vec3(fragmentPositionOnShadowmap.z,0,0); // correct
-    }
+    // render normal g buffer
     else if (specialization == 3){
-        fColor = vec3(textDepthOfFragmentOnShadowmap,0,0);// completly broken
+        fColor = normal.xyz;
     }
+    // render position g buffer
     else if (specialization == 4){
-        fColor = vec3(fragmentPositionOnShadowmap.xy, 0); // correct
+        fColor = position.xyz;
     }
+    // render position g buffer
     else if (specialization == 5){
-        fColor = vec3(texture(shadowTexture, fragmentPositionOnShadowmap.xy).r,0,0); // completly broken
+        fColor = vec3(depth);
     }
     else if (specialization == 6){
-        fColor = texture(shadowTexture, gl_FragCoord.xy * 4.0).rgb;
-    }
-    else if (specialization == 7){
-        vec2 inc = 1.0 / textureSize(shadowTexture, 0);
-	    fColor = vec3(inc, 0);
-    }
-    else if (specialization == 8){
-	    fColor = vec3(texture(shadowTexture, vec2(0.5,0.5)).r,0,0);
-    }
-    else if (specialization == 9){
-        fColor = normal.xyz; 
+        fColor = vec3(calcShadowFactor(shadowTexture, position.xyz, pu.depthViewProj));
     }
 }

@@ -50,14 +50,16 @@ precision highp float;
     #define FXAA_SPAN_MAX     8.0
 #endif
 
+
+
 //optimized version for mobile, where dependent
 //texture reads can be a bottleneck
-vec4 fxaa(sampler2D tex, vec2 fragCoord) {
+vec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 incSize ) {
     vec4 color;
-    vec3 rgbNW = texture(tex, fragCoord + vec2(-1.0, -1.0)).xyz;
-    vec3 rgbNE = texture(tex, fragCoord + vec2(1.0, -1.0)).xyz;
-    vec3 rgbSW = texture(tex, fragCoord + vec2(-1.0, 1.0)).xyz;
-    vec3 rgbSE = texture(tex, fragCoord + vec2(1.0, 1.0)).xyz;
+    vec3 rgbNW = texture(tex, fragCoord + vec2(-incSize.x, -incSize.y)).xyz;
+    vec3 rgbNE = texture(tex, fragCoord + vec2( incSize.x, -incSize.y)).xyz;
+    vec3 rgbSW = texture(tex, fragCoord + vec2(-incSize.x,  incSize.y)).xyz;
+    vec3 rgbSE = texture(tex, fragCoord + vec2( incSize.x,  incSize.y)).xyz;
     vec4 texColor = texture(tex, fragCoord);
     vec3 rgbM  = texColor.xyz;
     vec3 luma = vec3(0.299, 0.587, 0.114);
@@ -82,11 +84,11 @@ vec4 fxaa(sampler2D tex, vec2 fragCoord) {
               dir * rcpDirMin));
 
     vec3 rgbA = 0.5 * (
-        texture(tex, fragCoord + dir * (1.0 / 3.0 - 0.5)).xyz +
-        texture(tex, fragCoord + dir * (2.0 / 3.0 - 0.5)).xyz);
+        texture(tex, (fragCoord + dir * (1.0 / 3.0 - 0.5))*incSize).xyz +
+        texture(tex, (fragCoord + dir * (2.0 / 3.0 - 0.5))*incSize).xyz);
     vec3 rgbB = rgbA * 0.5 + 0.25 * (
-        texture(tex, fragCoord + dir * -0.5).xyz +
-        texture(tex, fragCoord + dir * 0.5).xyz);
+        texture(tex, incSize*(fragCoord + dir * -0.5)).xyz +
+        texture(tex, incSize*(fragCoord + dir * 0.5)).xyz);
 
     float lumaB = dot(rgbB, luma);
     if ((lumaB < lumaMin) || (lumaB > lumaMax))
@@ -138,4 +140,8 @@ vec4 fxaaArray(sampler2DArray tex, vec3 fragCoord) {
     else
         color = vec4(rgbB, texColor.a);
     return color;
+}
+
+vec4 fxaa(sampler2D tex, vec2 fragCoord) {
+    return fxaa(tex, fragCoord, vec2(1,1));
 }
