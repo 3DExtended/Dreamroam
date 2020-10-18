@@ -39,6 +39,7 @@ void main() {
 	float shadowFactor = 0.0;
 
 	vec2 inc = 1.0 / textureSize(shadowTexture, 0);
+			
 
 	for(int row = -kernelSize; row <= kernelSize; ++row)
 	{
@@ -75,5 +76,13 @@ void main() {
 	color = vec4(texture(uTexture, vUV).rgb * colorMult, 1.0);
 
 	// override all shadow mapping
+	float textDepth = texture(shadowTexture, lightFragmentPosition.xy).r;
+	color = vec4(textDepth, 0, 0, 0);
+
+	color = vec4( lightFragmentPosition.xy,0,0);
+	color = vec4(texture(shadowTexture, vec2(0.5,0.5)).r);
+
 	color = vec4(texture(uTexture, vUV).rgb, 1);
+
 }
+

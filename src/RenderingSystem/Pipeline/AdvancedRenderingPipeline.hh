@@ -27,29 +27,48 @@ private:
 
     // === RENDER TARGETS ===
     SharedImage mImageDepthPre;  // used for shadowMapping
-    SharedImage mImageColor;     // actual rendering target
-    SharedImage mImageDepth;
+    SharedImageView mViewDepthShadowMap;
 
-    SharedImageView mViewDepthPre;
+    SharedImage mImageColor;  // actual rendering target
     SharedImageView mViewColor;
+
+    SharedImage mImageDepth;
     SharedImageView mViewDepth;
+
+    SharedImage mImageNormal;
+    SharedImageView mViewNormal;
+
+    SharedImage mImagePosition;
+    SharedImageView mViewPosition;
+
+    SharedImage mImageDeferredLightingResult;
+    SharedImageView mViewDeferredLightingResult;
 
     // === Framebuffers ===
     SharedFramebuffer mFboPre;
     SharedFramebuffer mFboForward;
+    SharedFramebuffer mFboDeferredLighting;
 
     // === (Vulkan) RenderPasses ===
     SharedRenderPass mPassPre;      // 1 subpass
     SharedRenderPass mPassForward;  // 2 subpasses
+    SharedRenderPass mPassDeferredLightingOutput;
     SharedRenderPass mPassOutput;
 
     // === Pipelines ===
     std::vector<SharedGraphicsPipeline> mPipelineSpecializations;
 
+    /// <summary>
+    /// Used for applying post processing effects like fxaa
+    /// </summary>
+    SharedGraphicsPipeline mPipelineOutputPass;
+
 public:
     // === Descriptor Sets
     SharedDescriptorSetLayout mForwardDescriptorLayout;
     SharedDescriptorSet mForwardDescriptor;
+    SharedDescriptorSetLayout mDeferredLightingOutputDescriptorLayout;
+    SharedDescriptorSet mDeferredLightingOutputDescriptor;
     SharedDescriptorSetLayout mOutputDescriptorLayout;
     SharedDescriptorSet mOutputDescriptor;
 
@@ -94,11 +113,23 @@ public:
     /// Use this to create the FBOs for the Pipeline to output to
     SharedRenderPass const& outputPass() const { return mPassOutput; }
 
+    /// Use this to create the FBOs for the Pipeline
+    SharedRenderPass const& deferredLightingOutputPass() const {
+        return mPassDeferredLightingOutput;
+    }
+
     /// Use this to create the Pipelines to render the shadow pass
     SharedRenderPass const& prePass() const { return mPassPre; }
 
     /// Use this to create the Pipelines to render the forward pass
     SharedRenderPass const& forwardPass() const { return mPassForward; }
+
+private:
+    struct CameraDataDirectionalLight {
+        glm::mat4 viewProjMat;
+        glm::mat4 futureUseMat4;
+        float futureUseFloat;
+    };
 };
 }  // namespace pipeline
 }  // namespace lava

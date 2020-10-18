@@ -49,7 +49,8 @@ void main() {
     }
 
     // calculate fragments/pixel (since we are in deferred rendering we know, every fragment will be displayed as pixel on the screen) position on the shadow map
-    vec3 fragmentPositionOnShadowmap = (pu.depthViewProj * vec4(position.xyz,1)).xyz;
+    vec4 temp = pu.depthViewProj * position.xyzw;
+    vec3 fragmentPositionOnShadowmap = temp.xyz;
 	fragmentPositionOnShadowmap.xy = fragmentPositionOnShadowmap.xy * 0.5 + 0.5;
     float textDepthOfFragmentOnShadowmap = texture(shadowTexture, fragmentPositionOnShadowmap.xy).r;
 
@@ -60,21 +61,27 @@ void main() {
         fColor = vec3(shadowFactor,shadowFactor,shadowFactor);
     }
     else if (specialization == 1){
-        fColor = fragmentPositionOnShadowmap.xyz;
+        fColor = color.xyz;
     }
     else if (specialization == 2){
-        fColor = vec3(1-fragmentPositionOnShadowmap.z - bias,0,0); // broken
+        fColor = vec3(fragmentPositionOnShadowmap.z,0,0); // correct
     }
     else if (specialization == 3){
-        fColor = vec3(textDepthOfFragmentOnShadowmap,0,0); // seems to be correct
+        fColor = vec3(textDepthOfFragmentOnShadowmap,0,0);// completly broken
     }
     else if (specialization == 4){
-        fColor = vec3(fragmentPositionOnShadowmap.xy, 0); // seems to be correct
+        fColor = vec3(fragmentPositionOnShadowmap.xy, 0); // correct
     }
     else if (specialization == 5){
-        fColor = texture(shadowTexture, fragmentPositionOnShadowmap.xy).rgb; // seems to be correct
+        fColor = vec3(texture(shadowTexture, fragmentPositionOnShadowmap.xy).r,0,0); // completly broken
     }
     else if (specialization == 6){
         fColor = texture(shadowTexture, gl_FragCoord.xy * 4.0).rgb;
+    }
+    else if (specialization == 7){
+        fColor = texture(shadowTexture, color.xy).rgb;
+    }
+    else if (specialization == 8){
+	    fColor = vec3(texture(shadowTexture, vec2(0.5,0.5)).r);
     }
 }
