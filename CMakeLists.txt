@@ -109,7 +109,9 @@ INCLUDE_DIRECTORIES("extern/glfw/include")
 # list all shaders to compile
 list(APPEND lava_pack_shaders
         "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.vert" "shaders/cube_vert.spv"
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "shaders/cube_frag.spv"
+        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "shaders/cube_frag.spv"       
+		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.vert" "shaders/output_vert.spv"
+        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.frag" "shaders/output_frag.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.frag" "shaders/plane_frag.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.vert" "shaders/plane_vert.spv"
 		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.frag" "shaders/opaque_frag.spv"

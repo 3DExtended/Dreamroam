@@ -25,6 +25,10 @@ GraphicsPipelineFactory::createRenderer_opaqueUntextured(
     ci.vertexInputState.addAttribute(&VertexAttributes::position, 0);
     ci.vertexInputState.addAttribute(&VertexAttributes::color, 1);
     ci.vertexInputState.addAttribute(&VertexAttributes::normal, 2);
+
+    ci.colorBlendState.addNoBlend();
+    ci.colorBlendState.addNoBlend();
+
     auto graphicsPipeline = pipeline->forwardPass()->createPipeline(1, ci);
 
     auto renderer =
@@ -55,6 +59,9 @@ GraphicsPipelineFactory::createRenderer_opaqueTextured(
     ci.vertexInputState.addAttribute(&VertexAttributes::position, 0);
     ci.vertexInputState.addAttribute(&VertexAttributes::texCoord, 1);
     ci.vertexInputState.addAttribute(&VertexAttributes::normal, 2);
+
+    ci.colorBlendState.addNoBlend();
+    ci.colorBlendState.addNoBlend();
 
     auto graphicsPipeline = pipeline->forwardPass()->createPipeline(1, ci);
 
@@ -258,6 +265,9 @@ inline std::shared_ptr<RendererBase> DCore::Rendering::GraphicsPipelineFactory::
     ci.vertexInputState.addAttribute(&InstanceData::rotation, 4, 1);
     ci.vertexInputState.addAttribute(&InstanceData::scale, 5, 1);
     ci.vertexInputState.setRate(1, vk::VertexInputRate::eInstance);
+
+    ci.colorBlendState.addNoBlend();
+    ci.colorBlendState.addNoBlend();
 
     auto graphicsPipeline = pipeline->forwardPass()->createPipeline(1, ci);
 

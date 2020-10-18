@@ -73,6 +73,37 @@ void RenderingSystem::Render(
         return;
     }
 
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_0)) {
+        mPipeline->setDebugSpecialization(0);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_1)) {
+        mPipeline->setDebugSpecialization(1);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_2)) {
+        mPipeline->setDebugSpecialization(2);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_3)) {
+        mPipeline->setDebugSpecialization(3);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_4)) {
+        mPipeline->setDebugSpecialization(4);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_5)) {
+        mPipeline->setDebugSpecialization(5);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_6)) {
+        mPipeline->setDebugSpecialization(6);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_7)) {
+        mPipeline->setDebugSpecialization(7);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_8)) {
+        mPipeline->setDebugSpecialization(8);
+    };
+    if (this->GetInput()->IsKeyDown(DCORE_KEY_KP_9)) {
+        mPipeline->setDebugSpecialization(9);
+    };
+
     std::vector<std::tuple<RenderComponent&, TransformComponent&>>
         opaqueUntexturedObjects, opaqueTexturedObjects,
         opaqueInstancedTexturedObjects, transparendUntexturedObjects,
@@ -115,8 +146,6 @@ void RenderingSystem::Render(
 
     mDevice->graphicsQueue().handle().waitIdle();
 
-    /*find camera using the system mechanic and calculate view and proj matrix
-     * here.*/
     Entity cameraEntity;
 
     auto cameraComponentView =
@@ -200,6 +229,7 @@ void RenderingSystem::Render(
         // second one rendering all objects.
         mPipeline->render(
             cmd, companionWindowFBO[frame.imageIndex()],
+            lightProjMatrix * lightViewMatrix,
             [&](lava::pipeline::AdvancedRenderPass const& pass) {
                 DR_PROFILE_FUNCTION();
                 auto sub = pass.pass.startInlineSubpass();
@@ -373,7 +403,7 @@ void RenderingSystem::setupPipeline(
                                           sizeof(PushConstants)};
 
     mPipeline = std::make_shared<lava::pipeline::AdvancedRenderingPipeline>(
-        mDevice, mGlfwOutput->format());
+        mDevice, mGlfwOutput->format(), 10);
 
     mPlLayout = mDevice->createPipelineLayout(
         {pushConstantRange},
@@ -393,6 +423,5 @@ mWindow->buildSwapchainWith(
         mGui.prepare(views);
     });
 
-// enable FXAA
-mPipeline->setFXAA(true);
+mPipeline->setDebugSpecialization(0);
 }

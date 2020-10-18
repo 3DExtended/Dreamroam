@@ -23,7 +23,7 @@ layout(push_constant) uniform PushConsts {
 //Out:
 layout (location = 0) out vec2 vUV;
 layout (location = 1) out vec3 vNormal;
-layout (location = 2) out vec3 vPosition;
+layout (location = 2) out vec4 vPosition;
 layout (location = 3) out vec4 mlightviewVertexPos;
 
 out gl_PerVertex
@@ -33,15 +33,16 @@ out gl_PerVertex
 
 void main() {
 	vUV = aUV;
-	vPosition = aPosition;
+	
 	vNormal = (pu.normalMatrix * vec4(aNormal,1.0)).xyz;
 
-	vec4 worldPos = pu.modelMatrix * vec4(vPosition, 1.0);
+	vec4 worldPos = pu.modelMatrix * vec4(aPosition, 1.0);
 
 	vec4 pos = cams.proj
 				* cams.view
 				* worldPos;
 	gl_Position = pos;
+	vPosition = worldPos;
 
 	mlightviewVertexPos = cams.depthViewProj * worldPos;
 }
