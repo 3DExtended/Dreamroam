@@ -49,13 +49,12 @@ void main() {
     }
 
     // calculate fragments/pixel (since we are in deferred rendering we know, every fragment will be displayed as pixel on the screen) position on the shadow map
-    vec4 temp = pu.depthViewProj * position.xyzw;
-    vec3 fragmentPositionOnShadowmap = temp.xyz;
+    vec3 fragmentPositionOnShadowmap = (pu.depthViewProj * vec4(position.xyz,1)).xyz;
 	fragmentPositionOnShadowmap.xy = fragmentPositionOnShadowmap.xy * 0.5 + 0.5;
     float textDepthOfFragmentOnShadowmap = texture(shadowTexture, fragmentPositionOnShadowmap.xy).r;
 
     // shadow factor is based on comparison of textDepthOfFragmentOnShadowmap and fragmentPositionOnShadowmap.z
-    float shadowFactor = fragmentPositionOnShadowmap.z - bias > textDepthOfFragmentOnShadowmap ? 1.0 : 0.0;        
+    float shadowFactor = fragmentPositionOnShadowmap.z + bias < textDepthOfFragmentOnShadowmap ? 1.0 : 0.0;        
 
     if (specialization == 0){
         fColor = vec3(shadowFactor,shadowFactor,shadowFactor);
@@ -79,9 +78,13 @@ void main() {
         fColor = texture(shadowTexture, gl_FragCoord.xy * 4.0).rgb;
     }
     else if (specialization == 7){
-        fColor = texture(shadowTexture, color.xy).rgb;
+        vec2 inc = 1.0 / textureSize(shadowTexture, 0);
+	    fColor = vec3(inc, 0);
     }
     else if (specialization == 8){
-	    fColor = vec3(texture(shadowTexture, vec2(0.5,0.5)).r);
+	    fColor = vec3(texture(shadowTexture, vec2(0.5,0.5)).r,0,0);
+    }
+    else if (specialization == 9){
+        fColor = normal.xyz; 
     }
 }

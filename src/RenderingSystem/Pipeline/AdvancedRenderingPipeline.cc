@@ -284,6 +284,7 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
 
         auto forwardSampler = mDevice->createSampler(
             SamplerCreateInfo{}
+                .setUnnormalizedCoordinates(false)
                 .setMagFilter(vk::Filter::eLinear)
                 .setMinFilter(vk::Filter::eLinear)
                 .setMipmapMode(vk::SamplerMipmapMode::eLinear)
@@ -303,6 +304,20 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
     // deferred lighting pass. Combine G-Buffers to one image and output to
     // framebuffer image
     {
+        auto deferredOutputSamplerShadowMap = mDevice->createSampler(
+            SamplerCreateInfo{}
+                .setUnnormalizedCoordinates(false)
+                .setMagFilter(vk::Filter::eLinear)
+                .setMinFilter(vk::Filter::eLinear)
+                .setMipmapMode(vk::SamplerMipmapMode::eLinear)
+                .setAddressModeU(vk::SamplerAddressMode::eClampToEdge)
+                .setAddressModeV(vk::SamplerAddressMode::eClampToEdge)
+                .setAddressModeW(vk::SamplerAddressMode::eClampToEdge)
+                .setMipLodBias(0.0f)
+                .setMaxAnisotropy(1.0f)
+                .setMinLod(0.0f)
+                .setMaxLod(1.0f)
+                .setBorderColor(vk::BorderColor::eFloatOpaqueWhite));
         auto deferredOutputSampler = mDevice->createSampler(
             SamplerCreateInfo{}.setUnnormalizedCoordinates(true));
 
@@ -317,7 +332,7 @@ void AdvancedRenderingPipeline::resize(int w, int h) {
         mDeferredLightingOutputDescriptor->writeCombinedImageSampler(
             {deferredOutputSampler, mViewDepth}, 3);
         mDeferredLightingOutputDescriptor->writeCombinedImageSampler(
-            {deferredOutputSampler, mViewDepthShadowMap}, 4);
+            {deferredOutputSamplerShadowMap, mViewDepthShadowMap}, 4);
 
         // G-Buffer deferred lighting result
         {
