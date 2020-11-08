@@ -8,7 +8,7 @@
 
 namespace DCore {
 namespace ComponentSystem {
-class PhysicsSystem : public SystemBase<CameraComponent, TransformComponent> {
+class PhysicsSystem : public SystemBase<TagComponent, TransformComponent> {
 public:
     btDefaultCollisionConfiguration* collisionConfiguration;
     btCollisionDispatcher* dispatcher;
@@ -125,8 +125,8 @@ public:
         {
             // create a dynamic rigidbody
 
-            // btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-            btCollisionShape* colShape = new btSphereShape(btScalar(1.));
+            btCollisionShape* colShape = new btBoxShape(btVector3(1, 1, 1));
+            // btCollisionShape* colShape = new btSphereShape(btScalar(1.));
             collisionShapes.push_back(colShape);
 
             /// Create Dynamic Objects
@@ -158,21 +158,22 @@ public:
 
     void LateUpdate(
 
-        entt::basic_view<entt::entity, entt::exclude_t<>, CameraComponent,
+        entt::basic_view<entt::entity, entt::exclude_t<>, TagComponent,
                          TransformComponent>
             entities,
         double dt) override {
         dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 
+        auto counter = 0;
+
         for (auto entity : entities) {
-            const auto& [cameraComp, cameraTransform] =
-                entities.get<CameraComponent, TransformComponent>(entity);
+            const auto& [tagComp, transform] =
+                entities.get<TagComponent, TransformComponent>(entity);
 
             // print positions of all objects
-            for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0;
-                 j--) {
+            for (; counter < dynamicsWorld->getNumCollisionObjects();) {
                 btCollisionObject* obj =
-                    dynamicsWorld->getCollisionObjectArray()[j];
+                    dynamicsWorld->getCollisionObjectArray()[counter];
                 btRigidBody* body = btRigidBody::upcast(obj);
                 btTransform trans;
                 if (body && body->getMotionState()) {
@@ -180,10 +181,16 @@ public:
                 } else {
                     trans = obj->getWorldTransform();
                 }
-                printf("world pos object %d = %f,%f,%f\n", j,
+                printf("world pos object %d = %f,%f,%f\n", counter,
                        float(trans.getOrigin().getX()),
                        float(trans.getOrigin().getY()),
                        float(trans.getOrigin().getZ()));
+
+                transform.position = glm::vec3(float(trans.getOrigin().getX()),
+                                               float(trans.getOrigin().getY()),
+                                               float(trans.getOrigin().getZ()));
+                counter++;
+                break;
             }
         }
     }

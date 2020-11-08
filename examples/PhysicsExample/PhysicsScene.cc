@@ -83,10 +83,40 @@ inline void PhysicsScene::createGameObjects() {
         renderer.geometryObj = mGeometryStore->getGeometryWithName("cube");
 
         auto camera = this->CreateEntity("Camera");
+
         auto& cameraComp = camera.AddComponent<CameraComponent>();
         cameraComp.IsMainCamera = true;
         cameraComp.setFarClippingPlane(2000.0f);
         cameraComp.TargetEntityId = cube.GetEntityId();
+        cameraComp.TargetOffset = glm::vec3(0, 10, 10);
+    }
+
+    {
+        auto cube = this->CreateEntity("Cube2");
+
+        auto& renderer = cube.AddComponent<RenderComponent>();
+        auto& transform = cube.GetComponent<TransformComponent>();
+        transform.position = glm::vec3(2, 10, 0);
+
+        renderer.active = true;
+        renderer.hasTexture = true;
+        renderer.textureObj = mTextureStore->getTextureWithName("atlas");
+        renderer.isTransparent = false;
+        renderer.geometryObj = mGeometryStore->getGeometryWithName("cube");
+    }
+    {
+        auto cube = this->CreateEntity("Cube1");
+        auto& transform = cube.GetComponent<TransformComponent>();
+        transform.scale = glm::vec3(50);
+        transform.position = glm::vec3(0, -56, 0);
+
+        auto& renderer = cube.AddComponent<RenderComponent>();
+
+        renderer.active = true;
+        renderer.hasTexture = true;
+        renderer.textureObj = mTextureStore->getTextureWithName("atlas");
+        renderer.isTransparent = false;
+        renderer.geometryObj = mGeometryStore->getGeometryWithName("cube");
     }
 }
 
