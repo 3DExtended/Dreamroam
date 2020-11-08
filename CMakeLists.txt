@@ -25,6 +25,10 @@ target_include_directories(glm_static PUBLIC "extern/glm")
 # add glfw
 add_subdirectory("extern/glfw")
 
+# add bullet3
+SET(BUILD_UNIT_TESTS OFF CACHE BOOL "Disable unit test builds for bullet")
+add_subdirectory("extern/bullet")
+
 # create imgui targets
 add_library(imgui STATIC
 	"extern/imgui/imconfig.h"
@@ -108,30 +112,36 @@ INCLUDE_DIRECTORIES("extern/glfw/include")
 
 # list all shaders to compile
 list(APPEND lava_pack_shaders
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.vert" "shaders/cube_vert.spv"
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "shaders/cube_frag.spv"       
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.vert" "shaders/output_vert.spv"
-        "${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.frag" "shaders/output_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.frag" "shaders/plane_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.vert" "shaders/plane_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.frag" "shaders/opaque_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.vert" "shaders/opaque_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.frag" "shaders/opaqueTexturedSimple_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.vert" "shaders/opaqueTexturedSimple_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.frag" "shaders/opaqueTexturedInstanced_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.vert" "shaders/opaqueTexturedInstanced_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.frag" "shaders/transparent_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.vert" "shaders/transparent_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.frag" "shaders/transparentTexturedSimple_frag.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.vert" "shaders/transparentTexturedSimple_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMapInstanced.vert" "shaders/shadowMapInstanced_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.vert" "shaders/shadowMap_vert.spv"
-		"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.frag" "shaders/shadowMap_frag.spv"
-        )
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.vert" "shaders/cube_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/cube.frag" "shaders/cube_frag.spv"       
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.vert" "shaders/output_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/output.frag" "shaders/output_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.frag" "shaders/plane_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/plane.vert" "shaders/plane_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.frag" "shaders/opaque_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaque.vert" "shaders/opaque_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.frag" "shaders/opaqueTexturedSimple_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedSimple.vert" "shaders/opaqueTexturedSimple_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.frag" "shaders/opaqueTexturedInstanced_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/opaqueTexturedInstanced.vert" "shaders/opaqueTexturedInstanced_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.frag" "shaders/transparent_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparent.vert" "shaders/transparent_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.frag" "shaders/transparentTexturedSimple_frag.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/transparentTexturedSimple.vert" "shaders/transparentTexturedSimple_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMapInstanced.vert" "shaders/shadowMapInstanced_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.vert" "shaders/shadowMap_vert.spv"
+	"${CMAKE_CURRENT_LIST_DIR}/src/shaders/shadowMap.frag" "shaders/shadowMap_frag.spv"
+)
+
 set(lava_pack_shaders "${lava_pack_shaders}" CACHE INTERNAL "lava_pack_shaders")
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 add_library(dreamroam ${LAVA_LINK_TYPE} ${DREAMROAMSOURCE} ${SHADERS})
+
+
+INCLUDE_DIRECTORIES(
+	extern/bullet/src
+)
 
 target_include_directories(dreamroam PRIVATE ".")
 target_compile_options(dreamroam PRIVATE -Wall)
@@ -147,6 +157,13 @@ target_link_libraries(
 	lava-extras-imgui
 	imguinodeeditor
 	lava-extras-pack-resources
-	lava-extras-geometry)
+	lava-extras-geometry
+	BulletDynamics
+	BulletCollision 
+	LinearMath
+	)
+
+	
+
 
 add_subdirectory("examples")

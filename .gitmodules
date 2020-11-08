@@ -21,3 +21,7 @@
 [submodule "extern/imgui-node-editor"]
 	path = extern/imgui-node-editor
 	url = https://github.com/thedmd/imgui-node-editor
+[submodule "extern/bullet"]
+	path = extern/bullet
+	url = https://github.com/bulletphysics/bullet3.git
+	branch = master
