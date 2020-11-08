@@ -26,6 +26,7 @@ target_include_directories(glm_static PUBLIC "extern/glm")
 add_subdirectory("extern/glfw")
 
 # add bullet3
+SET(BUILD_UNIT_TESTS OFF CACHE BOOL "Disable unit test builds for bullet")
 add_subdirectory("extern/bullet")
 
 # create imgui targets
@@ -158,9 +159,9 @@ target_link_libraries(
 	lava-extras-pack-resources
 	lava-extras-geometry
 	BulletDynamics
-	 BulletCollision 
-	 LinearMath
-	 )
+	BulletCollision 
+	LinearMath
+	)
 
 	
 
